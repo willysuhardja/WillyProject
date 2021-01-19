@@ -9,7 +9,7 @@ import appMiddlewares from './appMiddleware';
 
 const whiteList = [
   createWhitelistFilter('auth', ['token', 'branch']),
-  createWhitelistFilter('account', ['profile']),
+  createWhitelistFilter('count', ['startTime', 'location']),
 ];
 
 const persistConfig = {

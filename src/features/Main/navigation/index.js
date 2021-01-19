@@ -8,6 +8,7 @@ import {useSelector} from 'react-redux';
 import {getBranch} from '../../Auth/redux/getters';
 
 import checkRequests from '../../../hoc/CheckRequest';
+import CountStack from '../../Count/navigation';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -30,6 +31,13 @@ const MainStack = () => {
         }}
         name={screenNames.account}
         component={AccountStack}
+      />
+      <Screen
+        options={{
+          headerShown: false,
+        }}
+        name={screenNames.count}
+        component={CountStack}
       />
     </Navigator>
   );

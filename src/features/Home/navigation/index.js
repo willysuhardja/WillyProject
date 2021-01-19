@@ -15,7 +15,7 @@ const MainStack = () => {
       }}>
       <Screen
         options={{
-          title: 'Sofiabella',
+          title: 'YM Stock',
         }}
         name={screenNames.index}
         component={HomeScreen}

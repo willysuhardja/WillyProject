@@ -10,6 +10,7 @@ export {default as AppListFooter} from './AppListFooter';
 export {default as AppLoadingBasic} from './AppLoadingBasic';
 export {default as AppLoadingDialog} from './AppLoadingDialog';
 export {default as AppLogo} from './AppLogo';
+export {default as AppModalInfo} from './AppModalInfo';
 export {default as AppParagraph} from './AppParagraph';
 export {default as AppTextInput} from './AppTextInput';
 export {default as AppTextLink} from './AppTextLink';

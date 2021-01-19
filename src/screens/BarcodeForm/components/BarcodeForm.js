@@ -13,7 +13,7 @@ const BarcodeForm = ({
   const {control, handleSubmit, errors} = useForm();
 
   return (
-    <View style={{justifyContent: 'space-between', flex: 1, width: '100%'}}>
+    <View style={styles.container}>
       <View>
         <Controller
           control={control}
@@ -43,7 +43,7 @@ const BarcodeForm = ({
           defaultValue={defaultValues.barcode}
         />
 
-        <Subheading style={{textAlign: 'center'}}>OR</Subheading>
+        <Subheading style={styles.orText}>OR</Subheading>
 
         <AppButton disabled={loading} onPress={onButtonScanTapped} mode="Text">
           Scan With Your Camera
@@ -62,3 +62,8 @@ const BarcodeForm = ({
 };
 
 export default BarcodeForm;
+
+const styles = {
+  container: {justifyContent: 'space-between', flex: 1, width: '100%'},
+  orText: {textAlign: 'center'},
+};

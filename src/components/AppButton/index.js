@@ -5,6 +5,7 @@ import {DefaultTheme} from '../../theme';
 
 const AppButton = ({mode, style, children, loading = false, ...props}) => (
   <PaperButton
+    {...props}
     dark={true}
     style={[
       styles.button,
@@ -13,8 +14,7 @@ const AppButton = ({mode, style, children, loading = false, ...props}) => (
     ]}
     labelStyle={styles.text}
     mode={mode}
-    loading={loading}
-    {...props}>
+    loading={loading}>
     {!loading ? children : ''}
   </PaperButton>
 );

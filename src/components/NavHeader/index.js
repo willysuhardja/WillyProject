@@ -44,16 +44,7 @@ const NavHeader = ({scene, previous, navigation}) => {
           ) : (
             <IconButton
               size={80}
-              icon={({size, color}) => (
-                <AppLogo
-                  imageStyle={{
-                    width: 100,
-                    marginBottom: 0,
-                    marginTop: 10,
-                    height: 60,
-                  }}
-                />
-              )}
+              icon={({size, color}) => <AppLogo imageStyle={styles.appLogo} />}
             />
           )
         }
@@ -76,3 +67,12 @@ const NavHeader = ({scene, previous, navigation}) => {
 };
 
 export default NavHeader;
+
+const styles = {
+  appLogo: {
+    width: 100,
+    marginBottom: 0,
+    marginTop: 10,
+    height: 60,
+  },
+};

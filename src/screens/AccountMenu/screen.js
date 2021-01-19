@@ -85,7 +85,7 @@ const Screen = (props) => {
         </View>
       </View>
       <View style={styles.listContainer}>
-        <List.Section style={{backgroundColor: 'white'}}>
+        <List.Section>
           <List.Subheader>Account</List.Subheader>
           <List.Item
             onPress={onUpdateProfile}
@@ -134,7 +134,7 @@ const Screen = (props) => {
               />
             )}
             right={() => (
-              <View style={{justifyContent: 'center', paddingHorizontal: 20}}>
+              <View style={styles.versionText}>
                 <Text>Version {config.appVersion}</Text>
               </View>
             )}
@@ -166,7 +166,9 @@ const styles = {
   profile: {flexDirection: 'row', justifyContent: 'center'},
   profileName: {marginHorizontal: 10},
   listContainer: {
-    marginVertical: 20,
+    marginTop: 20,
     justifyContent: 'space-between',
+    backgroundColor: 'white',
   },
+  versionText: {justifyContent: 'center', paddingHorizontal: 20},
 };

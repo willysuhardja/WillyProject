@@ -3,11 +3,10 @@ import React, {PureComponent} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import {Avatar, Switch, Title} from 'react-native-paper';
-import {AppContainer, AppParagraph} from '../../components';
+import {AppButton, AppContainer, AppParagraph} from '../../components';
 import {DefaultTheme} from '../../theme';
 import Slider from '@react-native-community/slider';
 import BarcodeMask from 'react-native-barcode-mask';
-import {default as productScreen} from '../../features/ProductCheck/navigation/screenNames';
 import {SCAN_RETURN_BARCODE, SCAN_TO_PRODUCT_DETAIL} from '../../constant';
 
 const PendingView = () => (
@@ -30,7 +29,7 @@ class Screen extends PureComponent {
     searching: true,
   };
 
-  onToogleSwitch = () =>
+  _onToogleSwitch = () =>
     this.setState({
       isSwitchOn: !this.state.isSwitchOn,
     });
@@ -52,10 +51,9 @@ class Screen extends PureComponent {
           searching: false,
         },
         () => {
+          console.log(barcodeData, params);
           if (params?.mode === SCAN_TO_PRODUCT_DETAIL) {
-            navigation.navigate(productScreen.detail, {
-              barcode: barcodeData.data,
-            });
+            console.log('scan to product detail');
           } else if (params?.mode === SCAN_RETURN_BARCODE) {
             navigation.navigate(params?.redirect, {
               barcode: barcodeData.data,
@@ -84,6 +82,15 @@ class Screen extends PureComponent {
 
   render() {
     const {isSwitchOn, zoomLevel, barcode, searching} = this.state;
+    const {
+      route: {
+        params = {
+          barcodeTypes: [
+            RNCamera.Constants.GoogleVisionBarcodeDetection.BarcodeType.QR_CODE,
+          ],
+        },
+      },
+    } = this.props;
     return (
       <View style={styles.container}>
         <RNCamera
@@ -91,6 +98,7 @@ class Screen extends PureComponent {
           type={RNCamera.Constants.Type.back}
           flashMode={isSwitchOn ? 'torch' : 'off'}
           captureAudio={false}
+          googleVisionBarcodeType={params.barcodeTypes[0]}
           zoom={zoomLevel}
           onGoogleVisionBarcodesDetected={
             searching ? this._onBarcodeRead : null
@@ -123,7 +131,7 @@ class Screen extends PureComponent {
             minimumTrackTintColor={DefaultTheme.colors.primary}
             maximumTrackTintColor={DefaultTheme.colors.disabled}
           />
-          <Switch value={isSwitchOn} onValueChange={this.onToogleSwitch} />
+          <Switch value={isSwitchOn} onValueChange={this._onToogleSwitch} />
           <View style={styles.barcodePreview}>
             <Avatar.Icon icon="barcode-scan" />
             {barcode === '' ? (
@@ -132,16 +140,13 @@ class Screen extends PureComponent {
               <Title>{barcode}</Title>
             )}
           </View>
+          <AppButton disabled={!barcode} mode="contained">
+            Submit
+          </AppButton>
         </AppContainer>
       </View>
     );
   }
-
-  takePicture = async function (camera) {
-    const options = {quality: 0.5, base64: true};
-    const data = await camera.takePictureAsync(options);
-    console.log(data.uri);
-  };
 }
 
 export default Screen;
