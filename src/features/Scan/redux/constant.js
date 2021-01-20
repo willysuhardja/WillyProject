@@ -1,3 +1,7 @@
-export const SET_START_TIME = 'count/SET_START_TIME';
-export const SET_END_DURATION = 'count/SET_END_DURATION';
-export const SET_LOCATION = 'count/SET_LOCATION';
+export const RESET = 'scan/RESET';
+
+export const SET_LOCATION = 'scan/SET_LOCATION';
+
+export const VERIFICATION_PENDING = 'scan/VERIFICATION_PENDING';
+export const VERIFICATION_SUCCESS = 'scan/VERIFICATION_SUCCESS';
+export const VERIFICATION_FAILED = 'scan/VERIFICATION_FAILED';

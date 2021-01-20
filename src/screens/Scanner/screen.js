@@ -31,11 +31,16 @@ class Screen extends PureComponent {
   _onBarcodeRead = (scanResult) => {
     const {navigation, route} = this.props;
 
-    const {params} = route || {};
+    const {
+      params: {barcodeTypesIgnore = [], mode, redirect},
+    } = route || {};
 
-    const barcodes = scanResult.barcodes.filter(
-      (barcode) => barcode.type !== 'UNKNOWN_FORMAT',
-    );
+    const barcodes = scanResult.barcodes.filter((barcode) => {
+      return (
+        barcode.type !== 'UNKNOWN_FORMAT' &&
+        !barcodeTypesIgnore.includes(barcode.type)
+      );
+    });
 
     if (barcodes.length > 0) {
       const barcodeData = barcodes[0];
@@ -45,11 +50,10 @@ class Screen extends PureComponent {
           searching: false,
         },
         () => {
-          console.log(barcodeData, params);
-          if (params?.mode === SCAN_TO_PRODUCT_DETAIL) {
+          if (mode === SCAN_TO_PRODUCT_DETAIL) {
             console.log('scan to product detail');
-          } else if (params?.mode === SCAN_RETURN_BARCODE) {
-            navigation.navigate(params?.redirect, {
+          } else if (mode === SCAN_RETURN_BARCODE) {
+            navigation.navigate(redirect, {
               barcode: barcodeData.data,
             });
           }

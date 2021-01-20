@@ -19,11 +19,15 @@ export default function Screen({
   route,
   verificationLoading,
   verificationError,
+  submitLoading,
+  submitError,
   location,
   startTime,
   setStartTime,
+  setEndTime,
   doVerifyLocation,
-  doCancelCount,
+  doReset,
+  doSubmitCount,
 }) {
   const {barcode} = route.params;
 
@@ -68,6 +72,10 @@ export default function Screen({
     setStartTime(new Date().getTime());
   };
 
+  const stopTimer = () => {
+    clearInterval();
+  };
+
   const verifyLocation = () => {
     if (barcode) {
       doVerifyLocation(barcode)
@@ -92,11 +100,28 @@ export default function Screen({
   };
 
   const _onCancelPressed = () => {
-    doCancelCount();
+    doReset();
     navigation.goBack();
   };
 
-  if (verificationLoading) {
+  const _onFinishPressed = () => {
+    stopTimer();
+    const endTime = new Date().getTime();
+    setEndTime(endTime);
+    doSubmitCount()
+      .then((message) => {
+        Alert.alert('Success', message, [
+          {text: 'Ok', onPress: navigation.goBack},
+        ]);
+      })
+      .catch((error) => {
+        Alert.alert('Error', error.message, [
+          {text: 'Ok', onPress: navigation.goBack},
+        ]);
+      });
+  };
+
+  if (verificationLoading || submitLoading) {
     return <AppLoadingBasic />;
   }
 
@@ -126,7 +151,9 @@ export default function Screen({
             color={DefaultTheme.colors.error}>
             Cancel
           </AppButton>
-          <AppButton mode="contained">Finish</AppButton>
+          <AppButton onPress={_onFinishPressed} mode="contained">
+            Finish
+          </AppButton>
         </View>
       </AppContainer>
     </ScrollView>

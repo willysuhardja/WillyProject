@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import moment from 'moment';
+import {duration as momentDuration, now as momentNow} from 'moment';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 
@@ -8,11 +8,11 @@ export default function StopwatchTimer({start = 0}) {
   const [now, setNow] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setNow(moment.now());
+    const interval = setInterval(() => {
+      setNow(momentNow());
     }, 500);
 
-    return () => clearInterval(timer);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -24,7 +24,7 @@ export default function StopwatchTimer({start = 0}) {
 
 function Timer({interval}) {
   const pad = (n) => (n < 10 ? '0' + n : n);
-  const duration = moment.duration(interval);
+  const duration = momentDuration(interval);
   return (
     <View style={styles.timerContainer}>
       <Text style={styles.timerText}>{pad(duration.hours())}:</Text>

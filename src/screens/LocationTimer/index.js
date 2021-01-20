@@ -3,7 +3,8 @@ import {
   setStartTime,
   setEndTime,
   doVerifyLocation,
-  doCancelCount,
+  doReset,
+  doSubmitCount,
 } from '../../features/Count/redux/actions';
 import {
   getLoading,
@@ -17,6 +18,8 @@ const mapStateToProps = (state) => {
   return {
     verificationLoading: getLoading(state, 'verification'),
     verificationError: getError(state, 'verification'),
+    submitCountLoading: getLoading(state, 'submitCount'),
+    submitCountError: getError(state, 'submitCount'),
     startTime: getStartTime(state),
     location: getLocation(state),
   };
@@ -26,8 +29,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setStartTime: (time) => dispatch(setStartTime(time)),
     setEndTime: (time) => dispatch(setEndTime(time)),
-    doVerifyLocation: (location) => dispatch(doVerifyLocation(location)),
-    doCancelCount: () => dispatch(doCancelCount()),
+    doVerifyLocation: (location) =>
+      dispatch(doVerifyLocation(location, 'count')),
+    doReset: () => dispatch(doReset()),
+    doSubmitCount: () => dispatch(doSubmitCount()),
   };
 };
 

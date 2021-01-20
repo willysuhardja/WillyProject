@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import ScannerScreen from '../../../screens/Scanner';
 import screenNames from './screenNames';
 import {DefaultTheme} from '../../../theme';
 import {SCAN_RETURN_BARCODE} from '../../../constant';
 import LocationTimerScreen from '../../../screens/LocationTimer';
 import {RNCamera} from 'react-native-camera';
+import ScanLocationScreen from '../../../screens/ScanLocation';
+import ScanItemScreen from '../../../screens/ScanItem';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -30,10 +31,10 @@ const ScannStack = () => {
           barcodeTypes: [
             RNCamera.Constants.GoogleVisionBarcodeDetection.BarcodeType.QR_CODE,
           ],
-          barcodeTypesIgnore: null,
+          barcodeTypesIgnore: [],
         }}
         name={screenNames.location}
-        component={ScannerScreen}
+        component={ScanLocationScreen}
       />
       <Screen
         options={{
@@ -43,12 +44,10 @@ const ScannStack = () => {
           mode: SCAN_RETURN_BARCODE,
           redirect: screenNames.inputQty,
           barcodeTypes: null,
-          barcodeTypesIgnore: [
-            RNCamera.Constants.GoogleVisionBarcodeDetection.BarcodeType.QR_CODE,
-          ],
+          barcodeTypesIgnore: ['QR_CODE'],
         }}
         name={screenNames.item}
-        component={ScannerScreen}
+        component={ScanItemScreen}
       />
       <Screen
         options={{

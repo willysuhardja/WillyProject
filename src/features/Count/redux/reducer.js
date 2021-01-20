@@ -1,6 +1,10 @@
 import * as actionTypes from './constant';
 import {initialState} from './state';
 
+import {duration as momentDuration} from 'moment';
+
+const pad = (n) => (n < 10 ? '0' + n : n);
+
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case actionTypes.SET_START_TIME:
@@ -9,12 +13,15 @@ export default function authReducer(state = initialState, action) {
         startTime: action.payload,
       };
     case actionTypes.SET_END_TIME:
-      const duration = actionTypes - state.startTime;
+      const duration = momentDuration(action.payload - state.startTime);
+
+      // eslint-disable-next-line prettier/prettier
+      const formatedDuration = `${pad(duration.hours())}:${pad(duration.minutes())}:${pad(duration.seconds())}`;
 
       return {
         ...state,
         endTime: action.payload,
-        duration,
+        duration: formatedDuration,
       };
     case actionTypes.SET_LOCATION:
       return {
@@ -42,7 +49,28 @@ export default function authReducer(state = initialState, action) {
         verificationSuccess: false,
         verificationError: true,
       };
-    case actionTypes.SET_CANCEL_COUNT:
+    case actionTypes.SUBMIT_COUNT_PENDING:
+      return {
+        ...state,
+        submitCountLoading: true,
+        submitCountSuccess: false,
+        submitCountError: false,
+      };
+    case actionTypes.SUBMIT_COUNT_SUCCESS:
+      return {
+        ...state,
+        submitCountLoading: false,
+        submitCountSuccess: true,
+        submitCountError: false,
+      };
+    case actionTypes.SUBMIT_COUNT_FAILED:
+      return {
+        ...state,
+        submitCountLoading: false,
+        submitCountSuccess: false,
+        submitCountError: true,
+      };
+    case actionTypes.RESET:
       return initialState;
     default:
       return state;

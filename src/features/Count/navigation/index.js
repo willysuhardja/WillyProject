@@ -26,7 +26,7 @@ const CountStack = () => {
       }}>
       <Screen
         options={{
-          title: 'Scan Location',
+          title: 'Scan Location Timer',
         }}
         initialParams={{
           mode: SCAN_RETURN_BARCODE,
