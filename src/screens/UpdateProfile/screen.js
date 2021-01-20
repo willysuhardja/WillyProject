@@ -98,22 +98,6 @@ const Screen = ({
       keyboardShouldPersistTaps="handled"
       contentContainerStyle={{minHeight: '100%'}}>
       <AppBasicHeader app />
-      <View style={{maxWidth: 100, alignSelf: 'center'}}>
-        <Avatar.Image
-          style={{
-            alignSelf: 'center',
-            marginTop: -75,
-            marginBottom: 10,
-          }}
-          source={{uri: imageUrl}}
-        />
-        <AppButton
-          onPress={openModalUploadOptions}
-          size="small"
-          mode="contained">
-          Edit
-        </AppButton>
-      </View>
       <AppContainer
         start
         containerStyle={{
