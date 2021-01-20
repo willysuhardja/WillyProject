@@ -3,6 +3,11 @@ import {initialState} from './state';
 
 export default function accountReducer(state = initialState, action) {
   switch (action.type) {
+    case actionTypes.SET_PROFILE:
+      return {
+        ...state,
+        profile: action.payload,
+      };
     case actionTypes.PROFILE_PENDING:
       return {
         ...state,
@@ -16,7 +21,6 @@ export default function accountReducer(state = initialState, action) {
         profileLoading: false,
         profileSuccess: true,
         profileError: false,
-        profile: action.payload,
       };
     case actionTypes.PROFILE_FAILED:
       return {

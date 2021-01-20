@@ -3,4 +3,7 @@ export const initialState = {
   endTime: 0,
   duration: 0,
   location: null,
+  verificationLoading: false,
+  verificationSuccess: false,
+  verificationError: false,
 };

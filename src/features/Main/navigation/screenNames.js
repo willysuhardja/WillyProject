@@ -3,4 +3,5 @@ export default {
   home: 'main/Home',
   account: 'account',
   count: 'count/index',
+  scan: 'scan/index',
 };

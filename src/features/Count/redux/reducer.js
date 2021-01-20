@@ -21,6 +21,27 @@ export default function authReducer(state = initialState, action) {
         ...state,
         location: action.payload,
       };
+    case actionTypes.VERIFICATION_PENDING:
+      return {
+        ...state,
+        verificationLoading: true,
+        verificationSuccess: false,
+        verificationError: false,
+      };
+    case actionTypes.VERIFICATION_SUCCESS:
+      return {
+        ...state,
+        verificationLoading: false,
+        verificationSuccess: true,
+        verificationError: false,
+      };
+    case actionTypes.VERIFICATION_FAILED:
+      return {
+        ...state,
+        verificationLoading: false,
+        verificationSuccess: false,
+        verificationError: true,
+      };
     case actionTypes.SET_CANCEL_COUNT:
       return initialState;
     default:

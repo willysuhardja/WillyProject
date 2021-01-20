@@ -9,12 +9,14 @@ import {
   getLoading,
   getStartTime,
   getLocation,
+  getError,
 } from '../../features/Count/redux/getters';
 import Screen from './screen';
 
 const mapStateToProps = (state) => {
   return {
     verificationLoading: getLoading(state, 'verification'),
+    verificationError: getError(state, 'verification'),
     startTime: getStartTime(state),
     location: getLocation(state),
   };

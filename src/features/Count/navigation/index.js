@@ -34,6 +34,7 @@ const CountStack = () => {
           barcodeTypes: [
             RNCamera.Constants.GoogleVisionBarcodeDetection.BarcodeType.QR_CODE,
           ],
+          barcodeTypesIgnore: null,
         }}
         name={screenNames.scan}
         component={ScannerScreen}

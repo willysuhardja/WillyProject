@@ -9,6 +9,7 @@ import {getBranch} from '../../Auth/redux/getters';
 
 import checkRequests from '../../../hoc/CheckRequest';
 import CountStack from '../../Count/navigation';
+import ScannStack from '../../Scan/navigation';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -38,6 +39,13 @@ const MainStack = () => {
         }}
         name={screenNames.count}
         component={CountStack}
+      />
+      <Screen
+        options={{
+          headerShown: false,
+        }}
+        name={screenNames.scan}
+        component={ScannStack}
       />
     </Navigator>
   );

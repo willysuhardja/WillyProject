@@ -1,4 +1,7 @@
+import {store} from '../../../redux/store';
 import {axiosClient} from '../../../utils/axios';
+import {setUserProfile} from '../../AccoutManagement/redux/actions';
+import {getProfile} from '../../AccoutManagement/redux/getters';
 import * as actionTypes from './constant';
 
 export const setUserToken = (token) => {
@@ -22,20 +25,22 @@ export const setBranch = (branch) => {
 export const doLogin = (username, password) => {
   return async (dispatch) => {
     try {
-      // const body = {
-      //   username,
-      //   password,
-      // };
+      const body = new FormData();
+
+      body.append('username', username);
+      body.append('password', password);
 
       dispatch({
         type: actionTypes.LOGIN_PENDING,
       });
 
-      // const loginResponse = await axiosClient.post('/auth/login', body);
+      const loginResponse = await axiosClient.post('/user/auth/login', body);
 
-      // const responseData = loginResponse.data.data;
+      const user = loginResponse.data.user;
 
-      dispatch(setUserToken('token'));
+      dispatch(setUserProfile(user));
+
+      await dispatch(doGetToken(user.id, password));
 
       dispatch({
         type: actionTypes.LOGIN_SUCCESS,
@@ -54,6 +59,29 @@ export const doLogin = (username, password) => {
   };
 };
 
+export const doGetToken = (userId, password) => {
+  return async (dispatch) => {
+    try {
+      const body = new FormData();
+
+      body.append('user_id', userId);
+      body.append('password', password);
+      body.append('username_jwt', 'sails');
+      body.append('password_jwt', 'sails123');
+
+      const tokenResponse = await axiosClient.post('/token/request', body);
+
+      const token = tokenResponse.data.data.token;
+
+      dispatch(setUserToken(token));
+
+      return Promise.resolve(true);
+    } catch (error) {
+      return Promise.reject(error.response);
+    }
+  };
+};
+
 export const doGetBranches = () => {
   return async (dispatch) => {
     try {
@@ -61,18 +89,17 @@ export const doGetBranches = () => {
         type: actionTypes.GET_BRANCHES_PENDING,
       });
 
-      // const branchResponse = await axiosClient.get('/auth/stores');
+      const user = getProfile(store.getState());
 
-      // const responseData = branchResponse.data.data;
+      const params = {user_id: user.id};
+
+      const branchResponse = await axiosClient.get('/store', {params});
+
+      const responseData = branchResponse.data.data;
 
       dispatch({
         type: actionTypes.GET_BRANCHES_SUCCESS,
-        payload: [
-          {
-            name: 'Griya Antapani',
-            slug: 'ATP',
-          },
-        ],
+        payload: responseData,
       });
 
       return Promise.resolve(true);

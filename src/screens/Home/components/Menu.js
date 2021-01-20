@@ -3,8 +3,9 @@ import React, {memo} from 'react';
 import {FlatList} from 'react-native';
 import {AppIconButton} from '../../../components';
 import {DefaultTheme} from '../../../theme';
+import {refreshControl} from '../../../utils/flatlist';
 
-const Menu = ({items, onPress = () => {}}) => {
+const Menu = ({items, loading, doGetMenu}) => {
   const navigation = useNavigation();
   const handleMenuPressed = (menu) => {
     navigation.navigate(menu.screen);
@@ -13,6 +14,7 @@ const Menu = ({items, onPress = () => {}}) => {
   return (
     <FlatList
       data={items}
+      refreshControl={refreshControl(loading, doGetMenu)}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
       numColumns={2}

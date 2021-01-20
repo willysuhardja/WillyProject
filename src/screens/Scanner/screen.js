@@ -10,13 +10,7 @@ import BarcodeMask from 'react-native-barcode-mask';
 import {SCAN_RETURN_BARCODE, SCAN_TO_PRODUCT_DETAIL} from '../../constant';
 
 const PendingView = () => (
-  <View
-    style={{
-      flex: 1,
-      backgroundColor: DefaultTheme.colors.transparent1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    }}>
+  <View style={styles.pendingView}>
     <Text>Waiting</Text>
   </View>
 );
@@ -98,7 +92,9 @@ class Screen extends PureComponent {
           type={RNCamera.Constants.Type.back}
           flashMode={isSwitchOn ? 'torch' : 'off'}
           captureAudio={false}
-          googleVisionBarcodeType={params.barcodeTypes[0]}
+          googleVisionBarcodeType={
+            params.barcodeTypes && params.barcodeTypes[0]
+          }
           zoom={zoomLevel}
           onGoogleVisionBarcodesDetected={
             searching ? this._onBarcodeRead : null
@@ -185,4 +181,10 @@ const styles = StyleSheet.create({
     backgroundColor: DefaultTheme.colors.surface,
   },
   slider: {width: '100%', height: 40},
+  pendingView: {
+    flex: 1,
+    backgroundColor: DefaultTheme.colors.transparent1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

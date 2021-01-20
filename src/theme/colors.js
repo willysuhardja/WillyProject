@@ -11,7 +11,7 @@ import {
 export const customDefaultColor = {
   ...NavigationDefaultTheme.colors,
   ...PaperDefaultTheme.colors,
-  primary: '#26a755',
+  primary: '#36b765',
   secondary: '#ffc61d',
   accent: '#56d785',
   background: Colors.white,

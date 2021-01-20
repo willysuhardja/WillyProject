@@ -1,11 +1,17 @@
 import React, {memo} from 'react';
 import {Image, StyleSheet} from 'react-native';
-const Logo = ({imageStyle}) => (
-  <Image
-    source={require('../../assets/logo.png')}
-    style={[styles.image, imageStyle]}
-  />
-);
+const Logo = ({imageStyle, size = 'sm'}) => {
+  return (
+    <Image
+      source={
+        size === 'sm'
+          ? require('../../assets/logo-sm.png')
+          : require('../../assets/logo-lg.png')
+      }
+      style={[styles.image, imageStyle, {resizeMode: 'stretch'}]}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   image: {

@@ -1,4 +1,6 @@
 export default {
   index: 'scan/index',
-  timer: 'scan/timer',
+  location: 'scan/location',
+  item: 'scan/item',
+  inputQty: 'scan/inputQty',
 };

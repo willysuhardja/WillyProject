@@ -6,6 +6,7 @@ import {
   AppBasicHeader,
   AppButton,
   AppContainer,
+  AppLoadingBasic,
   AppParagraph,
 } from '../../components';
 import {default as homeScreenNames} from '../../features/Home/navigation/screenNames';
@@ -16,6 +17,8 @@ import StopwatchTimer from './components/StopwatchTimer';
 export default function Screen({
   navigation,
   route,
+  verificationLoading,
+  verificationError,
   location,
   startTime,
   setStartTime,
@@ -92,6 +95,14 @@ export default function Screen({
     doCancelCount();
     navigation.goBack();
   };
+
+  if (verificationLoading) {
+    return <AppLoadingBasic />;
+  }
+
+  if (verificationError) {
+    return <View />;
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>

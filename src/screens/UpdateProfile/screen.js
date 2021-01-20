@@ -14,7 +14,6 @@ import {
   AppBasicHeader,
   AppButton,
   AppSnackbar,
-  AppLoadingBasic,
   AppLoadingDialog,
 } from '../../components';
 import {DefaultTheme} from '../../theme';

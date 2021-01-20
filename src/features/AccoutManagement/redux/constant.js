@@ -1,3 +1,5 @@
+export const SET_PROFILE = 'account/SET_PROFILE';
+
 export const PROFILE_PENDING = 'account/PROFILE_PENDING';
 export const PROFILE_SUCCESS = 'account/PROFILE_SUCCESS';
 export const PROFILE_FAILED = 'account/PROFILE_FAILED';

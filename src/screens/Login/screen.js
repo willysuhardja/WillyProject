@@ -39,7 +39,7 @@ const LoginScreen = (props) => {
           pattern={svgPath}
         />
         <View style={styles.logoWrapper}>
-          <AppLogo imageStyle={styles.logo} />
+          <AppLogo imageStyle={styles.logo} size="lg" />
         </View>
       </View>
       <AppContainer

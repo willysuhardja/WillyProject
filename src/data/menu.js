@@ -7,16 +7,16 @@ export default [
   {
     icon: 'barcode-scan',
     name: 'Scan',
-    screen: 'count/scan',
+    screen: 'scan/index',
   },
   {
     icon: 'checkbox-marked-outline',
     name: 'Verifikasi',
-    screen: 'verification/form',
+    screen: 'verification/index',
   },
   {
     icon: 'book-search',
     name: 'Identifikasi',
-    screen: 'identification/menu',
+    screen: 'identification/index',
   },
 ];

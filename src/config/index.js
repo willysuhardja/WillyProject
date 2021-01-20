@@ -1,4 +1,4 @@
 export default {
   appVersion: '1.0.0',
-  baseURL: 'http://localhost',
+  baseURL: 'https://ymstock-api.yogyagroup.com/api/v1',
 };

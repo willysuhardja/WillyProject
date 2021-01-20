@@ -1,6 +1,15 @@
 import {axiosClient} from '../../../utils/axios';
 import * as actionTypes from './constant';
 
+export const setUserProfile = (profile) => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.SET_PROFILE,
+      payload: profile,
+    });
+  };
+};
+
 export const fetchUserProfile = () => {
   return async (dispatch) => {
     try {
@@ -13,19 +22,6 @@ export const fetchUserProfile = () => {
       // const profile = response.data.data;
       dispatch({
         type: actionTypes.PROFILE_SUCCESS,
-        payload: {
-          id: null,
-          username: 'aden',
-          email: 'aden@gmail.com',
-          phone: '+62893221373',
-          is_password_changed: false,
-          role: {
-            name: 'Penghitung',
-          },
-          name: 'Aden Trisna Daud Kurnia',
-          image_url:
-            'https://avatars2.githubusercontent.com/u/43471574?s=460&u=6f72e81025657ae498ec8377acae6768bf648387&v=4',
-        },
       });
     } catch (error) {
       dispatch({

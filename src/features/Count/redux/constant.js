@@ -3,3 +3,7 @@ export const SET_END_TIME = 'count/SET_END_TIME';
 export const SET_CANCEL_COUNT = 'count/SET_CANCEL_COUNT';
 
 export const SET_LOCATION = 'count/SET_LOCATION';
+
+export const VERIFICATION_PENDING = 'auth/VERIFICATION_PENDING';
+export const VERIFICATION_SUCCESS = 'auth/VERIFICATION_SUCCESS';
+export const VERIFICATION_FAILED = 'auth/VERIFICATION_FAILED';

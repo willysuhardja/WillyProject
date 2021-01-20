@@ -6,17 +6,13 @@ import screenNames from './screenNames';
 import {DefaultTheme} from '../../../theme';
 import {SCAN_RETURN_BARCODE} from '../../../constant';
 import LocationTimerScreen from '../../../screens/LocationTimer';
-import {useSelector} from 'react-redux';
-import {getLocation} from '../redux/getters';
 import {RNCamera} from 'react-native-camera';
 
 const {Navigator, Screen} = createStackNavigator();
 
-const CountStack = () => {
-  const currentLocation = useSelector(getLocation);
+const ScannStack = () => {
   return (
     <Navigator
-      initialRouteName={currentLocation ? screenNames.timer : screenNames.index}
       screenOptions={{
         headerShown: true,
         headerTintColor: DefaultTheme.colors.white,
@@ -30,12 +26,28 @@ const CountStack = () => {
         }}
         initialParams={{
           mode: SCAN_RETURN_BARCODE,
-          redirect: screenNames.timer,
+          redirect: screenNames.item,
           barcodeTypes: [
             RNCamera.Constants.GoogleVisionBarcodeDetection.BarcodeType.QR_CODE,
           ],
+          barcodeTypesIgnore: null,
         }}
-        name={screenNames.index}
+        name={screenNames.location}
+        component={ScannerScreen}
+      />
+      <Screen
+        options={{
+          title: 'Scan Item',
+        }}
+        initialParams={{
+          mode: SCAN_RETURN_BARCODE,
+          redirect: screenNames.inputQty,
+          barcodeTypes: null,
+          barcodeTypesIgnore: [
+            RNCamera.Constants.GoogleVisionBarcodeDetection.BarcodeType.QR_CODE,
+          ],
+        }}
+        name={screenNames.item}
         component={ScannerScreen}
       />
       <Screen
@@ -45,11 +57,11 @@ const CountStack = () => {
         initialParams={{
           barcode: null,
         }}
-        name={screenNames.timer}
+        name={screenNames.inputQty}
         component={LocationTimerScreen}
       />
     </Navigator>
   );
 };
 
-export default CountStack;
+export default ScannStack;

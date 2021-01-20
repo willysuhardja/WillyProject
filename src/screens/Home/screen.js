@@ -14,13 +14,20 @@ const permissions = [
 ];
 
 const Screen = (props) => {
-  const {profile, fetchUserProfile} = props;
+  const {
+    profile,
+    branch,
+    menu,
+    fetchUserProfile,
+    doGetMenu,
+    menuLoading,
+  } = props;
 
   useEffect(() => {
     const bootstrap = () => {
-      fetchUserProfile();
-
       requestPermisionAndroid();
+      fetchUserProfile();
+      doGetMenu();
     };
 
     bootstrap();
@@ -50,13 +57,15 @@ const Screen = (props) => {
         <View style={styles.profileContainer}>
           <Text style={{color: DefaultTheme.colors.secondary}}>Welcome</Text>
           <Title style={{color: DefaultTheme.colors.surface}}>
-            {profile.name}
+            {profile.full_name}
           </Title>
-          <Text style={styles.storeText}>Griya Antapani (ATP)</Text>
+          <Text style={styles.storeText}>
+            {branch.name} ({branch.initial})
+          </Text>
         </View>
       </View>
       <AppContainer containerStyle={styles.containerStyle}>
-        <Menu items={menus} />
+        <Menu items={menu} doGetMenu={doGetMenu} loading={menuLoading} />
       </AppContainer>
     </Fragment>
   );

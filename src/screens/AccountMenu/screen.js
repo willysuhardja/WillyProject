@@ -17,7 +17,7 @@ const Screen = (props) => {
 
   useEffect(() => {
     const bootstrap = () => {
-      if (!profile.name) {
+      if (!profile.full_name) {
         fetchUserProfile();
       }
     };
@@ -75,10 +75,10 @@ const Screen = (props) => {
             />
             <View style={styles.profileName}>
               <Title style={{color: DefaultTheme.colors.surface}}>
-                {profile.name}
+                {profile.full_name}
               </Title>
               <Text style={{color: DefaultTheme.colors.secondary}}>
-                as {profile.role.name}
+                as {profile.role_name}
               </Text>
             </View>
           </View>

@@ -14,6 +14,7 @@ export {default as AppModalInfo} from './AppModalInfo';
 export {default as AppParagraph} from './AppParagraph';
 export {default as AppTextInput} from './AppTextInput';
 export {default as AppTextLink} from './AppTextLink';
+export {default as AppSearchForm} from './AppSearchForm';
 export {default as AppSnackbar} from './AppSnackbar';
 export {default as NavDrawerContent} from './NavDrawerContent';
 export {default as SwipeRight} from './SwipeRight';
