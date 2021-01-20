@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Alert, ScrollView, View} from 'react-native';
-import {Avatar, Divider, List, Text, Title} from 'react-native-paper';
+import {Divider, List, Text, Title} from 'react-native-paper';
 import {AppBasicHeader} from '../../components';
 import config from '../../config';
 import screenNames from '../../features/AccoutManagement/navigation/screenNames';
@@ -68,11 +68,6 @@ const Screen = (props) => {
         <AppBasicHeader app />
         <View style={styles.profileContainer}>
           <View style={styles.profile}>
-            <Avatar.Image
-              size={56}
-              source={{uri: profile.image_url}}
-              style={{backgroundColor: DefaultTheme.colors.surface}}
-            />
             <View style={styles.profileName}>
               <Title style={{color: DefaultTheme.colors.surface}}>
                 {profile.full_name}

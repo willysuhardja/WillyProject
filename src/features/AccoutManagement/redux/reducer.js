@@ -4,9 +4,12 @@ import {initialState} from './state';
 export default function accountReducer(state = initialState, action) {
   switch (action.type) {
     case actionTypes.SET_PROFILE:
+      const profile = action.payload;
       return {
         ...state,
-        profile: action.payload,
+        profile: {
+          ...profile,
+        },
       };
     case actionTypes.PROFILE_PENDING:
       return {
