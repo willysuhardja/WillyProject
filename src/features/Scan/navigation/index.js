@@ -1,13 +1,14 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import {RNCamera} from 'react-native-camera';
 
 import screenNames from './screenNames';
 import {DefaultTheme} from '../../../theme';
-import {SCAN_RETURN_BARCODE} from '../../../constant';
-import LocationTimerScreen from '../../../screens/LocationTimer';
-import {RNCamera} from 'react-native-camera';
+import InputQtyScreen from '../../../screens/InputQty';
 import ScanLocationScreen from '../../../screens/ScanLocation';
 import ScanItemScreen from '../../../screens/ScanItem';
+
+import {SCAN_RETURN_BARCODE} from '../../../constant';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -37,9 +38,9 @@ const ScannStack = () => {
         component={ScanLocationScreen}
       />
       <Screen
-        options={{
-          title: 'Scan Item',
-        }}
+        options={({route}) => ({
+          title: `Scan Item, Loc: ${route.params.barcode}`,
+        })}
         initialParams={{
           mode: SCAN_RETURN_BARCODE,
           redirect: screenNames.inputQty,
@@ -51,13 +52,13 @@ const ScannStack = () => {
       />
       <Screen
         options={{
-          title: 'Location Timer',
+          title: 'Input Qty',
         }}
         initialParams={{
           barcode: null,
         }}
         name={screenNames.inputQty}
-        component={LocationTimerScreen}
+        component={InputQtyScreen}
       />
     </Navigator>
   );

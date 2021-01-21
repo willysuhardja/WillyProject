@@ -2,8 +2,10 @@ import React, {memo} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {DefaultTheme} from '../../theme';
 
-const AppParagraph = ({children, center}) => (
-  <Text style={[styles.text, center && styles.center]}>{children}</Text>
+const AppParagraph = ({children, center, right}) => (
+  <Text style={[styles.text, center && styles.center, right && styles.right]}>
+    {children}
+  </Text>
 );
 
 const styles = StyleSheet.create({
@@ -14,6 +16,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   center: {textAlign: 'center'},
+  right: {textAlign: 'right'},
 });
 
 export default memo(AppParagraph);

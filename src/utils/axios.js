@@ -33,3 +33,4 @@ client.interceptors.request.use(
 );
 
 export const axiosClient = client;
+export const axiosIntance = axios;

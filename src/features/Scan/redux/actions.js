@@ -1,5 +1,6 @@
+import config from '../../../config';
 import {store} from '../../../redux/store';
-import {axiosClient} from '../../../utils/axios';
+import {axiosClient, axiosIntance} from '../../../utils/axios';
 import {getProfile} from '../../AccoutManagement/redux/getters';
 import {getBranch} from '../../Auth/redux/getters';
 import * as actionTypes from './constant';
@@ -54,6 +55,47 @@ export const doVerifyLocation = (location) => {
       });
       const message = error?.response?.data?.status?.message || 'Unknow Error';
       return Promise.reject({message});
+    }
+  };
+};
+
+export const doGetProductIdentity = (barcode) => {
+  return async (dispatch) => {
+    dispatch({
+      type: actionTypes.GET_PRODUCT_DETAIL_PENDING,
+    });
+
+    const goldRequest = axiosIntance.create({
+      baseURL: config.goldURL,
+    });
+
+    const branch = getBranch(store.getState());
+
+    try {
+      const productResponse = await goldRequest.get(
+        `/item/${branch.initial}/${barcode}`,
+      );
+
+      if (!productResponse.data[0].sku) {
+        throw {
+          message: `Product dengan barcode: ${barcode}\nTidak ditemukan`,
+          response: productResponse,
+        };
+      }
+
+      dispatch({
+        type: actionTypes.GET_PRODUCT_DETAIL_SUCCESS,
+        payload: productResponse.data[0],
+      });
+
+      return Promise.resolve(true);
+    } catch (error) {
+      dispatch({
+        type: actionTypes.GET_PRODUCT_DETAIL_FAILED,
+        payload: error,
+      });
+
+      return Promise.reject(error);
     }
   };
 };

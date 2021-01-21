@@ -91,33 +91,37 @@ class Screen extends PureComponent {
     } = this.props;
     return (
       <View style={styles.container}>
-        <RNCamera
-          style={styles.preview}
-          type={RNCamera.Constants.Type.back}
-          flashMode={isSwitchOn ? 'torch' : 'off'}
-          captureAudio={false}
-          googleVisionBarcodeType={
-            params.barcodeTypes && params.barcodeTypes[0]
-          }
-          zoom={zoomLevel}
-          onGoogleVisionBarcodesDetected={
-            searching ? this._onBarcodeRead : null
-          }
-          androidCameraPermissionOptions={{
-            title: 'Permission to use camera',
-            message: 'We need your permission to use your camera',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-          maxZoom={0.4}>
-          {({camera, status}) => {
-            if (status !== 'READY') {
-              return <PendingView />;
+        {searching ? (
+          <RNCamera
+            style={styles.preview}
+            type={RNCamera.Constants.Type.back}
+            flashMode={isSwitchOn ? 'torch' : 'off'}
+            captureAudio={false}
+            googleVisionBarcodeType={
+              params.barcodeTypes && params.barcodeTypes[0]
             }
+            zoom={zoomLevel}
+            onGoogleVisionBarcodesDetected={
+              searching ? this._onBarcodeRead : null
+            }
+            androidCameraPermissionOptions={{
+              title: 'Permission to use camera',
+              message: 'We need your permission to use your camera',
+              buttonPositive: 'Ok',
+              buttonNegative: 'Cancel',
+            }}
+            maxZoom={0.4}>
+            {({camera, status}) => {
+              if (status !== 'READY') {
+                return <PendingView />;
+              }
 
-            return <BarcodeMask height={'100%'} width={'100%'} />;
-          }}
-        </RNCamera>
+              return <BarcodeMask height={'100%'} width={'100%'} />;
+            }}
+          </RNCamera>
+        ) : (
+          <View style={styles.preview} />
+        )}
         <AppContainer containerStyle={styles.bottomWrapper}>
           <Slider
             style={styles.slider}

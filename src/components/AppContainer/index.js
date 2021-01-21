@@ -16,11 +16,9 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     width: '100%',
-    borderColor: DefaultTheme.colors.transparent1,
   },
   container: {
     flex: 1,
-    elevation: 3,
     padding: 20,
     borderTopEndRadius: 30,
     borderTopStartRadius: 30,

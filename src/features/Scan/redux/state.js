@@ -6,4 +6,10 @@ export const initialState = {
   verificationLoading: false,
   verificationSuccess: false,
   verificationError: false,
+  productDetailLoading: false,
+  productDetailSuccess: false,
+  productDetailError: false,
+  productDetail: {
+    sku: null,
+  },
 };
