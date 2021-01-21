@@ -1,5 +1,24 @@
+import {connect} from 'react-redux';
+import {doGetLocations} from '../../features/Scan/redux/actions';
+import {getLoading, getLocations} from '../../features/Scan/redux/getters';
+
 import Screen from './screen';
 
-const LocationListScreen = Screen;
+const mapStateToProps = (state) => {
+  return {
+    locationLoading: getLoading(state, 'getLocations'),
+    locations: getLocations(state),
+  };
+};
 
-export default LocationListScreen;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    doGetLocations: () => dispatch(doGetLocations()),
+  };
+};
+
+const connectRedux = connect(mapStateToProps, mapDispatchToProps);
+
+const HomeScreen = connectRedux(Screen);
+
+export default HomeScreen;

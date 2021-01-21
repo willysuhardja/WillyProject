@@ -160,13 +160,25 @@ export const doAddScanItem = (data) => {
 export const doGetLocations = () => {
   return async (dispatch) => {
     dispatch({
-      type: actionTypes.GET_LOCATIONS_PENDING,
+      type: actionTypes.GET_LOCATION_LIST_PENDING,
     });
 
     const branch = getBranch(store.getState()).initial;
 
     try {
       const locationListResponse = await axiosClient.get(`/location/${branch}`);
-    } catch (error) {}
+
+      dispatch({
+        type: actionTypes.GET_LOCATION_LIST_SUCCESS,
+        payload: locationListResponse.data.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: actionTypes.GET_LOCATION_LIST_FAILED,
+        payload: error,
+      });
+
+      return Promise.reject(error);
+    }
   };
 };
