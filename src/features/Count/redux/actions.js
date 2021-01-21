@@ -62,11 +62,19 @@ export const doVerifyLocation = (location) => {
         '/soglobal/check_location/',
         body,
       );
+
+      const locationData = verifyResponse.data.data[0];
+
       dispatch({
         type: actionTypes.VERIFICATION_SUCCESS,
-        payload: verifyResponse,
+        payload: locationData,
       });
-      dispatch(setLocation(location));
+      dispatch(
+        setLocation({
+          id: locationData.id,
+          name: locationData.name,
+        }),
+      );
 
       return Promise.resolve(verifyResponse);
     } catch (error) {
@@ -96,7 +104,7 @@ export const doSubmitCount = () => {
 
       body.append('user_id', user.id);
       body.append('initial_store', branch.initial);
-      body.append('location', location);
+      body.append('location', location.name);
       body.append('start_at', moment(startTime).format('YYYY-MM-DD HH:mm:ss'));
       body.append('end_at', moment(endTime).format('YYYY-MM-DD HH:mm:ss'));
       body.append('duration', duration);

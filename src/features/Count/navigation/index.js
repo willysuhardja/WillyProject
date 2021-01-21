@@ -16,7 +16,9 @@ const CountStack = () => {
   const currentLocation = useSelector(getLocation);
   return (
     <Navigator
-      initialRouteName={currentLocation ? screenNames.timer : screenNames.scan}
+      initialRouteName={
+        currentLocation.id ? screenNames.timer : screenNames.scan
+      }
       screenOptions={{
         headerShown: true,
         headerTintColor: DefaultTheme.colors.white,

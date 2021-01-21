@@ -3,7 +3,9 @@ import {store} from '../../../redux/store';
 import {axiosClient, axiosIntance} from '../../../utils/axios';
 import {getProfile} from '../../AccoutManagement/redux/getters';
 import {getBranch} from '../../Auth/redux/getters';
+import {addScanItem, verifySku} from '../database/actions/scanItem';
 import * as actionTypes from './constant';
+import {getLocation} from './getters';
 
 export const setLocation = (location) => {
   return (dispatch) => {
@@ -42,11 +44,19 @@ export const doVerifyLocation = (location) => {
         '/soglobal/check_location/',
         body,
       );
+
+      const locationData = verifyResponse.data.data[0];
+
       dispatch({
         type: actionTypes.VERIFICATION_SUCCESS,
-        payload: verifyResponse,
+        payload: locationData,
       });
-      dispatch(setLocation(location));
+      dispatch(
+        setLocation({
+          id: locationData.id,
+          name: locationData.name,
+        }),
+      );
 
       return Promise.resolve(verifyResponse);
     } catch (error) {
@@ -97,5 +107,66 @@ export const doGetProductIdentity = (barcode) => {
 
       return Promise.reject(error);
     }
+  };
+};
+
+export const doVerifyScanItem = (barcode) => {
+  return async (dispatch) => {
+    const locationId = getLocation(store.getState()).id;
+
+    try {
+      await dispatch(doGetProductIdentity(barcode));
+      await verifySku(locationId, barcode);
+      return Promise.resolve(true);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  };
+};
+
+export const doAddScanItem = (data) => {
+  return async (dispatch) => {
+    dispatch({
+      type: actionTypes.ADD_SCAN_ITEM_PENDING,
+    });
+
+    const locationId = getLocation(store.getState()).id;
+
+    try {
+      const scanData = {
+        ...data,
+        locationId,
+      };
+
+      const addAction = await addScanItem(scanData);
+
+      dispatch({
+        type: actionTypes.ADD_SCAN_ITEM_SUCCESS,
+        payload: addAction,
+      });
+
+      return Promise.resolve(true);
+    } catch (error) {
+      dispatch({
+        type: actionTypes.ADD_SCAN_ITEM_FAILED,
+        payload: error,
+      });
+
+      return Promise.reject(error);
+    }
+  };
+};
+
+export const doGetLocations = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: actionTypes.GET_LOCATIONS_PENDING,
+    });
+
+    const branch = getBranch(store.getState()).initial;
+
+    try {
+      const locationListResponse = await axiosClient.get(`/location/${branch}`);
+    } catch (error) {}
   };
 };

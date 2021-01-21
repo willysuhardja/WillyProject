@@ -11,8 +11,10 @@ import QtyForm from './components/QtyForm';
 
 const Screen = ({
   productLoading,
+  addScanLoading,
   productDetail,
-  doGetProductDetail,
+  doVerifyScanItem,
+  doAddScanItem,
   ...props
 }) => {
   const {
@@ -21,17 +23,18 @@ const Screen = ({
       params: {barcode},
     },
   } = props;
+
   useEffect(() => {
     const bootstrap = () => {
-      getProductDetail();
+      doVerifyBarcode();
     };
 
     bootstrap();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getProductDetail = () => {
-    doGetProductDetail(barcode).catch((error) => {
+  const doVerifyBarcode = () => {
+    doVerifyScanItem(barcode).catch((error) => {
       Alert.alert('Error', error.message, [
         {
           tetx: 'Ok',
@@ -42,6 +45,27 @@ const Screen = ({
         },
       ]);
     });
+  };
+
+  const _onSubmit = ({qty}) => {
+    const data = {
+      barcode: barcode,
+      qty1: qty,
+      qty2: productDetail.last_stock,
+      sku: productDetail.sku,
+    };
+
+    doAddScanItem(data)
+      .then(() => {
+        goBack();
+      })
+      .catch((error) => {
+        Alert.alert('Error', error.message, [
+          {
+            tetx: 'Ok',
+          },
+        ]);
+      });
   };
 
   if (productLoading) {
@@ -61,7 +85,7 @@ const Screen = ({
         </Card.Content>
       </Card>
       <AppContainer containerStyle={styles.container}>
-        <QtyForm />
+        <QtyForm onSubmit={_onSubmit} loading={addScanLoading} />
       </AppContainer>
     </Fragment>
   );

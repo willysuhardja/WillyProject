@@ -2,7 +2,6 @@ import React, {Fragment, useEffect} from 'react';
 import {View, PermissionsAndroid} from 'react-native';
 import {Text, Title} from 'react-native-paper';
 import {AppContainer, AppBasicHeader} from '../../components';
-import menus from '../../data/menu';
 import {DefaultTheme} from '../../theme';
 
 import Menu from './components/Menu';
@@ -40,10 +39,6 @@ const Screen = (props) => {
 
       if (Object.values(granted).includes('denied')) {
         return requestPermisionAndroid();
-      }
-
-      if (Object.values(granted).includes('never_ask_again')) {
-        console.log('never_ask_again');
       }
     } catch (err) {
       console.warn(err);

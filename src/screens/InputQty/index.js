@@ -1,18 +1,28 @@
 import {connect} from 'react-redux';
-import {doGetProductIdentity} from '../../features/Scan/redux/actions';
-import {getLoading, getProductDetail} from '../../features/Scan/redux/getters';
+import {
+  doVerifyScanItem,
+  doAddScanItem,
+} from '../../features/Scan/redux/actions';
+import {
+  getLoading,
+  getLocation,
+  getProductDetail,
+} from '../../features/Scan/redux/getters';
 import Screen from './screen';
 
 const mapStateToProps = (state) => {
   return {
     productLoading: getLoading(state, 'productDetail'),
+    addScanLoading: getLoading(state, 'addScanItem'),
     productDetail: getProductDetail(state),
+    location: getLocation(state),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    doGetProductDetail: (barcode) => dispatch(doGetProductIdentity(barcode)),
+    doVerifyScanItem: (barcode) => dispatch(doVerifyScanItem(barcode)),
+    doAddScanItem: (data) => dispatch(doAddScanItem(data)),
   };
 };
 

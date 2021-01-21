@@ -10,7 +10,6 @@ const Screen = (props) => {
 
   const hideDialog = () => setVisible(false);
 
-  console.log(status, progress);
   return (
     <View>
       <Portal>

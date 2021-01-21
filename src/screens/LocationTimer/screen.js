@@ -91,7 +91,7 @@ export default function Screen({
           ]);
         });
     } else {
-      if (!location) {
+      if (!location.id) {
         Alert.alert('Error', 'Please Re-Scan', [
           {text: 'Ok', onPress: navigation.goBack},
         ]);
@@ -136,7 +136,7 @@ export default function Screen({
       <Card style={styles.cardLocation}>
         <Card.Content>
           <Title>Location</Title>
-          <AppParagraph>{location}</AppParagraph>
+          <AppParagraph>{location.name}</AppParagraph>
         </Card.Content>
       </Card>
 

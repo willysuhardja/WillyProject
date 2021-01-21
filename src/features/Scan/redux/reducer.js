@@ -63,6 +63,27 @@ export default function scanReducer(state = initialState, action) {
         productDetailError: true,
         productDetail: initialState.productDetail,
       };
+    case actionTypes.ADD_SCAN_ITEM_PENDING:
+      return {
+        ...state,
+        addScanItemLoading: true,
+        addScanItemSuccess: false,
+        addScanItemError: false,
+      };
+    case actionTypes.ADD_SCAN_ITEM_SUCCESS:
+      return {
+        ...state,
+        addScanItemLoading: false,
+        addScanItemSuccess: true,
+        addScanItemError: false,
+      };
+    case actionTypes.ADD_SCAN_ITEM_FAILED:
+      return {
+        ...state,
+        addScanItemLoading: false,
+        addScanItemSuccess: false,
+        addScanItemError: true,
+      };
     case actionTypes.RESET:
       return initialState;
     default:
