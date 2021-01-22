@@ -4,4 +4,5 @@ export default {
   account: 'account',
   count: 'count/index',
   scan: 'scan/index',
+  upload: 'upload/index',
 };

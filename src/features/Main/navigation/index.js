@@ -10,6 +10,7 @@ import {getBranch} from '../../Auth/redux/getters';
 import checkRequests from '../../../hoc/CheckRequest';
 import CountStack from '../../Count/navigation';
 import ScannStack from '../../Scan/navigation';
+import UploadStack from '../../Location/navigation';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -46,6 +47,13 @@ const MainStack = () => {
         }}
         name={screenNames.scan}
         component={ScannStack}
+      />
+      <Screen
+        options={{
+          headerShown: false,
+        }}
+        name={screenNames.upload}
+        component={UploadStack}
       />
     </Navigator>
   );

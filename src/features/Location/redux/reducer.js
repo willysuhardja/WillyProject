@@ -11,12 +11,28 @@ export default function scanReducer(state = initialState, action) {
         getLocationsError: false,
       };
     case actionTypes.GET_LOCATION_LIST_SUCCESS:
+      const formatedLocations = action.payload.map((location) => {
+        const {status_counter, status_1, status} = location;
+
+        const statusText = !status_counter
+          ? 'Belum dihitung'
+          : !status_1
+          ? 'Belum diupload'
+          : status === 2
+          ? 'Sudah verifikasi'
+          : 'Belum verifikasi';
+        return {
+          ...location,
+          status: statusText,
+        };
+      });
+
       return {
         ...state,
         getLocationsLoading: false,
         getLocationsSuccess: true,
         getLocationsError: false,
-        locations: action.payload,
+        locations: formatedLocations,
       };
     case actionTypes.GET_LOCATION_LIST_FAILED:
       return {

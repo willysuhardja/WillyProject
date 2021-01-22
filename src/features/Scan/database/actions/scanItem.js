@@ -39,6 +39,7 @@ export const addScanItem = async (data) => {
     return await scanItemCollection.create((scanItemData) => {
       scanItemData.locationId = data.locationId;
       scanItemData.sku = data.sku;
+      scanItemData.skuDesc = data.skuDesc;
       scanItemData.barcode = data.barcode;
       scanItemData.qty1 = parseFloat(data.qty1);
       scanItemData.qty2 = parseFloat(data.qty2);

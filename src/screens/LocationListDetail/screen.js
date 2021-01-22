@@ -24,19 +24,11 @@ const Screen = ({locationLoading, locations, doGetLocations, navigation}) => {
   }, []);
 
   const _onLocationPressed = (item) => {
-    navigation.navigate(screenNames.detail, {
-      id: item.id,
-      name: item.name,
-      mode: item.status_1 ? 'history' : 'local',
-    });
+    navigation.navigate(screenNames.detail);
   };
 
   const renderItem = ({item}) => (
-    <LocationItem
-      title={item.name}
-      status={item.status}
-      onPress={() => _onLocationPressed(item)}
-    />
+    <LocationItem title={item.name} status={item.status} />
   );
 
   return (
@@ -46,7 +38,7 @@ const Screen = ({locationLoading, locations, doGetLocations, navigation}) => {
         setSearchResult={setSearchResult}
         setSearchText={setSearchText}
         searchFields={['name']}
-        placeholder="Search Location"
+        placeholder="Search Item"
         list={locations}
       />
       <AppContainer containerStyle={styles.container}>

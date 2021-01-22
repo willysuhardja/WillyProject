@@ -4,7 +4,7 @@ import {Divider, List, Badge} from 'react-native-paper';
 import {AppButton} from '../../../components';
 import {DefaultTheme} from '../../../theme';
 
-export function LocationItem({title, status, onPress}) {
+export function LocationItem({title, status}) {
   const badgeColor =
     status === 'Belum diupload'
       ? DefaultTheme.colors.secondary
@@ -25,11 +25,7 @@ export function LocationItem({title, status, onPress}) {
         )}
         style={[styles.container]}
         right={() => (
-          <AppButton
-            onPress={onPress}
-            disabled={status === 'Belum dihitung'}
-            style={styles.button}
-            mode="text">
+          <AppButton style={styles.button} mode="text">
             View
           </AppButton>
         )}
@@ -41,6 +37,6 @@ export function LocationItem({title, status, onPress}) {
 
 const styles = {
   container: {flex: 1, width: Dimensions.get('screen').width},
-  button: {maxWidth: 150},
+  button: {width: 150},
   badge: {maxWidth: 200, alignSelf: 'flex-start'},
 };

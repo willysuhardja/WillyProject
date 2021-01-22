@@ -18,8 +18,4 @@ export const initialState = {
   addScanItemLoading: false,
   addScanItemSuccess: false,
   addScanItemError: false,
-  getLocationsLoading: false,
-  getLocationsSuccess: false,
-  getLocationsError: false,
-  locations: [],
 };

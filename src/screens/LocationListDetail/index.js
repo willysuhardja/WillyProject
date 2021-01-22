@@ -19,6 +19,6 @@ const mapDispatchToProps = (dispatch) => {
 
 const connectRedux = connect(mapStateToProps, mapDispatchToProps);
 
-const LocationListScreen = connectRedux(Screen);
+const LocationListDetailScreen = connectRedux(Screen);
 
-export default LocationListScreen;
+export default LocationListDetailScreen;
