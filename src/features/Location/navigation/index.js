@@ -6,6 +6,7 @@ import {DefaultTheme} from '../../../theme';
 
 import LocationListScreen from '../../../screens/LocationList';
 import LocationListDetailScreen from '../../../screens/LocationListDetail';
+import LocationListDetailEditScreen from '../../../screens/LocationListDetailEdit';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -32,6 +33,13 @@ const UploadStack = () => {
         })}
         name={screenNames.detail}
         component={LocationListDetailScreen}
+      />
+      <Screen
+        options={({route}) => ({
+          title: `Edit, Loc: ${route.params.name}`,
+        })}
+        name={screenNames.edit}
+        component={LocationListDetailEditScreen}
       />
     </Navigator>
   );

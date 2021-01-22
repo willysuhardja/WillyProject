@@ -1,55 +1,120 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState, useLayoutEffect} from 'react';
 import {FlatList} from 'react-native';
+import {DataTable, Text, TouchableRipple} from 'react-native-paper';
 import {
-  AppBasicHeader,
+  AppButton,
   AppContainer,
   AppListFooter,
   AppSearchForm,
 } from '../../components';
-import screenNames from '../../features/Location/navigation/screenNames';
+import {default as scanScreenNames} from '../../features/Scan/navigation/screenNames';
+import {default as locationScreenNames} from '../../features/Location/navigation/screenNames';
+import {DefaultTheme} from '../../theme';
 import {keyExtractor, refreshControl} from '../../utils/flatlist';
 import {LocationItem} from './components/LocationItem';
 
-const Screen = ({locationLoading, locations, doGetLocations, navigation}) => {
+const Screen = ({
+  locationLoading,
+  details,
+  localDetails,
+  doGetLocationDetail,
+  navigation,
+  route: {
+    params: {mode, name: locationName, id: locationId},
+  },
+}) => {
+  const list = mode === 'history' ? details : localDetails;
   const [searchText, setSearchText] = useState('');
   const [searchResult, setSearchResult] = useState([]);
 
   useEffect(() => {
     const bootstrap = () => {
-      doGetLocations();
+      getLocationDetail();
     };
 
     bootstrap();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const _onLocationPressed = (item) => {
-    navigation.navigate(screenNames.detail);
+  useLayoutEffect(() => {
+    if (mode === 'local') {
+      navigation.setOptions({
+        headerRight: () => (
+          <TouchableRipple
+            style={{padding: parseInt(`${5}`, 0)}}
+            onPress={() =>
+              navigation.navigate(scanScreenNames.index, {
+                screen: scanScreenNames.item,
+                params: {barcode: locationName},
+              })
+            }>
+            <Text style={{color: DefaultTheme.colors.white}}>Add Item</Text>
+          </TouchableRipple>
+        ),
+      });
+    }
+  }, [mode, locationName, navigation]);
+
+  const getLocationDetail = () => {
+    if (mode === 'history') {
+      doGetLocationDetail(locationName);
+    }
+  };
+
+  const _onEditPressed = () => {
+    navigation.navigate(locationScreenNames.edit, {
+      id: locationId,
+      name: locationName,
+    });
   };
 
   const renderItem = ({item}) => (
-    <LocationItem title={item.name} status={item.status} />
+    <LocationItem
+      sku={item.sku}
+      qty1={item.qty1 || item.qty_1}
+      qty2={item.qty2 || item.qty_2}
+      description={item.skuDesc || item.description}
+    />
   );
 
   return (
     <Fragment>
-      <AppBasicHeader />
       <AppSearchForm
+        style={styles.searchForm}
         setSearchResult={setSearchResult}
         setSearchText={setSearchText}
-        searchFields={['name']}
+        searchFields={['sku', 'description', 'skuDesc']}
         placeholder="Search Item"
-        list={locations}
+        list={list}
       />
-      <AppContainer containerStyle={styles.container}>
-        <FlatList
-          contentContainerStyle={{width: '100%'}}
-          refreshControl={refreshControl(locationLoading, doGetLocations)}
-          data={searchText.length > 0 ? searchResult : locations}
-          keyExtractor={keyExtractor('location')}
-          renderItem={renderItem}
-          ListFooterComponent={<AppListFooter />}
-        />
+      <AppContainer start containerStyle={styles.container}>
+        <DataTable style={{flex: 1}}>
+          <DataTable.Header>
+            <DataTable.Title>SKU</DataTable.Title>
+            <DataTable.Title numeric>QTY 1</DataTable.Title>
+          </DataTable.Header>
+          <FlatList
+            contentContainerStyle={{width: '100%'}}
+            refreshControl={refreshControl(locationLoading, getLocationDetail)}
+            data={searchText.length > 0 ? searchResult : list}
+            keyExtractor={keyExtractor('location')}
+            renderItem={renderItem}
+            ListFooterComponent={<AppListFooter />}
+          />
+        </DataTable>
+        {mode === 'local' && (
+          <>
+            <AppButton
+              onPress={_onEditPressed}
+              mode="text"
+              color={DefaultTheme.colors.secondary}>
+              Edit
+            </AppButton>
+            <AppButton mode="contained" disabled={localDetails.length === 0}>
+              Upload
+            </AppButton>
+          </>
+        )}
       </AppContainer>
     </Fragment>
   );
@@ -59,6 +124,16 @@ export default Screen;
 
 const styles = {
   container: {
-    marginTop: 20,
+    marginTop: 10,
+    padding: 0,
+  },
+  searchForm: {position: 'relative', top: 0},
+  fab: {
+    position: 'absolute',
+    width: 56,
+    height: 56,
+    bottom: 12,
+    right: 12,
+    backgroundColor: DefaultTheme.colors.primary,
   },
 };

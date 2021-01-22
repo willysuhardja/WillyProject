@@ -27,7 +27,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: DefaultTheme.colors.transparent1,
-    borderWidth: 0.6,
+    borderWidth: 0.7,
+    elevation: 1,
+    backgroundColor: DefaultTheme.colors.background,
   },
   flexStart: {
     alignSelf: 'flex-start',

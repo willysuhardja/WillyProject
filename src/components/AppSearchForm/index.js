@@ -7,6 +7,7 @@ import {AppTextInput} from '..';
 import {searchArrayObject} from '../../utils/searching';
 
 const SearchFrom = ({
+  style,
   onSubmit,
   list = [],
   setSearchResult,
@@ -37,7 +38,7 @@ const SearchFrom = ({
 
   const {control, handleSubmit, errors} = useForm();
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Controller
         control={control}
         render={({onChange, onBlur, value}) => (

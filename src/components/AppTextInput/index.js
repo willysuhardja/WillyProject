@@ -14,11 +14,11 @@ const AppTextInput = ({
   return (
     <View style={[styles.container, containerStyle]}>
       <Input
-        style={[styles.input, inputStyle]}
-        selectionColor={DefaultTheme.colors.primary}
-        underlineColor="transparent"
         mode="outlined"
+        underlineColor="transparent"
+        selectionColor={DefaultTheme.colors.primary}
         {...props}
+        style={[styles.input, inputStyle]}
       />
       {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
       {infoText ? <Text style={styles.info}>{infoText}</Text> : null}

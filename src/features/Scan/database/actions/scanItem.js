@@ -55,9 +55,9 @@ export const updateQtyBatch = async (locationId, data) => {
 
     const scanItemList = await scanItemCollection.query(query).fetch();
 
-    return await database.batch(
+    await database.batch(
       ...scanItemList.map((scanItem) => {
-        scanItem.prepareUpdate((scanItemData) => {
+        return scanItem.prepareUpdate((scanItemData) => {
           const dataToUpdate = data.find((item) => item.id === scanItemData.id);
 
           if (dataToUpdate) {
@@ -66,5 +66,15 @@ export const updateQtyBatch = async (locationId, data) => {
         });
       }),
     );
+  });
+};
+
+export const getScannedList = async (locationId) => {
+  return await database.action(async (action) => {
+    const query = Q.and(Q.where('location_id', locationId));
+
+    const scanItemList = await scanItemCollection.query(query).fetch();
+
+    return scanItemList;
   });
 };

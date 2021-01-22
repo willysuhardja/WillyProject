@@ -41,6 +41,50 @@ export default function scanReducer(state = initialState, action) {
         getLocationsSuccess: false,
         getLocationsError: true,
       };
+    case actionTypes.GET_LOCATION_DETAILS_PENDING:
+      return {
+        ...state,
+        getLocationDetailsLoading: true,
+        getLocationDetailsSuccess: false,
+        getLocationDetailsError: false,
+      };
+    case actionTypes.GET_LOCATION_DETAILS_SUCCESS:
+      return {
+        ...state,
+        getLocationDetailsLoading: false,
+        getLocationDetailsSuccess: true,
+        getLocationDetailsError: false,
+        locationDetails: action.payload,
+      };
+    case actionTypes.GET_LOCATION_DETAILS_FAILED:
+      return {
+        ...state,
+        getLocationDetailsLoading: false,
+        getLocationDetailsSuccess: false,
+        getLocationDetailsError: true,
+        locationDetails: [],
+      };
+    case actionTypes.UPDATE_ITEM_QTY_PENDING:
+      return {
+        ...state,
+        updateItemsLoading: true,
+        updateItemsSuccess: false,
+        updateItemsError: false,
+      };
+    case actionTypes.UPDATE_ITEM_QTY_SUCCESS:
+      return {
+        ...state,
+        updateItemsLoading: false,
+        updateItemsSuccess: true,
+        updateItemsError: false,
+      };
+    case actionTypes.UPDATE_ITEM_QTY_FAILED:
+      return {
+        ...state,
+        updateItemsLoading: false,
+        updateItemsSuccess: false,
+        updateItemsError: true,
+      };
     case actionTypes.RESET:
       return initialState;
     default:

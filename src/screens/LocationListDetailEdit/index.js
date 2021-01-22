@@ -2,11 +2,8 @@ import {Q} from '@nozbe/watermelondb';
 import {withDatabase} from '@nozbe/watermelondb/DatabaseProvider';
 import withObservables from '@nozbe/with-observables';
 import {connect} from 'react-redux';
-import {doGetLocationDetail} from '../../features/Location/redux/actions';
-import {
-  getLoading,
-  getLocationDetails,
-} from '../../features/Location/redux/getters';
+import {getLoading} from '../../features/Location/redux/getters';
+import {doUpdateQtyBatch} from '../../features/Location/redux/actions';
 
 import Screen from './screen';
 
@@ -31,20 +28,19 @@ const ScreenWithDatabase = withDatabase(
 
 const mapStateToProps = (state) => {
   return {
-    locationLoading: getLoading(state, 'getLocations'),
-    details: getLocationDetails(state),
+    loading: getLoading(state, 'updateItems'),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    doGetLocationDetail: (locationName) =>
-      dispatch(doGetLocationDetail(locationName)),
+    doUpdateQtyBatch: (locationId, data) =>
+      dispatch(doUpdateQtyBatch(locationId, data)),
   };
 };
 
 const connectRedux = connect(mapStateToProps, mapDispatchToProps);
 
-const LocationListDetailScreen = connectRedux(ScreenWithDatabase);
+const LocationListDetailEditScreen = connectRedux(ScreenWithDatabase);
 
-export default LocationListDetailScreen;
+export default LocationListDetailEditScreen;

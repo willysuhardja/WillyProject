@@ -4,7 +4,7 @@ export const searchArrayObject = (search, list, keywords = ['']) => {
   const newList = list.filter((item) => {
     const itemLowerCases = keywords
       .map((keyword) => {
-        const itemLowerCase = item[keyword].toLowerCase();
+        const itemLowerCase = item[keyword]?.toLowerCase();
 
         return itemLowerCase;
       })
