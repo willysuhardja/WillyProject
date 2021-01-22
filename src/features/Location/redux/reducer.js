@@ -85,6 +85,27 @@ export default function scanReducer(state = initialState, action) {
         updateItemsSuccess: false,
         updateItemsError: true,
       };
+    case actionTypes.UPLOAD_LOCATION_PENDING:
+      return {
+        ...state,
+        uploadLocationLoading: true,
+        uploadLocationSuccess: false,
+        uploadLocationError: false,
+      };
+    case actionTypes.UPLOAD_LOCATION_SUCCESS:
+      return {
+        ...state,
+        uploadLocationLoading: false,
+        uploadLocationSuccess: true,
+        uploadLocationError: false,
+      };
+    case actionTypes.UPLOAD_LOCATION_FAILED:
+      return {
+        ...state,
+        uploadLocationLoading: false,
+        uploadLocationSuccess: false,
+        uploadLocationError: true,
+      };
     case actionTypes.RESET:
       return initialState;
     default:

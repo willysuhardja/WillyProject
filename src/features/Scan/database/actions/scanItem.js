@@ -78,3 +78,17 @@ export const getScannedList = async (locationId) => {
     return scanItemList;
   });
 };
+
+export const clearScanItems = async (locationId) => {
+  return await database.action(async (action) => {
+    const query = Q.and(Q.where('location_id', locationId));
+
+    const scanItemList = await scanItemCollection.query(query).fetch();
+
+    await database.batch(
+      ...scanItemList.map((scanItem) => {
+        return scanItem.prepareDestroyPermanently();
+      }),
+    );
+  });
+};

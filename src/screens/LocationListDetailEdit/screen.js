@@ -89,6 +89,7 @@ const Screen = ({
         <DataTable style={{flex: 1}}>
           <DataTable.Header>
             <DataTable.Title>SKU</DataTable.Title>
+            <DataTable.Title numeric>Last Stock</DataTable.Title>
             <DataTable.Title numeric>QTY 1</DataTable.Title>
           </DataTable.Header>
           <FlatList

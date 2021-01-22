@@ -1,11 +1,12 @@
 import React from 'react';
-import {DataTable} from 'react-native-paper';
+import {DataTable, Text} from 'react-native-paper';
 import {AppTextInput} from '../../../components';
 
 export function LocationItem({
   id,
   sku,
   qty1,
+  qty2 = '0',
   description,
   onQtyChange,
   qtyValue = qty1.toString(),
@@ -14,6 +15,9 @@ export function LocationItem({
     <>
       <DataTable.Row style={styles.rowTop}>
         <DataTable.Cell>{sku}</DataTable.Cell>
+        <DataTable.Cell numeric style={styles.numericCell}>
+          <Text style={styles.numericText}>{qty2}</Text>
+        </DataTable.Cell>
         <DataTable.Cell numeric style={styles.numericCell}>
           <AppTextInput
             value={qtyValue}
@@ -37,4 +41,5 @@ const styles = {
   rowTop: {borderBottomWidth: 0},
   rowBottom: {marginTop: -20},
   numericCell: {width: 90},
+  numericText: {fontWeight: 'bold', textDecorationLine: 'underline'},
 };

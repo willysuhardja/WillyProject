@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState, useLayoutEffect} from 'react';
-import {FlatList} from 'react-native';
+import {Alert, FlatList} from 'react-native';
 import {DataTable, Text, TouchableRipple} from 'react-native-paper';
 import {
   AppButton,
@@ -15,9 +15,11 @@ import {LocationItem} from './components/LocationItem';
 
 const Screen = ({
   locationLoading,
+  uploadLoading,
   details,
   localDetails,
   doGetLocationDetail,
+  doUploadLocation,
   navigation,
   route: {
     params: {mode, name: locationName, id: locationId},
@@ -68,6 +70,18 @@ const Screen = ({
     });
   };
 
+  const _onUploadPressed = () => {
+    doUploadLocation(locationId, locationName)
+      .then(() => {
+        navigation.navigate(locationScreenNames.location, {
+          refresh: true,
+        });
+      })
+      .catch((error) => {
+        Alert.alert('Error', error.message);
+      });
+  };
+
   const renderItem = ({item}) => (
     <LocationItem
       sku={item.sku}
@@ -91,6 +105,7 @@ const Screen = ({
         <DataTable style={{flex: 1}}>
           <DataTable.Header>
             <DataTable.Title>SKU</DataTable.Title>
+            <DataTable.Title numeric>Last Stock</DataTable.Title>
             <DataTable.Title numeric>QTY 1</DataTable.Title>
           </DataTable.Header>
           <FlatList
@@ -107,10 +122,15 @@ const Screen = ({
             <AppButton
               onPress={_onEditPressed}
               mode="text"
+              disabled={uploadLoading}
               color={DefaultTheme.colors.secondary}>
               Edit
             </AppButton>
-            <AppButton mode="contained" disabled={localDetails.length === 0}>
+            <AppButton
+              onPress={_onUploadPressed}
+              mode="contained"
+              disabled={localDetails.length === 0 || uploadLoading}
+              loading={uploadLoading}>
               Upload
             </AppButton>
           </>

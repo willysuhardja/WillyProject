@@ -1,13 +1,16 @@
 import React from 'react';
-import {DataTable} from 'react-native-paper';
+import {DataTable, Text} from 'react-native-paper';
 
-export function LocationItem({sku, qty1, description}) {
+export function LocationItem({sku, qty1, qty2 = '0', description}) {
   return (
     <>
       <DataTable.Row style={styles.rowTop}>
         <DataTable.Cell>{sku}</DataTable.Cell>
         <DataTable.Cell numeric style={styles.numericCell}>
-          {qty1}
+          <Text style={styles.numericText}>{qty2}</Text>
+        </DataTable.Cell>
+        <DataTable.Cell numeric style={styles.numericCell}>
+          <Text style={styles.numericText}>{qty1}</Text>
         </DataTable.Cell>
       </DataTable.Row>
       <DataTable.Row style={styles.rowBottom}>
@@ -21,4 +24,5 @@ const styles = {
   rowTop: {borderBottomWidth: 0},
   rowBottom: {marginTop: -20},
   numericCell: {marginTop: 0},
+  numericText: {fontWeight: 'bold', textDecorationLine: 'underline'},
 };

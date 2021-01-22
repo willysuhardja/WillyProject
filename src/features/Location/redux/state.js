@@ -10,4 +10,7 @@ export const initialState = {
   updateItemsLoading: false,
   updateItemsSuccess: false,
   updateItemsError: false,
+  uploadLocationLoading: false,
+  uploadLocationSuccess: false,
+  uploadLocationError: false,
 };

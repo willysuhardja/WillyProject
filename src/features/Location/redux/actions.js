@@ -1,7 +1,12 @@
 import {store} from '../../../redux/store';
 import {axiosClient} from '../../../utils/axios';
+import {getProfile} from '../../AccoutManagement/redux/getters';
 import {getBranch} from '../../Auth/redux/getters';
-import {updateQtyBatch} from '../../Scan/database/actions/scanItem';
+import {
+  clearScanItems,
+  getScannedList,
+  updateQtyBatch,
+} from '../../Scan/database/actions/scanItem';
 import * as actionTypes from './constant';
 
 export const doGetLocations = () => {
@@ -80,6 +85,62 @@ export const doUpdateQtyBatch = (locationId, data) => {
       });
 
       return Promise.reject(error);
+    }
+  };
+};
+
+export const doUploadLocation = (locationId, locationName) => {
+  return async (dispatch) => {
+    dispatch({
+      type: actionTypes.UPLOAD_LOCATION_PENDING,
+    });
+
+    const user = getProfile(store.getState());
+    const branch = getBranch(store.getState());
+
+    try {
+      const scanItems = await getScannedList(locationId);
+
+      const formatedScanItems = scanItems.map((scanItem) => {
+        return {
+          sku: scanItem.sku,
+          qty_1: scanItem.qty1,
+          qty_2: scanItem.qty2,
+          scan_order: scanItem.scanOrder,
+          timestamp: scanItem.timestamp,
+        };
+      });
+
+      const body = new FormData();
+
+      body.append('user_id', user.id);
+      body.append('initial_store', branch.initial);
+      body.append('location', locationName);
+      body.append('scanner', 1);
+      body.append('items', JSON.stringify(formatedScanItems));
+
+      const uploadResponse = await axiosClient.post('/soglobal', body);
+
+      const clearLocalScanItems = await clearScanItems(locationId);
+
+      dispatch({
+        type: actionTypes.UPLOAD_LOCATION_SUCCESS,
+        payload: {
+          response: uploadResponse,
+          delete: clearLocalScanItems,
+        },
+      });
+
+      return Promise.resolve(true);
+    } catch (error) {
+      dispatch({
+        type: actionTypes.UPLOAD_LOCATION_FAILED,
+        payload: error,
+      });
+
+      const message = error?.response?.data?.status?.message || error.message;
+
+      return Promise.reject({message});
     }
   };
 };
