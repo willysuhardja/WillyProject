@@ -21,13 +21,19 @@ const Menu = ({items, loading, doGetMenu}) => {
       scrollToOverflowEnabled={true}
       keyExtractor={(item, index) => `Menu-${index}`}
       renderItem={({item, index}) => {
+        const disabled = item.is_active === 0;
         return (
           <AppIconButton
             onPress={() => handleMenuPressed(item)}
+            disabled={disabled}
             icon={item.icon}
             size={90}
             label={item.name}
-            color={DefaultTheme.colors.primary}
+            color={
+              disabled
+                ? DefaultTheme.colors.disabled
+                : DefaultTheme.colors.primary
+            }
           />
         );
       }}
