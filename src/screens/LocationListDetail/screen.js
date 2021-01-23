@@ -88,6 +88,7 @@ const Screen = ({
       scanOrder={item.scanOrder || item.scan_order}
       qty1={item.qty1 || item.qty_1}
       qty2={item.qty2 || item.qty_2}
+      fix={item.fix}
       description={item.skuDesc || item.description}
     />
   );
@@ -111,6 +112,9 @@ const Screen = ({
             )}
             <DataTable.Title numeric>Last Stock</DataTable.Title>
             <DataTable.Title numeric>QTY 1</DataTable.Title>
+            {mode === 'history' && (
+              <DataTable.Title numeric>FIX</DataTable.Title>
+            )}
           </DataTable.Header>
           <FlatList
             contentContainerStyle={{width: '100%'}}

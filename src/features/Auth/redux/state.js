@@ -8,7 +8,4 @@ export const initialState = {
   getBranchesLoading: false,
   getBranchesSuccess: false,
   getBranchesError: false,
-  changePasswordLoading: false,
-  changePasswordSuccess: false,
-  changePasswordError: false,
 };

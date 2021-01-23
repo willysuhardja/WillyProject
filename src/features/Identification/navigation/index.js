@@ -4,13 +4,13 @@ import {createStackNavigator} from '@react-navigation/stack';
 import screenNames from './screenNames';
 import {DefaultTheme} from '../../../theme';
 
-import LocationListScreen from '../../../screens/LocationList';
-import LocationListDetailScreen from '../../../screens/LocationListDetail';
-import LocationListDetailEditScreen from '../../../screens/LocationListDetailEdit';
+import ScanIdentityScreen from '../../../screens/ScanIdentity';
+import {SCAN_RETURN_BARCODE} from '../../../constant';
+import ItemIdentityScreen from '../../../screens/ItemIdentity';
 
 const {Navigator, Screen} = createStackNavigator();
 
-const UploadStack = () => {
+const IdentityStack = () => {
   return (
     <Navigator
       screenOptions={{
@@ -22,27 +22,29 @@ const UploadStack = () => {
       }}>
       <Screen
         options={{
-          title: 'Location List',
+          title: 'Identity Scanner',
         }}
-        name={screenNames.location}
-        component={LocationListScreen}
+        initialParams={{
+          mode: SCAN_RETURN_BARCODE,
+          redirect: screenNames.identity,
+          barcodeTypes: null,
+          barcodeTypesIgnore: ['QR_CODE'],
+        }}
+        name={screenNames.scanner}
+        component={ScanIdentityScreen}
       />
       <Screen
-        options={({route}) => ({
-          title: `Detail, Loc: ${route.params.name}`,
-        })}
-        name={screenNames.detail}
-        component={LocationListDetailScreen}
-      />
-      <Screen
-        options={({route}) => ({
-          title: `Edit, Loc: ${route.params.name}`,
-        })}
-        name={screenNames.edit}
-        component={LocationListDetailEditScreen}
+        options={{
+          title: 'Identity Product',
+        }}
+        initialParams={{
+          barcode: null,
+        }}
+        name={screenNames.identity}
+        component={ItemIdentityScreen}
       />
     </Navigator>
   );
 };
 
-export default UploadStack;
+export default IdentityStack;
