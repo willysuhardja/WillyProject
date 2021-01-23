@@ -54,7 +54,9 @@ export const doLogin = (username, password) => {
         error,
       });
 
-      return Promise.reject(error.response);
+      const message = error?.response?.data?.status?.message || 'Server Error';
+
+      return Promise.reject({message});
     }
   };
 };

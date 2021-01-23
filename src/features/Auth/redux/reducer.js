@@ -55,6 +55,28 @@ export default function authReducer(state = initialState, action) {
         getBranchesLoading: false,
         getBranchesSuccess: false,
         getBranchesError: true,
+        branchesList: [],
+      };
+    case actionTypes.CHANGE_PASSWORD_PENDING:
+      return {
+        ...state,
+        changePasswordLoading: true,
+        changePasswordSuccess: false,
+        changePasswordError: false,
+      };
+    case actionTypes.CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        changePasswordLoading: false,
+        changePasswordSuccess: true,
+        changePasswordError: false,
+      };
+    case actionTypes.CHANGE_PASSWORD_FAILED:
+      return {
+        ...state,
+        changePasswordLoading: false,
+        changePasswordSuccess: false,
+        changePasswordError: true,
       };
     default:
       return state;

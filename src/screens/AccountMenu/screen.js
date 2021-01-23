@@ -34,12 +34,12 @@ const Screen = (props) => {
     });
   };
 
-  const onUpdateProfile = () => {
-    navigation.navigate(screenNames.index, {
-      screen: screenNames.updateProfile,
-      params: {},
-    });
-  };
+  // const onUpdateProfile = () => {
+  //   navigation.navigate(screenNames.index, {
+  //     screen: screenNames.updateProfile,
+  //     params: {},
+  //   });
+  // };
 
   const onChangePassword = () => {
     navigation.navigate(screenNames.index, {
@@ -101,7 +101,7 @@ const Screen = (props) => {
       <View style={styles.listContainer}>
         <List.Section>
           <List.Subheader>Account</List.Subheader>
-          <List.Item
+          {/* <List.Item
             onPress={onUpdateProfile}
             title="Update Profile"
             left={() => (
@@ -110,7 +110,7 @@ const Screen = (props) => {
                 icon="account-edit"
               />
             )}
-          />
+          /> */}
           <List.Item
             onPress={onChangePassword}
             title="Change Password"

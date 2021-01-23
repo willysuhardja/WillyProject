@@ -1,5 +1,7 @@
+import {store} from '../../../redux/store';
 import {axiosClient} from '../../../utils/axios';
 import * as actionTypes from './constant';
+import {getProfile} from './getters';
 
 export const setUserProfile = (profile) => {
   return (dispatch) => {
@@ -32,29 +34,48 @@ export const fetchUserProfile = () => {
   };
 };
 
-export const doChangePassword = (data) => {
+export const doChangePassword = ({
+  old_password,
+  new_password,
+  confirm_password,
+}) => {
   return async (dispatch) => {
     try {
       dispatch({
         type: actionTypes.CHANGE_PASSWORD_PENDING,
       });
 
-      // const body = data;
+      const userId = getProfile(store.getState()).id;
 
-      // const response = await axiosClient.post('/auth/change-password', body);
+      if (new_password !== confirm_password) {
+        throw {
+          message: 'New Password tidak terverifikasi',
+        };
+      }
 
-      // const profile = response.data.data;
+      const body = new FormData();
+
+      body.append('password_old', old_password);
+      body.append('password_new', new_password);
+
+      const updateResponse = await axiosClient.put(
+        `/user/password/${userId}`,
+        body,
+      );
+
       dispatch({
         type: actionTypes.CHANGE_PASSWORD_SUCCESS,
-        payload: true,
+        payload: updateResponse,
       });
-      return Promise.resolve(true);
+
+      return Promise.resolve(updateResponse);
     } catch (error) {
       dispatch({
         type: actionTypes.CHANGE_PASSWORD_FAILED,
-        error,
+        payload: error,
       });
-      return Promise.reject(error);
+      const message = error?.response?.data?.status?.message || error.message;
+      return Promise.reject({message});
     }
   };
 };

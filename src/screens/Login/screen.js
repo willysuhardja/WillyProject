@@ -18,9 +18,8 @@ const LoginScreen = (props) => {
   const _onSubmit = ({username, password}) => {
     doLogin(username, password)
       .then(() => {})
-      .catch((errorResponse) => {
-        const errorMessage = errorResponse?.data?.error?.message;
-        Alert.alert('Login Failed', errorMessage);
+      .catch((error) => {
+        Alert.alert('Login Failed', error.message);
       });
   };
 
