@@ -12,11 +12,13 @@ const AppIconButton = ({
   label,
   color,
   labelStyle,
+  disabled,
 }) => {
   return (
     <TouchableRipple
       rippleColor={`${color}22`}
       style={styles.container}
+      disabled={disabled}
       onPress={onPress}>
       <>
         <View
