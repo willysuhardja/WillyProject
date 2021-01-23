@@ -42,6 +42,51 @@ export default function verificationReducer(state = initialState, action) {
         getVerificationsError: true,
         verifications: [],
       };
+    case actionTypes.CHECK_VERIFICATION_PENDING:
+      return {
+        ...state,
+        checkVerificationLoading: true,
+        checkVerificationSuccess: false,
+        checkVerificationError: false,
+      };
+    case actionTypes.CHECK_VERIFICATION_SUCCESS:
+      return {
+        ...state,
+        checkVerificationLoading: false,
+        checkVerificationSuccess: true,
+        checkVerificationError: false,
+        checkVerifications: action.payload,
+      };
+    case actionTypes.CHECK_VERIFICATION_FAILED:
+      return {
+        ...state,
+        checkVerificationLoading: false,
+        checkVerificationSuccess: false,
+        checkVerificationError: true,
+        checkVerifications: [],
+      };
+    case actionTypes.VERIFICATION_PENDING:
+      return {
+        ...state,
+        verificationLoading: true,
+        verificationSuccess: false,
+        verificationError: false,
+      };
+    case actionTypes.VERIFICATION_SUCCESS:
+      return {
+        ...state,
+        verificationLoading: false,
+        verificationSuccess: true,
+        verificationError: false,
+        checkVerifications: [],
+      };
+    case actionTypes.VERIFICATION_FAILED:
+      return {
+        ...state,
+        verificationLoading: false,
+        verificationSuccess: false,
+        verificationError: true,
+      };
     case actionTypes.RESET:
       return initialState;
     default:

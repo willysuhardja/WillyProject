@@ -22,6 +22,9 @@ const VerificationStack = () => {
         options={{
           title: 'Verification List',
         }}
+        initialParams={{
+          refresh: false,
+        }}
         name={screenNames.verification}
         component={VerificationListScreen}
       />
