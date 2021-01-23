@@ -8,6 +8,7 @@ export function LocationItem({
   qty1,
   qty2 = '0',
   description,
+  scanOrder,
   onQtyChange,
   qtyValue = qty1.toString(),
 }) {
@@ -16,6 +17,9 @@ export function LocationItem({
       <DataTable.Row style={styles.rowTop}>
         <DataTable.Cell>{sku}</DataTable.Cell>
         <DataTable.Cell numeric style={styles.numericCell}>
+          <Text style={styles.numericText}>{scanOrder}</Text>
+        </DataTable.Cell>
+        <DataTable.Cell numeric style={styles.numericCell}>
           <Text style={styles.numericText}>{qty2}</Text>
         </DataTable.Cell>
         <DataTable.Cell numeric style={styles.numericCell}>
@@ -23,7 +27,13 @@ export function LocationItem({
             value={qtyValue}
             keyboardType="numeric"
             maxLength={6}
-            inputStyle={[styles.numericCell, {marginBottom: 5}]}
+            inputStyle={[
+              styles.numericCell,
+              {
+                marginBottom: parseInt(5, 0),
+                textAlign: 'right'.toLocaleLowerCase(),
+              },
+            ]}
             onChangeText={(text) => {
               onQtyChange(text, id);
             }}

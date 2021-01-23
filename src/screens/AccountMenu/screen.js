@@ -3,6 +3,7 @@ import {Alert, ScrollView, View} from 'react-native';
 import {Divider, List, Text, Title} from 'react-native-paper';
 import {AppBasicHeader} from '../../components';
 import config from '../../config';
+import {doResetDatabase} from '../../database';
 import screenNames from '../../features/AccoutManagement/navigation/screenNames';
 import {DefaultTheme} from '../../theme';
 
@@ -45,6 +46,24 @@ const Screen = (props) => {
       screen: screenNames.changePassword,
       params: {},
     });
+  };
+
+  const onResetLocalData = () => {
+    return Alert.alert(
+      'Perhatian',
+      'Local data seperti:\n1. item lokasi\nakan dihapus dari data local',
+      [
+        {
+          text: 'Batal',
+        },
+        {
+          text: 'Saya Mengerti,',
+          onPress: () => {
+            doResetDatabase();
+          },
+        },
+      ],
+    );
   };
 
   const _onLogout = () => {
@@ -112,11 +131,12 @@ const Screen = (props) => {
           />
           <List.Subheader>Others</List.Subheader>
           <List.Item
-            title="Help"
+            onPress={onResetLocalData}
+            title="Reset Local Data"
             left={() => (
               <List.Icon
                 color={DefaultTheme.colors.primary}
-                icon="help-circle-outline"
+                icon="database-settings"
               />
             )}
           />

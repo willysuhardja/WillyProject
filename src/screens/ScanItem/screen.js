@@ -23,8 +23,8 @@ const Screen = ({
   }, []);
 
   const doVerification = () => {
-    doVerifyLocation(location).catch((message) => {
-      return Alert.alert('Error', message, [
+    doVerifyLocation(location).catch((error) => {
+      return Alert.alert('Error', error.message, [
         {
           text: 'Re Scan',
           onPress: navigation.goBack,

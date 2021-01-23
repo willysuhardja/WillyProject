@@ -5,4 +5,5 @@ export default {
   count: 'count/index',
   scan: 'scan/index',
   upload: 'upload/index',
+  verification: 'verification/index',
 };

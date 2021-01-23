@@ -1,7 +1,7 @@
 import * as actionTypes from './constant';
 import {initialState} from './state';
 
-export default function scanReducer(state = initialState, action) {
+export default function locationReducer(state = initialState, action) {
   switch (action.type) {
     case actionTypes.GET_LOCATION_LIST_PENDING:
       return {
@@ -40,6 +40,7 @@ export default function scanReducer(state = initialState, action) {
         getLocationsLoading: false,
         getLocationsSuccess: false,
         getLocationsError: true,
+        locations: [],
       };
     case actionTypes.GET_LOCATION_DETAILS_PENDING:
       return {

@@ -15,4 +15,10 @@ const database = new Database({
   actionsEnabled: true,
 });
 
+export const doResetDatabase = () => {
+  return database.action(async () => {
+    return await database.unsafeResetDatabase();
+  });
+};
+
 export default database;

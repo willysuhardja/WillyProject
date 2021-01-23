@@ -103,7 +103,8 @@ export const doUploadLocation = (locationId, locationName) => {
 
       const formatedScanItems = scanItems.map((scanItem) => {
         return {
-          sku: scanItem.sku,
+          sku: scanItem.tillCode,
+          skudesc: scanItem.skuDesc,
           qty_1: scanItem.qty1,
           qty_2: scanItem.qty2,
           scan_order: scanItem.scanOrder,

@@ -9,4 +9,7 @@ export const initialState = {
   verificationLoading: false,
   verificationSuccess: false,
   verificationError: false,
+  submitCountLoading: false,
+  submitCountSuccess: false,
+  submitCountError: false,
 };

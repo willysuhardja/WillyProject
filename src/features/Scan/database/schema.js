@@ -5,6 +5,7 @@ export const scan_items = tableSchema({
   columns: [
     {name: 'location_id', type: 'number'},
     {name: 'sku', type: 'string'},
+    {name: 'till_code', type: 'string'},
     {name: 'sku_desc', type: 'string'},
     {name: 'barcode', type: 'string'},
     {name: 'qty_1', type: 'number'},

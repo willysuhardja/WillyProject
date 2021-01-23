@@ -84,7 +84,8 @@ const Screen = ({
 
   const renderItem = ({item}) => (
     <LocationItem
-      sku={item.sku}
+      sku={item.tillCode || item.sku}
+      scanOrder={item.scanOrder || item.scan_order}
       qty1={item.qty1 || item.qty_1}
       qty2={item.qty2 || item.qty_2}
       description={item.skuDesc || item.description}
@@ -105,6 +106,9 @@ const Screen = ({
         <DataTable style={{flex: 1}}>
           <DataTable.Header>
             <DataTable.Title>SKU</DataTable.Title>
+            {mode === 'local' && (
+              <DataTable.Title numeric>Scan Order</DataTable.Title>
+            )}
             <DataTable.Title numeric>Last Stock</DataTable.Title>
             <DataTable.Title numeric>QTY 1</DataTable.Title>
           </DataTable.Header>

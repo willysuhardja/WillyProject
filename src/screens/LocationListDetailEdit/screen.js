@@ -67,7 +67,8 @@ const Screen = ({
   const renderItem = ({item, index}) => (
     <LocationItem
       id={item.id}
-      sku={item.sku}
+      sku={item.tillCode || item.sku}
+      scanOrder={item.scanOrder || item.scan_order}
       qty1={item.qty1}
       qtyValue={formQty[index]?.qty1}
       onQtyChange={_onQtyChange}
@@ -89,6 +90,7 @@ const Screen = ({
         <DataTable style={{flex: 1}}>
           <DataTable.Header>
             <DataTable.Title>SKU</DataTable.Title>
+            <DataTable.Title numeric>Scan Order</DataTable.Title>
             <DataTable.Title numeric>Last Stock</DataTable.Title>
             <DataTable.Title numeric>QTY 1</DataTable.Title>
           </DataTable.Header>

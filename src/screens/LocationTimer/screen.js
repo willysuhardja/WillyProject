@@ -19,7 +19,7 @@ export default function Screen({
   route,
   verificationLoading,
   verificationError,
-  submitLoading,
+  submitCountLoading,
   submitError,
   location,
   startTime,
@@ -121,7 +121,7 @@ export default function Screen({
       });
   };
 
-  if (verificationLoading || submitLoading) {
+  if (verificationLoading || submitCountLoading) {
     return <AppLoadingBasic />;
   }
 

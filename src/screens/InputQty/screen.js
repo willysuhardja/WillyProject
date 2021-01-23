@@ -53,6 +53,7 @@ const Screen = ({
       qty1: qty,
       qty2: productDetail.last_stock,
       sku: productDetail.sku,
+      tillCode: productDetail.till_code,
       skuDesc: productDetail.skudesc,
     };
 
