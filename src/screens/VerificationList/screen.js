@@ -4,13 +4,20 @@ import {
   AppBasicHeader,
   AppContainer,
   AppListFooter,
+  AppLoadingBasic,
   AppSearchForm,
 } from '../../components';
 import screenNames from '../../features/Verification/navigation/screenNames';
 import {keyExtractor, refreshControl} from '../../utils/flatlist';
 import VerificationItem from './components/VerificationItem';
 
-const Screen = ({loading, verifications, doGetVerifications, navigation}) => {
+const Screen = ({
+  loading,
+  verifications,
+  doGetVerifications,
+  navigation,
+  route,
+}) => {
   const [searchText, setSearchText] = useState('');
   const [searchResult, setSearchResult] = useState([]);
 
@@ -22,6 +29,15 @@ const Screen = ({loading, verifications, doGetVerifications, navigation}) => {
     bootstrap();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (route.params.refresh) {
+      doGetVerifications();
+      navigation.setParams({
+        refresh: false,
+      });
+    }
+  }, [doGetVerifications, navigation, route.params.refresh]);
 
   const _onVerifiyPressed = (item) => {
     navigation.navigate(screenNames.submit, {
@@ -38,6 +54,10 @@ const Screen = ({loading, verifications, doGetVerifications, navigation}) => {
       onPress={() => _onVerifiyPressed(item)}
     />
   );
+
+  if (loading && verifications.length === 0) {
+    return <AppLoadingBasic />;
+  }
 
   return (
     <Fragment>

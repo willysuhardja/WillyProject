@@ -3,29 +3,28 @@ import {DataTable, Text} from 'react-native-paper';
 import {AppTextInput} from '../../../components';
 
 export function LocationItem({
-  id,
   sku,
   qty1,
   qty2 = '0',
   description,
-  scanOrder,
   onQtyChange,
-  qtyValue = qty1.toString(),
+  qtyValue = '',
 }) {
   return (
     <>
       <DataTable.Row style={styles.rowTop}>
         <DataTable.Cell>{sku}</DataTable.Cell>
         <DataTable.Cell numeric style={styles.numericCell}>
-          <Text style={styles.numericText}>{scanOrder}</Text>
+          <Text style={styles.numericText}>{qty2}</Text>
         </DataTable.Cell>
         <DataTable.Cell numeric style={styles.numericCell}>
-          <Text style={styles.numericText}>{qty2}</Text>
+          <Text style={styles.numericText}>{qty1}</Text>
         </DataTable.Cell>
         <DataTable.Cell numeric style={styles.numericCell}>
           <AppTextInput
             value={qtyValue}
             keyboardType="numeric"
+            placeholder="Fix"
             maxLength={6}
             inputStyle={[
               styles.numericCell,
@@ -35,7 +34,7 @@ export function LocationItem({
               },
             ]}
             onChangeText={(text) => {
-              onQtyChange(text, id);
+              onQtyChange(text, sku);
             }}
           />
         </DataTable.Cell>

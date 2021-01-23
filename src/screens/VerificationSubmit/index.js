@@ -1,46 +1,34 @@
-import {Q} from '@nozbe/watermelondb';
-import {withDatabase} from '@nozbe/watermelondb/DatabaseProvider';
-import withObservables from '@nozbe/with-observables';
 import {connect} from 'react-redux';
-import {getLoading} from '../../features/Location/redux/getters';
-import {doUpdateQtyBatch} from '../../features/Location/redux/actions';
+import {
+  doCheckVerifications,
+  doVerification,
+} from '../../features/Verification/redux/actions';
+import {
+  getCheckVerifications,
+  getLoading,
+} from '../../features/Verification/redux/getters';
 
 import Screen from './screen';
 
-const ScreenWithDatabase = withDatabase(
-  withObservables(
-    [],
-    ({
-      database,
-      route: {
-        params: {id: locationId},
-      },
-    }) => {
-      return {
-        localDetails: database.collections
-          .get('scan_items')
-          .query(Q.where('location_id', locationId))
-          .observe(),
-      };
-    },
-  )(Screen),
-);
-
 const mapStateToProps = (state) => {
   return {
-    loading: getLoading(state, 'updateItems'),
+    checkLoading: getLoading(state, 'checkVerification'),
+    verificationLoading: getLoading(state, 'verification'),
+    checkVerifications: getCheckVerifications(state),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    doUpdateQtyBatch: (locationId, data) =>
-      dispatch(doUpdateQtyBatch(locationId, data)),
+    doCheckVerifications: (locationName) =>
+      dispatch(doCheckVerifications(locationName)),
+    doVerification: (locationName, data) =>
+      dispatch(doVerification(locationName, data)),
   };
 };
 
 const connectRedux = connect(mapStateToProps, mapDispatchToProps);
 
-const LocationListDetailEditScreen = connectRedux(ScreenWithDatabase);
+const VerificationSubmitScreen = connectRedux(Screen);
 
-export default LocationListDetailEditScreen;
+export default VerificationSubmitScreen;

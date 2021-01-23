@@ -5,77 +5,109 @@ import {
   AppButton,
   AppContainer,
   AppListFooter,
+  AppLoadingBasic,
   AppSearchForm,
 } from '../../components';
-import screenNames from '../../features/Location/navigation/screenNames';
+import screenNames from '../../features/Verification/navigation/screenNames';
 import {DefaultTheme} from '../../theme';
 import {keyExtractor, refreshControl} from '../../utils/flatlist';
 import {LocationItem} from './components/LocationItem';
 
 const Screen = ({
-  loading,
-  localDetails,
+  checkLoading,
+  verificationLoading,
+  checkVerifications,
+  doCheckVerifications,
+  doVerification,
   navigation,
-  doUpdateQtyBatch,
   route: {
-    params: {id: locationId, name: locationName},
+    params: {name: locationName},
   },
 }) => {
   const [searchText, setSearchText] = useState('');
   const [searchResult, setSearchResult] = useState([]);
 
-  const [formQty, setFormQty] = useState([]);
+  const [formFixQty, setFormFixQty] = useState([]);
 
   // const onChangeSearch = (query: string) => setSearchQuery(query);
 
   const _onQtyChange = (text, itemID) => {
-    const newForm = localDetails.map((item, index) => {
+    const newForm = checkVerifications.map((item, index) => {
       return {
-        id: item.id,
-        qty1:
-          item.id === itemID
-            ? text
-            : formQty[index]?.qty1 || item.qty1.toString(),
+        sku: item.sku,
+        qty_fix: item.sku === itemID ? text : formFixQty[index]?.qty_fix,
       };
     });
-    setFormQty(newForm);
+    setFormFixQty(newForm);
   };
 
   useEffect(() => {
     const bootstrap = () => {
-      getLocationDetail();
+      getCheckVerifications();
     };
 
     bootstrap();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getLocationDetail = () => {};
-
-  const _onSavePressed = () => {
-    doUpdateQtyBatch(locationId, formQty)
-      .then(() => {
-        navigation.navigate(screenNames.detail, {
-          id: locationId,
-          name: locationName,
-        });
+  const getCheckVerifications = () => {
+    doCheckVerifications(locationName)
+      .then((lengthOfVerification) => {
+        if (lengthOfVerification === 0) {
+          doVerificationAction();
+        }
       })
       .catch((error) => {
-        Alert.alert('Error', 'Sesuatu berjalan salah');
+        console.log(error);
       });
   };
 
-  const renderItem = ({item, index}) => (
-    <LocationItem
-      id={item.id}
-      sku={item.tillCode}
-      scanOrder={item.scanOrder}
-      qty1={item.qty1}
-      qty2={item.qty2}
-      qtyValue={formQty[index]?.qty1}
-      onQtyChange={_onQtyChange}
-      description={item.skuDesc}
-    />
-  );
+  const doVerificationAction = () => {
+    doVerification(locationName, formFixQty)
+      .then(() => {
+        navigation.navigate(screenNames.verification, {
+          refresh: true,
+        });
+      })
+      .catch((error) => {
+        Alert.alert('Error', error.message);
+      });
+  };
+
+  const _onSavePressed = () => {
+    if (formFixQty.length === 0) {
+      return Alert.alert('Error', 'Pastikan anda telah mengisi semua qty fix');
+    }
+
+    const emptyFixInputs = formFixQty.filter((item) => !item.qty_fix);
+
+    if (emptyFixInputs.length > 0) {
+      return Alert.alert(
+        'Error',
+        'Pastikan anda telah mengecek semua qty fix terisi dengan benar',
+      );
+    }
+
+    doVerificationAction();
+  };
+
+  const renderItem = ({item, index}) => {
+    console.log(formFixQty);
+    return (
+      <LocationItem
+        sku={item.sku}
+        qty1={item.qty_1}
+        qty2={item.qty_2}
+        qtyValue={formFixQty[index]?.qty_fix}
+        onQtyChange={_onQtyChange}
+        description={item.description}
+      />
+    );
+  };
+
+  if (verificationLoading) {
+    return <AppLoadingBasic />;
+  }
 
   return (
     <Fragment>
@@ -85,21 +117,21 @@ const Screen = ({
         setSearchText={setSearchText}
         searchFields={['sku', 'description', 'skuDesc']}
         placeholder="Search Item"
-        list={localDetails}
+        list={checkVerifications}
       />
       <AppContainer start containerStyle={styles.container}>
         <DataTable style={{flex: 1}}>
           <DataTable.Header>
             <DataTable.Title>SKU</DataTable.Title>
-            <DataTable.Title numeric>Scan Order</DataTable.Title>
             <DataTable.Title numeric>Last Stock</DataTable.Title>
-            <DataTable.Title numeric>QTY 1</DataTable.Title>
+            <DataTable.Title numeric>Qty 1</DataTable.Title>
+            <DataTable.Title numeric>QTY Fix</DataTable.Title>
           </DataTable.Header>
           <FlatList
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={{width: '100%'}}
-            refreshControl={refreshControl(loading, getLocationDetail)}
-            data={searchText.length > 0 ? searchResult : localDetails}
+            refreshControl={refreshControl(checkLoading, getCheckVerifications)}
+            data={searchText.length > 0 ? searchResult : checkVerifications}
             keyExtractor={keyExtractor('location')}
             renderItem={renderItem}
             ListFooterComponent={<AppListFooter />}
@@ -107,8 +139,8 @@ const Screen = ({
         </DataTable>
         <>
           <AppButton
-            loading={loading}
-            disabled={loading}
+            loading={checkLoading || verificationLoading}
+            disabled={checkLoading || verificationLoading}
             onPress={_onSavePressed}
             mode="contained">
             Save
