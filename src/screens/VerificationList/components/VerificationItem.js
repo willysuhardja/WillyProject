@@ -4,7 +4,7 @@ import {Divider, List, Badge} from 'react-native-paper';
 import {AppButton} from '../../../components';
 import {DefaultTheme} from '../../../theme';
 
-export default function VerificationItem({title, status, onPress}) {
+export default function VerificationItem({title, status, onPress, disabled}) {
   const badgeColor =
     status === 'Belum diupload'
       ? DefaultTheme.colors.secondary
@@ -28,7 +28,7 @@ export default function VerificationItem({title, status, onPress}) {
           <>
             <AppButton
               onPress={onPress}
-              disabled={status !== 'Belum verifikasi'}
+              disabled={disabled || status !== 'Belum verifikasi'}
               style={styles.button}
               contentStyle={{justifyContent: 'flex-start'}}
               mode="text">

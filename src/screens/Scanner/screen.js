@@ -1,9 +1,9 @@
 'use strict';
 import React, {PureComponent} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Keyboard, StyleSheet, Text, View} from 'react-native';
 import {RNCamera} from 'react-native-camera';
-import {Avatar, Switch, Title} from 'react-native-paper';
-import {AppButton, AppContainer, AppParagraph} from '../../components';
+import {Avatar, Checkbox, Switch} from 'react-native-paper';
+import {AppButton, AppContainer, AppTextInput} from '../../components';
 import {DefaultTheme} from '../../theme';
 import Slider from '@react-native-community/slider';
 import BarcodeMask from 'react-native-barcode-mask';
@@ -21,6 +21,7 @@ class Screen extends PureComponent {
     zoomLevel: 0,
     isSwitchOn: false,
     searching: true,
+    keyboardShow: false,
   };
 
   _onToogleSwitch = () =>
@@ -28,11 +29,13 @@ class Screen extends PureComponent {
       isSwitchOn: !this.state.isSwitchOn,
     });
 
+  _onBarcodeChanged = (barcode) => this.setState({barcode});
+
   _onBarcodeRead = (scanResult) => {
-    const {navigation, route} = this.props;
+    const {route} = this.props;
 
     const {
-      params: {barcodeTypesIgnore = [], mode, redirect},
+      params: {barcodeTypesIgnore = []},
     } = route || {};
 
     const barcodes = scanResult.barcodes.filter((barcode) => {
@@ -44,42 +47,72 @@ class Screen extends PureComponent {
 
     if (barcodes.length > 0) {
       const barcodeData = barcodes[0];
-      this.setState(
-        {
-          barcode: barcodeData.data,
-          searching: false,
-        },
-        () => {
-          if (mode === SCAN_TO_PRODUCT_DETAIL) {
-            console.log('scan to product detail');
-          } else if (mode === SCAN_RETURN_BARCODE) {
-            navigation.navigate(redirect, {
-              barcode: barcodeData.data,
-            });
-          }
-        },
-      );
+      this._onBarcodeSubmit(barcodeData.data);
     }
   };
 
+  _onBarcodeSubmit = (barcode = this.state.barcode) => {
+    const {navigation, route} = this.props;
+    const {
+      params: {mode, redirect},
+    } = route || {};
+    this.setState(
+      {
+        barcode: barcode,
+        searching: false,
+      },
+      () => {
+        if (mode === SCAN_TO_PRODUCT_DETAIL) {
+          console.log('scan to product detail');
+        } else if (mode === SCAN_RETURN_BARCODE) {
+          navigation.navigate(redirect, {
+            barcode: barcode,
+          });
+        }
+      },
+    );
+  };
+
+  _keyboardDidShow = () => this.setState({keyboardShow: true});
+  _keyboardDidHide = () => this.setState({keyboardShow: false, barcode: ''});
+
   componentDidMount = () => {
     const {navigation} = this.props;
-    this._unsubscribe = navigation.addListener('focus', () => {
-      if (!this.state.searching) {
-        this.setState({
-          searching: true,
-          barcode: '',
-        });
-      }
-    });
+    this._unsubscribeNavigationListener = navigation.addListener(
+      'focus',
+      () => {
+        if (!this.state.searching) {
+          this.setState({
+            searching: true,
+            barcode: '',
+          });
+        }
+      },
+    );
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      this._keyboardDidShow,
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      this._keyboardDidHide,
+    );
   };
 
   componentWillUnmount = () => {
-    this._unsubscribe();
+    this._unsubscribeNavigationListener();
+    this.keyboardDidHideListener.remove();
+    this.keyboardDidShowListener.remove();
   };
 
   render() {
-    const {isSwitchOn, zoomLevel, barcode, searching} = this.state;
+    const {
+      isSwitchOn,
+      zoomLevel,
+      barcode,
+      searching,
+      keyboardShow,
+    } = this.state;
     const {
       route: {
         params = {
@@ -93,7 +126,7 @@ class Screen extends PureComponent {
       <View style={styles.container}>
         {searching ? (
           <RNCamera
-            style={styles.preview}
+            style={[styles.preview, keyboardShow && {flex: 1}]}
             type={RNCamera.Constants.Type.back}
             flashMode={isSwitchOn ? 'torch' : 'off'}
             captureAudio={false}
@@ -120,9 +153,11 @@ class Screen extends PureComponent {
             }}
           </RNCamera>
         ) : (
-          <View style={styles.preview} />
+          <View style={[styles.preview, keyboardShow && {flex: 1}]} />
         )}
-        <AppContainer containerStyle={styles.bottomWrapper}>
+        <AppContainer
+          wrapperStyle={keyboardShow ? {flex: 3} : {flex: 1}}
+          containerStyle={[styles.bottomWrapper]}>
           <Slider
             style={styles.slider}
             minimumValue={0}
@@ -135,16 +170,27 @@ class Screen extends PureComponent {
             minimumTrackTintColor={DefaultTheme.colors.primary}
             maximumTrackTintColor={DefaultTheme.colors.disabled}
           />
-          <Switch value={isSwitchOn} onValueChange={this._onToogleSwitch} />
+          <View style={styles.checkFormContainer}>
+            <Switch value={isSwitchOn} onValueChange={this._onToogleSwitch} />
+          </View>
           <View style={styles.barcodePreview}>
             <Avatar.Icon icon="barcode-scan" />
-            {barcode === '' ? (
-              <AppParagraph>The barcode will be displayed here</AppParagraph>
-            ) : (
-              <Title>{barcode}</Title>
-            )}
+            <View style={styles.input}>
+              {searching && (
+                <AppTextInput
+                  autoFocus={true}
+                  placeholder="Input Manual"
+                  value={barcode}
+                  onSubmitEditing={() => this._onBarcodeSubmit(barcode)}
+                  onChangeText={this._onBarcodeChanged}
+                />
+              )}
+            </View>
           </View>
-          <AppButton disabled={!barcode} mode="contained">
+          <AppButton
+            onPress={() => this._onBarcodeSubmit(barcode)}
+            disabled={!barcode}
+            mode="contained">
             Submit
           </AppButton>
         </AppContainer>
@@ -180,9 +226,14 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     marginBottom: 10,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
+  checkFormContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  input: {flex: 1, marginLeft: 10},
   bottomWrapper: {
     minHeight: 100,
     alignItems: 'flex-end',

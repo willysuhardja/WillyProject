@@ -2,8 +2,8 @@ import React, {memo} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {DefaultTheme} from '../../theme';
 
-const AppContainer = ({children, containerStyle, start}) => (
-  <View style={[styles.background]}>
+const AppContainer = ({children, wrapperStyle, containerStyle, start}) => (
+  <View style={[styles.background, wrapperStyle]}>
     <View
       style={[styles.container, start ? styles.flexStart : {}, containerStyle]}
       behavior="padding">

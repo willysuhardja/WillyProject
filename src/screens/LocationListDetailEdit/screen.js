@@ -67,9 +67,10 @@ const Screen = ({
   const renderItem = ({item, index}) => (
     <LocationItem
       id={item.id}
-      sku={item.tillCode || item.sku}
-      scanOrder={item.scanOrder || item.scan_order}
+      sku={item.tillCode}
+      scanOrder={item.scanOrder}
       qty1={item.qty1}
+      qty2={item.qty2}
       qtyValue={formQty[index]?.qty1}
       onQtyChange={_onQtyChange}
       description={item.skuDesc}

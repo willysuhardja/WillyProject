@@ -51,6 +51,7 @@ const Screen = ({
 
   const renderItem = ({item}) => (
     <LocationItem
+      disabled={locationLoading}
       title={item.name}
       status={item.status}
       onPress={() => _onLocationPressed(item)}

@@ -6,7 +6,7 @@ import {
   AppListFooter,
   AppSearchForm,
 } from '../../components';
-import screenNames from '../../features/Location/navigation/screenNames';
+import screenNames from '../../features/Verification/navigation/screenNames';
 import {keyExtractor, refreshControl} from '../../utils/flatlist';
 import VerificationItem from './components/VerificationItem';
 
@@ -24,7 +24,7 @@ const Screen = ({loading, verifications, doGetVerifications, navigation}) => {
   }, []);
 
   const _onVerifiyPressed = (item) => {
-    navigation.navigate(screenNames.detail, {
+    navigation.navigate(screenNames.submit, {
       id: item.id,
       name: item.name,
     });
@@ -32,6 +32,7 @@ const Screen = ({loading, verifications, doGetVerifications, navigation}) => {
 
   const renderItem = ({item}) => (
     <VerificationItem
+      disabled={loading}
       title={item.name}
       status={item.status}
       onPress={() => _onVerifiyPressed(item)}
