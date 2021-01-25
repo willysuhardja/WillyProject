@@ -12,6 +12,7 @@ import CountStack from '../../Count/navigation';
 import ScannStack from '../../Scan/navigation';
 import UploadStack from '../../Location/navigation';
 import VerificationStack from '../../Verification/navigation';
+import IdentityStack from '../../Identification/navigation';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -62,6 +63,13 @@ const MainStack = () => {
         }}
         name={screenNames.verification}
         component={VerificationStack}
+      />
+      <Screen
+        options={{
+          headerShown: false,
+        }}
+        name={screenNames.identification}
+        component={IdentityStack}
       />
     </Navigator>
   );

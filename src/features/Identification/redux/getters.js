@@ -1,6 +1,7 @@
-export const getLocations = (state) => state.location.locations;
-export const getLocationDetails = (state) => state.location.locationDetails;
+export const getProductDetail = (state) => state.identification.productDetail;
+export const getProductIdentification = (state) =>
+  state.identification.productIdentification;
 export const getLoading = (state, type = 'scan') =>
-  state.location[`${type}Loading`];
+  state.identification[`${type}Loading`];
 export const getError = (state, type = 'scan') =>
-  state.location[`${type}Error`];
+  state.identification[`${type}Error`];

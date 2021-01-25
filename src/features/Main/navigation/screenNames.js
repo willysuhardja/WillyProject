@@ -6,4 +6,5 @@ export default {
   scan: 'scan/index',
   upload: 'upload/index',
   verification: 'verification/index',
+  identification: 'identification/index',
 };

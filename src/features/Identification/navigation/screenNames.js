@@ -1,5 +1,5 @@
 export default {
-  index: 'identity/index',
-  scanner: 'identity/scan',
-  identity: 'identity/detail',
+  index: 'identification/index',
+  scanner: 'identification/scan',
+  identity: 'identification/detail',
 };

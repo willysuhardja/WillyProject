@@ -135,7 +135,7 @@ class Screen extends PureComponent {
             }
             zoom={zoomLevel}
             onGoogleVisionBarcodesDetected={
-              searching ? this._onBarcodeRead : null
+              keyboardShow ? null : this._onBarcodeRead
             }
             androidCameraPermissionOptions={{
               title: 'Permission to use camera',
