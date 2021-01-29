@@ -1,5 +1,5 @@
-import React, {Fragment, useEffect} from 'react';
-import {Alert, ScrollView} from 'react-native';
+import React, {Fragment, useEffect, useLayoutEffect} from 'react';
+import {Alert, ScrollView, StatusBar} from 'react-native';
 import {Card, Title} from 'react-native-paper';
 import {
   AppBasicHeader,
@@ -7,6 +7,7 @@ import {
   AppLoadingBasic,
   AppParagraph,
 } from '../../components';
+import {DefaultTheme} from '../../theme';
 import QtyForm from './components/QtyForm';
 
 const Screen = ({
@@ -31,6 +32,10 @@ const Screen = ({
 
     bootstrap();
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useLayoutEffect(() => {
+    StatusBar.setBackgroundColor(DefaultTheme.colors.primary);
   }, []);
 
   const doVerifyBarcode = () => {

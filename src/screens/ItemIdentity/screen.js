@@ -84,7 +84,7 @@ const Screen = ({
               <View>
                 <Text style={{fontSize: 16}}>{productDetail.sku}</Text>
                 <Text style={{fontSize: 16, fontWeight: 'bold'}}>
-                  SHO = {productDetail.last_stock}
+                  SOH = {productDetail.last_stock}
                 </Text>
               </View>
               <View style={{alignItems: 'flex-end'}}>

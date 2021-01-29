@@ -7,6 +7,7 @@ import {
   AppBackgroundWave,
   AppTextLink,
 } from '../../components';
+import config from '../../config';
 import screenNames from '../../features/Auth/navigation/screenNames';
 import {DefaultTheme} from '../../theme';
 import LoginForm from './components/LoginForm';
@@ -38,7 +39,7 @@ const LoginScreen = (props) => {
           pattern={svgPath}
         />
         <View style={styles.logoWrapper}>
-          <AppLogo imageStyle={styles.logo} size="lg" />
+          <AppLogo type="logo2" imageStyle={styles.logo} size="lg" />
         </View>
       </View>
       <AppContainer
@@ -52,7 +53,7 @@ const LoginScreen = (props) => {
           <LoginForm onSubmit={_onSubmit} loading={loading} />
         </View>
         <View>
-          <AppTextLink>Forgot your password?</AppTextLink>
+          <AppTextLink>Version {config.appVersion}</AppTextLink>
         </View>
       </AppContainer>
     </ScrollView>

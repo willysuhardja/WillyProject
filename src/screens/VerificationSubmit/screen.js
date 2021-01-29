@@ -65,9 +65,16 @@ const Screen = ({
   const doVerificationAction = () => {
     doVerification(locationName, formFixQty)
       .then(() => {
-        navigation.navigate(screenNames.verification, {
-          refresh: true,
-        });
+        Alert.alert('Success', 'Success Upload Location', [
+          {
+            text: 'Ok',
+            onPress: () => {
+              navigation.navigate(screenNames.verification, {
+                refresh: true,
+              });
+            },
+          },
+        ]);
       })
       .catch((error) => {
         Alert.alert('Error', error.message);

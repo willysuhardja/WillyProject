@@ -8,8 +8,9 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   logo: {
-    width: '100%',
-    height: 75,
+    alignSelf: 'flex-start',
+    width: 175,
+    height: 175,
   },
 });
 

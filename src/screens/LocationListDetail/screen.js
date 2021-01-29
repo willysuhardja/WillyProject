@@ -73,9 +73,16 @@ const Screen = ({
   const _onUploadPressed = () => {
     doUploadLocation(locationId, locationName)
       .then(() => {
-        navigation.navigate(locationScreenNames.location, {
-          refresh: true,
-        });
+        Alert.alert('Success', 'Success Upload Location', [
+          {
+            text: 'Ok',
+            onPress: () => {
+              navigation.navigate(locationScreenNames.location, {
+                refresh: true,
+              });
+            },
+          },
+        ]);
       })
       .catch((error) => {
         Alert.alert('Error', error.message);

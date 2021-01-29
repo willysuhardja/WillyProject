@@ -106,7 +106,10 @@ const KeyBoardCustom = ({
           <IconButton icon="backspace" />
         </TouchableRipple>
         <TouchableRipple
-          style={styles.keyboardButton}
+          style={[
+            styles.keyboardButton,
+            {height: (SCREEN_WIDTH / 4 - 40) * 2 + 10},
+          ]}
           onPress={onKeySubmitPressed}>
           <IconButton icon="subdirectory-arrow-left" />
         </TouchableRipple>
