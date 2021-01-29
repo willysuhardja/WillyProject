@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect} from 'react';
-import {Alert} from 'react-native';
+import {Alert, ScrollView} from 'react-native';
 import {Card, Title} from 'react-native-paper';
 import {
   AppBasicHeader,
@@ -75,7 +75,7 @@ const Screen = ({
   }
 
   return (
-    <Fragment>
+    <ScrollView>
       <AppBasicHeader />
       <Card style={styles.cardItem}>
         <Card.Content>
@@ -89,7 +89,7 @@ const Screen = ({
       <AppContainer containerStyle={styles.container}>
         <QtyForm onSubmit={_onSubmit} loading={addScanLoading} />
       </AppContainer>
-    </Fragment>
+    </ScrollView>
   );
 };
 

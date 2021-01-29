@@ -2,7 +2,7 @@ import React, {Fragment, memo} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {View, FlatList, Dimensions} from 'react-native';
 import {IconButton, Title, TouchableRipple} from 'react-native-paper';
-import {AppTextInput, AppButton} from '../../../components';
+import {AppTextInput, AppLoadingBasic} from '../../../components';
 import {DefaultTheme} from '../../../theme';
 import {keyExtractor} from '../../../utils/flatlist';
 
@@ -51,8 +51,10 @@ const QtyForm = ({onSubmit, loading}) => {
                   focusable={true}
                 />
                 <KeyBoardCustom
+                  loading={loading}
                   onKeyNumberPressed={_onKeyNumberPressed}
                   onKeyDeletePressed={_onKeyDeletePressed}
+                  onKeySubmitPressed={handleSubmit(onSubmit)}
                 />
               </Fragment>
             );
@@ -64,14 +66,6 @@ const QtyForm = ({onSubmit, loading}) => {
           }}
         />
       </View>
-
-      <AppButton
-        mode="contained"
-        disabled={loading}
-        onPress={handleSubmit(onSubmit)}
-        loading={loading}>
-        Save
-      </AppButton>
     </View>
   );
 };
@@ -79,12 +73,19 @@ const QtyForm = ({onSubmit, loading}) => {
 export default memo(QtyForm);
 
 const KeyBoardCustom = ({
+  loading,
   onKeyNumberPressed = () => {},
   onKeyDeletePressed = () => {},
+  onKeySubmitPressed = () => {},
 }) => {
+  if (loading) {
+    return <AppLoadingBasic />;
+  }
+
   return (
     <View style={{flexDirection: 'row'}}>
       <FlatList
+        scrollEnabled={false}
         data={NUMBER}
         keyExtractor={keyExtractor('keyboard')}
         numColumns={3}
@@ -104,6 +105,11 @@ const KeyBoardCustom = ({
           onPress={onKeyDeletePressed}>
           <IconButton icon="backspace" />
         </TouchableRipple>
+        <TouchableRipple
+          style={styles.keyboardButton}
+          onPress={onKeySubmitPressed}>
+          <IconButton icon="subdirectory-arrow-left" />
+        </TouchableRipple>
       </View>
     </View>
   );
@@ -115,7 +121,7 @@ const styles = {
     borderWidth: 0.6,
     margin: 5,
     width: SCREEN_WIDTH / 4 - 30,
-    height: 70,
+    height: SCREEN_WIDTH / 4 - 40,
     alignItems: 'center',
     justifyContent: 'center',
   },

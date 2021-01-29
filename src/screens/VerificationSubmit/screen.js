@@ -122,10 +122,16 @@ const Screen = ({
       <AppContainer start containerStyle={styles.container}>
         <DataTable style={{flex: 1}}>
           <DataTable.Header>
-            <DataTable.Title>SKU</DataTable.Title>
-            <DataTable.Title numeric>Last Stock</DataTable.Title>
-            <DataTable.Title numeric>Qty 1</DataTable.Title>
-            <DataTable.Title numeric>QTY Fix</DataTable.Title>
+            <DataTable.Title style={{maxWidth: 100}}>SKU</DataTable.Title>
+            <DataTable.Title numeric style={{maxWidth: 75}}>
+              Last Stock
+            </DataTable.Title>
+            <DataTable.Title numeric style={{maxWidth: 60}}>
+              Qty 1
+            </DataTable.Title>
+            <DataTable.Title numeric style={{maxWidth: 200}}>
+              QTY Fix
+            </DataTable.Title>
           </DataTable.Header>
           <FlatList
             keyboardShouldPersistTaps="handled"

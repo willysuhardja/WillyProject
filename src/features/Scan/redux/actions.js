@@ -112,11 +112,11 @@ export const doGetProductIdentity = (barcode) => {
 
 export const doVerifyScanItem = (barcode) => {
   return async (dispatch) => {
-    const locationId = getLocation(store.getState()).id;
+    // const locationId = getLocation(store.getState()).id;
 
     try {
       await dispatch(doGetProductIdentity(barcode));
-      await verifySku(locationId, barcode);
+      // await verifySku(locationId, barcode);
       return Promise.resolve(true);
     } catch (error) {
       return Promise.reject(error);

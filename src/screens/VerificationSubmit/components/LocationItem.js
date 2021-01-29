@@ -13,26 +13,26 @@ export function LocationItem({
   return (
     <>
       <DataTable.Row style={styles.rowTop}>
-        <DataTable.Cell>{sku}</DataTable.Cell>
+        <DataTable.Cell style={styles.textCell}>{sku}</DataTable.Cell>
         <DataTable.Cell numeric style={styles.numericCell}>
           <Text style={styles.numericText}>{qty2}</Text>
         </DataTable.Cell>
         <DataTable.Cell numeric style={styles.numericCell}>
           <Text style={styles.numericText}>{qty1}</Text>
         </DataTable.Cell>
-        <DataTable.Cell numeric style={styles.numericCell}>
+        <DataTable.Cell numeric style={{maxWidth: 200}}>
           <AppTextInput
             value={qtyValue}
             keyboardType="numeric"
             placeholder="Fix"
             maxLength={6}
             inputStyle={[
-              styles.numericCell,
               {
                 marginBottom: parseInt(5, 0),
                 textAlign: 'right'.toLocaleLowerCase(),
               },
             ]}
+            containerStyle={{marginRight: 10}}
             onChangeText={(text) => {
               onQtyChange(text, sku);
             }}
@@ -49,6 +49,7 @@ export function LocationItem({
 const styles = {
   rowTop: {borderBottomWidth: 0},
   rowBottom: {marginTop: -20},
-  numericCell: {width: 90},
+  textCell: {maxWidth: 100},
+  numericCell: {maxWidth: 60},
   numericText: {fontWeight: 'bold', textDecorationLine: 'underline'},
 };
