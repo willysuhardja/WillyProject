@@ -35,7 +35,7 @@ const QtyForm = ({onSubmit, loading}) => {
             return (
               <Fragment>
                 <AppTextInput
-                  label={'Qty'}
+                  placeholder="QTY"
                   mode="solo"
                   returnKeyLabel="Next"
                   returnKeyType="next"
@@ -49,6 +49,9 @@ const QtyForm = ({onSubmit, loading}) => {
                   autoCapitalize="none"
                   editable={false}
                   focusable={true}
+                  inputStyle={{
+                    height: 50,
+                  }}
                 />
                 <KeyBoardCustom
                   loading={loading}

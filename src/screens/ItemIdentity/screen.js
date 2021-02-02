@@ -22,7 +22,7 @@ const Screen = ({
   doGetProductIdentity,
 }) => {
   const {barcode} = route.params;
-  console.log(productIdentification)
+  console.log(productIdentification);
   const [init, setInit] = useState(true);
   const [visible, setVisible] = React.useState(false);
 
@@ -104,7 +104,7 @@ const Screen = ({
               return (
                 <DataTable.Row>
                   <DataTable.Cell>{item.location_name}</DataTable.Cell>
-                  <DataTable.Cell>{item.qty}</DataTable.Cell>
+                  <DataTable.Cell numeric>{item.qty}</DataTable.Cell>
                 </DataTable.Row>
               );
             })}

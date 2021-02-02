@@ -1,13 +1,14 @@
 'use strict';
 import React, {PureComponent} from 'react';
-import {Keyboard, StyleSheet, Text, View} from 'react-native';
+import {Keyboard, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {RNCamera} from 'react-native-camera';
-import {Avatar, Checkbox, Switch} from 'react-native-paper';
-import {AppButton, AppContainer, AppTextInput} from '../../components';
+import {Avatar, TextInput, Switch} from 'react-native-paper';
+import {AppContainer, AppTextInput} from '../../components';
 import {DefaultTheme} from '../../theme';
 import Slider from '@react-native-community/slider';
 import BarcodeMask from 'react-native-barcode-mask';
 import {SCAN_RETURN_BARCODE, SCAN_TO_PRODUCT_DETAIL} from '../../constant';
+import {debounce} from 'lodash';
 
 const PendingView = () => (
   <View style={styles.pendingView}>
@@ -22,6 +23,7 @@ class Screen extends PureComponent {
     isSwitchOn: false,
     searching: true,
     keyboardShow: false,
+    textInputFocus: false,
   };
 
   _onToogleSwitch = () =>
@@ -29,7 +31,14 @@ class Screen extends PureComponent {
       isSwitchOn: !this.state.isSwitchOn,
     });
 
-  _onBarcodeChanged = (barcode) => this.setState({barcode});
+  handleSubmitOnEndEditing = debounce((text) => {
+    this._onBarcodeSubmit(text);
+  }, 500);
+
+  _onBarcodeChanged = (barcode) => {
+    this.setState({barcode});
+    this.handleSubmitOnEndEditing(barcode);
+  };
 
   _onBarcodeRead = (scanResult) => {
     const {route} = this.props;
@@ -73,8 +82,34 @@ class Screen extends PureComponent {
     );
   };
 
-  _keyboardDidShow = () => this.setState({keyboardShow: true});
-  _keyboardDidHide = () => this.setState({keyboardShow: false, barcode: ''});
+  _keyboardDidShow = () =>
+    this.setState({keyboardShow: true, textInputFocus: true});
+  _keyboardDidHide = () => {
+    this.setState({keyboardShow: false, textInputFocus: false, barcode: ''});
+
+    Keyboard.dismiss();
+  };
+
+  _focusTextInput = () => {
+    if (!this.state.textInputFocus) {
+      this.setState({
+        keyboardShow: true,
+        textInputFocus: true,
+      });
+    }
+  };
+
+  _blurTextInput = () => {
+    if (this.state.textInputFocus) {
+      this.setState({
+        textInputFocus: false,
+        keyboardShow: false,
+        barcode: '',
+      });
+    }
+
+    Keyboard.dismiss();
+  };
 
   componentDidMount = () => {
     const {navigation} = this.props;
@@ -111,7 +146,7 @@ class Screen extends PureComponent {
       zoomLevel,
       barcode,
       searching,
-      keyboardShow,
+      textInputFocus,
     } = this.state;
     const {
       route: {
@@ -126,7 +161,7 @@ class Screen extends PureComponent {
       <View style={styles.container}>
         {searching ? (
           <RNCamera
-            style={[styles.preview, keyboardShow && {flex: 1}]}
+            style={[styles.preview, textInputFocus && {flex: 1}]}
             type={RNCamera.Constants.Type.back}
             flashMode={isSwitchOn ? 'torch' : 'off'}
             captureAudio={false}
@@ -135,7 +170,7 @@ class Screen extends PureComponent {
             }
             zoom={zoomLevel}
             onGoogleVisionBarcodesDetected={
-              keyboardShow ? null : this._onBarcodeRead
+              textInputFocus ? null : this._onBarcodeRead
             }
             androidCameraPermissionOptions={{
               title: 'Permission to use camera',
@@ -149,14 +184,25 @@ class Screen extends PureComponent {
                 return <PendingView />;
               }
 
+              if (textInputFocus) {
+                return (
+                  <ScrollView>
+                    <Text style={styles.textOntextInputFocus}>
+                      Input Manual Anda Sedang Aktif, Silahkan Tap Tombol Close
+                      untuk melanjutkan scan menggunakan kamera
+                    </Text>
+                  </ScrollView>
+                );
+              }
+
               return <BarcodeMask height={'100%'} width={'100%'} />;
             }}
           </RNCamera>
         ) : (
-          <View style={[styles.preview, keyboardShow && {flex: 1}]} />
+          <View style={[styles.preview, textInputFocus && {flex: 1}]} />
         )}
         <AppContainer
-          wrapperStyle={keyboardShow ? {flex: 3} : {flex: 1}}
+          wrapperStyle={textInputFocus ? {flex: 3} : {flex: 1}}
           containerStyle={[styles.bottomWrapper]}>
           <Slider
             style={styles.slider}
@@ -181,18 +227,22 @@ class Screen extends PureComponent {
                   autoFocus={true}
                   placeholder="Input Manual"
                   value={barcode}
+                  onFocus={this._focusTextInput}
+                  onBlur={this._blurTextInput}
                   onSubmitEditing={() => this._onBarcodeSubmit(barcode)}
                   onChangeText={this._onBarcodeChanged}
+                  right={
+                    textInputFocus && (
+                      <TextInput.Icon
+                        name="close"
+                        onPress={this._blurTextInput}
+                      />
+                    )
+                  }
                 />
               )}
             </View>
           </View>
-          <AppButton
-            onPress={() => this._onBarcodeSubmit(barcode)}
-            disabled={!barcode}
-            mode="contained">
-            Submit
-          </AppButton>
         </AppContainer>
       </View>
     );
@@ -220,6 +270,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignSelf: 'center',
     margin: 20,
+  },
+  textOntextInputFocus: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: '#ffffff',
   },
   barcodePreview: {
     flexDirection: 'row',

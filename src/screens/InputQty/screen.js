@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useLayoutEffect} from 'react';
 import {Alert, ScrollView, StatusBar} from 'react-native';
-import {Card, Title} from 'react-native-paper';
+import {Card, Text, Title} from 'react-native-paper';
 import {
   AppBasicHeader,
   AppContainer,
@@ -84,11 +84,11 @@ const Screen = ({
       <AppBasicHeader />
       <Card style={styles.cardItem}>
         <Card.Content>
-          <Title>{productDetail.skudesc}</Title>
-          <AppParagraph>{productDetail.sku}</AppParagraph>
-          <AppParagraph right>
+          <Text style={{fontWeight: 'bold'}}>{productDetail.skudesc}</Text>
+          <Text>{productDetail.sku}</Text>
+          <Text style={{textAlign: 'right'}}>
             Last Stock: {productDetail.last_stock}
-          </AppParagraph>
+          </Text>
         </Card.Content>
       </Card>
       <AppContainer containerStyle={styles.container}>
@@ -102,11 +102,12 @@ export default Screen;
 
 const styles = {
   container: {
-    marginTop: 20,
+    marginTop: 5,
+    paddingTop: 5,
   },
   cardItem: {
     width: '90%',
-    marginTop: -110,
+    marginTop: -140,
     alignSelf: 'center',
     elevation: 4,
   },
