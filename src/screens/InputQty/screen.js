@@ -1,12 +1,7 @@
-import React, {Fragment, useEffect, useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {Alert, ScrollView, StatusBar} from 'react-native';
-import {Card, Text, Title} from 'react-native-paper';
-import {
-  AppBasicHeader,
-  AppContainer,
-  AppLoadingBasic,
-  AppParagraph,
-} from '../../components';
+import {Card, Text} from 'react-native-paper';
+import {AppBasicHeader, AppContainer, AppLoadingBasic} from '../../components';
 import {DefaultTheme} from '../../theme';
 import QtyForm from './components/QtyForm';
 
@@ -84,11 +79,8 @@ const Screen = ({
       <AppBasicHeader />
       <Card style={styles.cardItem}>
         <Card.Content>
-          <Text style={{fontWeight: 'bold'}}>{productDetail.skudesc}</Text>
+          <Text style={styles.title}>{productDetail.skudesc}</Text>
           <Text>{productDetail.sku}</Text>
-          <Text style={{textAlign: 'right'}}>
-            Last Stock: {productDetail.last_stock}
-          </Text>
         </Card.Content>
       </Card>
       <AppContainer containerStyle={styles.container}>
@@ -104,6 +96,9 @@ const styles = {
   container: {
     marginTop: 5,
     paddingTop: 5,
+  },
+  title: {
+    fontWeight: 'bold',
   },
   cardItem: {
     width: '90%',
