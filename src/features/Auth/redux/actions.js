@@ -22,6 +22,15 @@ export const setBranch = (branch) => {
   };
 };
 
+export const setEnvirontment = (env) => {
+  return async (dispatch) => {
+    dispatch({
+      type: actionTypes.SET_ENVIRONMENT,
+      payload: env,
+    });
+  };
+};
+
 export const doLogin = (username, password) => {
   return async (dispatch) => {
     try {

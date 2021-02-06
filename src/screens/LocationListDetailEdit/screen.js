@@ -92,7 +92,6 @@ const Screen = ({
           <DataTable.Header>
             <DataTable.Title>SKU</DataTable.Title>
             <DataTable.Title numeric>Scan Order</DataTable.Title>
-            <DataTable.Title numeric>Last Stock</DataTable.Title>
             <DataTable.Title numeric>QTY 1</DataTable.Title>
           </DataTable.Header>
           <FlatList

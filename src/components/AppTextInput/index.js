@@ -1,6 +1,10 @@
 import React, {memo} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
-import {ActivityIndicator, TextInput as Input} from 'react-native-paper';
+import {StyleSheet, Text} from 'react-native';
+import {
+  ActivityIndicator,
+  TextInput as Input,
+  TouchableRipple,
+} from 'react-native-paper';
 import {DefaultTheme} from '../../theme';
 
 const AppTextInput = ({
@@ -9,21 +13,28 @@ const AppTextInput = ({
   inputStyle,
   containerStyle,
   loading = false,
+  onPress = null,
+  disabled = false,
   ...props
 }) => {
   return (
-    <View style={[styles.container, containerStyle]}>
-      <Input
-        mode="outlined"
-        underlineColor="transparent"
-        selectionColor={DefaultTheme.colors.primary}
-        {...props}
-        style={[styles.input, inputStyle]}
-      />
-      {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
-      {infoText ? <Text style={styles.info}>{infoText}</Text> : null}
-      {loading && <ActivityIndicator style={styles.loading} />}
-    </View>
+    <TouchableRipple
+      style={[styles.container, containerStyle]}
+      disabled={disabled}
+      onPress={onPress}>
+      <>
+        <Input
+          mode="outlined"
+          underlineColor="transparent"
+          selectionColor={DefaultTheme.colors.primary}
+          {...props}
+          style={[styles.input, inputStyle]}
+        />
+        {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
+        {infoText ? <Text style={styles.info}>{infoText}</Text> : null}
+        {loading && <ActivityIndicator style={styles.loading} />}
+      </>
+    </TouchableRipple>
   );
 };
 

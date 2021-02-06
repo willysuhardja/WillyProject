@@ -1,7 +1,7 @@
 import config from '../../../config';
 import {store} from '../../../redux/store';
 import {axiosClient, axiosIntance} from '../../../utils/axios';
-import {getBranch} from '../../Auth/redux/getters';
+import {getBranch, getGoldApi} from '../../Auth/redux/getters';
 import * as actionTypes from './constant';
 
 export const doGetProductIdentity = (barcode) => {
@@ -10,8 +10,10 @@ export const doGetProductIdentity = (barcode) => {
       type: actionTypes.GET_PRODUCT_DETAIL_PENDING,
     });
 
+    const goldApi = getGoldApi(store.getState());
+
     const goldRequest = axiosIntance.create({
-      baseURL: config.goldURL,
+      baseURL: goldApi,
     });
 
     const branch = getBranch(store.getState());

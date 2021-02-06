@@ -6,6 +6,7 @@ import {
   AppHeaderText,
   AppBackgroundWave,
   AppTextLink,
+  AppButton,
 } from '../../components';
 import config from '../../config';
 import screenNames from '../../features/Auth/navigation/screenNames';
@@ -52,7 +53,14 @@ const LoginScreen = (props) => {
           <AppHeaderText>Welcome back.</AppHeaderText>
           <LoginForm onSubmit={_onSubmit} loading={loading} />
         </View>
-        <View>
+        <View style={{alignItems: 'center'}}>
+          <AppButton
+            mode="text"
+            onPress={() => {
+              navigation.navigate(screenNames.chooseEnv);
+            }}>
+            Setting Environment
+          </AppButton>
           <AppTextLink>Version {config.appVersion}</AppTextLink>
         </View>
       </AppContainer>

@@ -34,6 +34,12 @@ export default function authReducer(state = initialState, action) {
         ...state,
         branch: action.payload,
       };
+    case actionTypes.SET_ENVIRONMENT:
+      return {
+        ...state,
+        mainApi: action.payload.mainApi,
+        goldApi: action.payload.goldApi,
+      };
     case actionTypes.GET_BRANCHES_PENDING:
       return {
         ...state,

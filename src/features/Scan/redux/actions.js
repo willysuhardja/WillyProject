@@ -2,7 +2,7 @@ import config from '../../../config';
 import {store} from '../../../redux/store';
 import {axiosClient, axiosIntance} from '../../../utils/axios';
 import {getProfile} from '../../AccoutManagement/redux/getters';
-import {getBranch} from '../../Auth/redux/getters';
+import {getBranch, getGoldApi} from '../../Auth/redux/getters';
 import {addScanItem, verifySku} from '../database/actions/scanItem';
 import * as actionTypes from './constant';
 import {getLocation} from './getters';
@@ -75,8 +75,10 @@ export const doGetProductIdentity = (barcode) => {
       type: actionTypes.GET_PRODUCT_DETAIL_PENDING,
     });
 
+    const goldApi = getGoldApi(store.getState()) || config.goldURL;
+
     const goldRequest = axiosIntance.create({
-      baseURL: config.goldURL,
+      baseURL: goldApi,
     });
 
     const branch = getBranch(store.getState());

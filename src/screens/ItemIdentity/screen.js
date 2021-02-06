@@ -83,9 +83,9 @@ const Screen = ({
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View>
                 <Text style={{fontSize: 16}}>{productDetail.sku}</Text>
-                <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+                {/* <Text style={{fontSize: 16, fontWeight: 'bold'}}>
                   SOH = {productDetail.last_stock}
-                </Text>
+                </Text> */}
               </View>
               <View style={{alignItems: 'flex-end'}}>
                 <Text style={{fontSize: 16}}>{productDetail.division}</Text>
