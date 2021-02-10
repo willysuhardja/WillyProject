@@ -11,6 +11,7 @@ export default class ScanItem extends Model {
   @field('barcode') barcode;
   @field('qty_1') qty1;
   @field('qty_2') qty2;
+  @field('price') price;
   @field('scan_order') scanOrder;
   @field('timestamp') timestamp;
 }

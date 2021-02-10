@@ -55,6 +55,8 @@ const Screen = ({
       sku: productDetail.sku,
       tillCode: productDetail.till_code,
       skuDesc: productDetail.skudesc,
+      price:
+        parseFloat(productDetail.avg_price.replace(',', '')) * parseFloat(qty),
     };
 
     doAddScanItem(data)

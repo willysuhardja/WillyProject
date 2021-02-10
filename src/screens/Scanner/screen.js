@@ -3,7 +3,7 @@ import React, {PureComponent} from 'react';
 import {Keyboard, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import {Avatar, TextInput, Switch} from 'react-native-paper';
-import {AppContainer, AppTextInput} from '../../components';
+import {AppButton, AppContainer, AppTextInput} from '../../components';
 import {DefaultTheme} from '../../theme';
 import Slider from '@react-native-community/slider';
 import BarcodeMask from 'react-native-barcode-mask';
@@ -37,7 +37,7 @@ class Screen extends PureComponent {
 
   _onBarcodeChanged = (barcode) => {
     this.setState({barcode});
-    this.handleSubmitOnEndEditing(barcode);
+    // this.handleSubmitOnEndEditing(barcode);
   };
 
   _onBarcodeRead = (scanResult) => {
@@ -202,7 +202,7 @@ class Screen extends PureComponent {
           <View style={[styles.preview, textInputFocus && {flex: 1}]} />
         )}
         <AppContainer
-          wrapperStyle={textInputFocus ? {flex: 3} : {flex: 1}}
+          wrapperStyle={textInputFocus ? {flex: 4} : {flex: 1}}
           containerStyle={[styles.bottomWrapper]}>
           <Slider
             style={styles.slider}
@@ -224,7 +224,6 @@ class Screen extends PureComponent {
             <View style={styles.input}>
               {searching && (
                 <AppTextInput
-                  autoFocus={true}
                   placeholder="Input Manual"
                   value={barcode}
                   onFocus={this._focusTextInput}
@@ -243,6 +242,12 @@ class Screen extends PureComponent {
               )}
             </View>
           </View>
+          <AppButton
+            disabled={barcode === ''}
+            mode="contained"
+            onPress={() => this._onBarcodeSubmit(barcode)}>
+            Submit
+          </AppButton>
         </AppContainer>
       </View>
     );

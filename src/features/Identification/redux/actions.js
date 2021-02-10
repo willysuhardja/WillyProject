@@ -10,7 +10,7 @@ export const doGetProductIdentity = (barcode) => {
       type: actionTypes.GET_PRODUCT_DETAIL_PENDING,
     });
 
-    const goldApi = getGoldApi(store.getState());
+    const goldApi = getGoldApi(store.getState()) || config.goldURL;
 
     const goldRequest = axiosIntance.create({
       baseURL: goldApi,

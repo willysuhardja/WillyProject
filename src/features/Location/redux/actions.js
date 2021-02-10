@@ -107,6 +107,7 @@ export const doUploadLocation = (locationId, locationName) => {
           skudesc: scanItem.skuDesc,
           qty_1: scanItem.qty1,
           qty_2: scanItem.qty2,
+          price: scanItem.price,
           scan_order: scanItem.scanOrder,
           timestamp: scanItem.timestamp,
         };

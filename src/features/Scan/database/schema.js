@@ -10,6 +10,7 @@ export const scan_items = tableSchema({
     {name: 'barcode', type: 'string'},
     {name: 'qty_1', type: 'number'},
     {name: 'qty_2', type: 'number'},
+    {name: 'price', type: 'number'},
     {name: 'scan_order', type: 'number'},
     {name: 'timestamp', type: 'string'},
   ],

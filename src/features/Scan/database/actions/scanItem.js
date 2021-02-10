@@ -44,6 +44,7 @@ export const addScanItem = async (data) => {
       scanItemData.barcode = data.barcode;
       scanItemData.qty1 = parseFloat(data.qty1);
       scanItemData.qty2 = parseFloat(data.qty2);
+      scanItemData.price = parseFloat(data.price);
       scanItemData.scanOrder = nextScanOrder;
       scanItemData.timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     });
