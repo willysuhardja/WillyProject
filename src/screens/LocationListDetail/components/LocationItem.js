@@ -18,19 +18,9 @@ export function LocationItem({
             <Text style={styles.numericText}>{scanOrder}</Text>
           </DataTable.Cell>
         )}
-        {fix !== 'null' && (
-          <DataTable.Cell numeric style={styles.numericCell}>
-            <Text style={styles.numericText}>{qty2}</Text>
-          </DataTable.Cell>
-        )}
         <DataTable.Cell numeric style={styles.numericCell}>
           <Text style={styles.numericText}>{qty1}</Text>
         </DataTable.Cell>
-        {fix !== 'null' && (
-          <DataTable.Cell numeric style={styles.numericCell}>
-            <Text style={styles.numericText}>{fix || '-'}</Text>
-          </DataTable.Cell>
-        )}
       </DataTable.Row>
       <DataTable.Row style={styles.rowBottom}>
         <DataTable.Cell>{description || 'INVALID'}</DataTable.Cell>

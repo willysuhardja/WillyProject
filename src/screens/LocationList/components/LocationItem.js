@@ -10,7 +10,7 @@ export function LocationItem({title, status, onPress, disabled}) {
       ? DefaultTheme.colors.secondary
       : status === 'Belum dihitung'
       ? DefaultTheme.colors.error
-      : status === 'Sudah verifikasi'
+      : status === 'Sudah verifikasi' || status === 'Finish'
       ? DefaultTheme.colors.success
       : DefaultTheme.colors.secondary;
 

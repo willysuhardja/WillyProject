@@ -117,13 +117,7 @@ const Screen = ({
             {mode === 'local' && (
               <DataTable.Title numeric>Scan Order</DataTable.Title>
             )}
-            {mode === 'history' && (
-              <DataTable.Title numeric>Last Stock</DataTable.Title>
-            )}
             <DataTable.Title numeric>QTY 1</DataTable.Title>
-            {mode === 'history' && (
-              <DataTable.Title numeric>FIX</DataTable.Title>
-            )}
           </DataTable.Header>
           <FlatList
             contentContainerStyle={{width: '100%'}}
