@@ -1,74 +1,86 @@
-import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Title} from 'react-native-paper';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
+import {View} from 'react-native';
+import {ProgressBar} from 'react-native-paper';
 
-import {AppButton, AppContainer, AppImage} from '../../components';
+import {WebView} from 'react-native-webview';
+import {AppIconButton} from '../../components';
 
-export default function Screen({theme}) {
-  const styles = makeStyles(theme);
-  const [image, setImage] = useState(null);
+const Screen = ({
+  route: {
+    params: {url},
+  },
+  navigation,
+  theme,
+}) => {
+  const [title, setTitle] = useState('');
+  const [progress, setProgress] = useState(0);
+  const webView = useRef();
 
-  const cameraLaunch = () => {
-    const options = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    launchCamera(options, (res) => {
-      if (res.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (res.error) {
-        console.log('ImagePicker Error: ', res.error);
-      } else {
-        setImage(res);
-      }
+  useLayoutEffect(() => {
+    console.log(typeof webView.current.goForward);
+    navigation.setOptions({
+      title,
+      headerRight: ({tintColor}) => (
+        <View style={{flexDirection: 'row'}}>
+          <AppIconButton
+            onPress={webView.current.goBack}
+            icon="chevron-left"
+            color={tintColor}
+            containerStyle={{backgroundColor: theme.colors.primary}}
+          />
+          <AppIconButton
+            onPress={webView.current.goForward}
+            icon="chevron-right"
+            color={tintColor}
+            containerStyle={{backgroundColor: theme.colors.primary}}
+          />
+        </View>
+      ),
     });
+  }, [title, navigation, theme.colors.primary]);
+
+  const onMessageWebView = (event) => {
+    setTitle(event.nativeEvent.data);
   };
 
-  const galleryLaunch = () => {
-    let options = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    launchImageLibrary(options, (res) => {
-      console.log('Response = ', res);
+  const onLoadStart = useCallback(() => {
+    setProgress(0);
+  }, []);
 
-      if (res.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (res.error) {
-        console.log('ImagePicker Error: ', res.error);
-      } else {
-        setImage(res);
-      }
-    });
-  };
+  const onLoadProgress = useCallback(() => {
+    if (progress > 90) {
+      setProgress(progress + 20);
+    }
+  }, [progress]);
+
+  const onLoadEnd = useCallback(() => {
+    setProgress(100);
+  }, []);
 
   return (
-    <AppContainer>
-      <View style={styles.imageWrapper}>
-        {image === null ? (
-          <Title>No Image</Title>
-        ) : (
-          <AppImage imageStyle={styles.image} image={image.uri} />
-        )}
-      </View>
-      <AppButton onPress={cameraLaunch} mode="contained">
-        Take From Camera
-      </AppButton>
-      <AppButton onPress={galleryLaunch} mode="contained">
-        Take From Gallery
-      </AppButton>
-    </AppContainer>
+    <>
+      <ProgressBar
+        progress={progress / 100}
+        color={theme.colors.accent}
+        style={{backgroundColor: theme.colors.background}}
+      />
+      <WebView
+        onLoadStart={onLoadStart}
+        onLoadProgress={onLoadProgress}
+        onLoadEnd={onLoadEnd}
+        source={{uri: url}}
+        ref={webView}
+        injectedJavaScript="window.ReactNativeWebView.postMessage(document.title)"
+        onMessage={onMessageWebView}
+      />
+    </>
   );
-}
-
-const makeStyles = (theme) => {
-  return StyleSheet.create({
-    imageWrapper: {flex: 1, justifyContent: 'center'},
-    image: {width: theme.screenWidth, height: 300},
-  });
 };
+
+export default Screen;

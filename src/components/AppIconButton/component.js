@@ -16,7 +16,7 @@ const AppIconButton = ({
     <TouchableRipple style={[styles.button, containerStyle]} onPress={onPress}>
       <>
         <IconButton style={[styles.icon, style]} {...props} />
-        <Text style={[styles.label, labelStyle]}>{label}</Text>
+        {!!label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
       </>
     </TouchableRipple>
   );

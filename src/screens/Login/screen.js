@@ -5,10 +5,8 @@ import {
   AppLogo,
   AppHeaderText,
   AppTextLink,
-  AppButton,
 } from '../../components';
 import config from '../../config';
-import screenNames from '../../features/Auth/navigation/screenNames';
 import {DefaultTheme} from '../../theme';
 import LoginForm from './components/LoginForm';
 import {styles} from './styles';
@@ -42,13 +40,6 @@ const LoginScreen = ({doLogin, loading, navigation}) => {
           <LoginForm onSubmit={_onSubmit} loading={loading} />
         </View>
         <View style={{alignItems: 'center'}}>
-          <AppButton
-            mode="text"
-            onPress={() => {
-              navigation.navigate(screenNames.chooseEnv);
-            }}>
-            Setting Environment
-          </AppButton>
           <AppTextLink>Version {config.appVersion}</AppTextLink>
         </View>
       </AppContainer>

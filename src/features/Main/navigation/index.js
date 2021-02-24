@@ -12,6 +12,7 @@ import checkRequests from '../../../hoc/CheckRequest';
 import IdentityStack from '../../BarcodeScan/navigation';
 import BluetoothPrintStack from '../../BluetoothPrinter/navigation';
 import PickImageStack from '../../PickImage/navigation';
+import WebViewStack from '../../WebView/navigation';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -62,6 +63,13 @@ const MainStack = () => {
         }}
         name={screenNames.pickImage}
         component={PickImageStack}
+      />
+      <Screen
+        options={{
+          headerShown: false,
+        }}
+        name={screenNames.webview}
+        component={WebViewStack}
       />
     </Navigator>
   );

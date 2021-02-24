@@ -6,9 +6,11 @@ const makeStyles = (theme) =>
       width: 90,
       minHeight: 56,
       marginVertical: 10,
+      justifyContent: 'center',
     },
     icon: {
       alignSelf: 'center',
+      justifyContent: 'center',
       paddingVertical: 0,
       marginVertical: 0,
     },

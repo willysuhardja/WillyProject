@@ -15,19 +15,21 @@ export default [
     icon: 'folder-multiple-image',
   },
   {
-    id: 7,
     name: 'Map',
     screen: 'map/index',
     icon: 'google-maps',
   },
   {
-    id: 5,
+    name: 'Web View',
+    screen: 'webview/index',
+    icon: 'web',
+  },
+  {
     name: 'My Notes',
     screen: '',
     icon: 'note-multiple',
   },
   {
-    id: 6,
     name: 'Store List',
     screen: '',
     icon: 'store',

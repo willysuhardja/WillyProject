@@ -6,4 +6,5 @@ export default {
   identification: 'barcodeScan/index',
   bluetoothPrint: 'bluetoothPrint/index',
   pickImage: 'pickImage/index',
+  webview: 'webview/index',
 };

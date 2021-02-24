@@ -1,6 +1,6 @@
 import {withTheme} from 'react-native-paper';
 import Screen from './screen';
 
-const WebViewScreen = withTheme(Screen);
+const WebViewHomeScreen = withTheme(Screen);
 
-export default WebViewScreen;
+export default WebViewHomeScreen;
