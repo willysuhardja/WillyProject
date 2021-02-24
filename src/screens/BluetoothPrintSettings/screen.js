@@ -213,6 +213,20 @@ const Screen = ({
       ['Total', '2', '64000'],
       {},
     );
+    await BluetoothEscposPrinter.printQRCode(
+      'Halo dari QR',
+      280,
+      BluetoothEscposPrinter.ERROR_CORRECTION.L,
+    );
+    await BluetoothEscposPrinter.printText('\r\n\r\n\r\n', {});
+    await BluetoothEscposPrinter.printBarCode(
+      '123456789012',
+      BluetoothEscposPrinter.BARCODETYPE.JAN13,
+      3,
+      120,
+      0,
+      2,
+    );
     await BluetoothEscposPrinter.printText('\r\n\r\n\r\n', {});
   };
 

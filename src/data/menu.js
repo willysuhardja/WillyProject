@@ -10,7 +10,7 @@ export default [
     screen: 'bluetoothPrint/index',
   },
   {
-    name: 'Gallery',
+    name: 'Pick Image',
     screen: '',
     icon: 'folder-multiple-image',
   },
