@@ -35,8 +35,6 @@ export const doGetProductIdentity = (barcode) => {
         payload: productResponse.data[0],
       });
 
-      dispatch(doGetProductIdentification(productResponse.data[0].till_code));
-
       return Promise.resolve(true);
     } catch (error) {
       dispatch({
@@ -45,30 +43,6 @@ export const doGetProductIdentity = (barcode) => {
       });
 
       return Promise.reject(error);
-    }
-  };
-};
-
-export const doGetProductIdentification = (tillCode) => {
-  return async (dispatch) => {
-    dispatch({
-      type: actionTypes.GET_PRODUCT_IDENTIFICATION_PENDING,
-    });
-    const branch = getBranch(store.getState());
-
-    try {
-      const identityResponse = await axiosClient.get(
-        `/item_identify/${branch.initial}/${tillCode}`,
-      );
-      dispatch({
-        type: actionTypes.GET_PRODUCT_IDENTIFICATION_SUCCESS,
-        payload: identityResponse.data.data,
-      });
-    } catch (error) {
-      dispatch({
-        type: actionTypes.GET_PRODUCT_IDENTIFICATION_FAILED,
-        payload: error,
-      });
     }
   };
 };

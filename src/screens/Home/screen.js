@@ -1,15 +1,14 @@
 import React, {Fragment, useEffect} from 'react';
 import {View, PermissionsAndroid} from 'react-native';
-import {Text, Title} from 'react-native-paper';
+import {Subheading, Text, Title} from 'react-native-paper';
 import {
   AppContainer,
   AppBasicHeader,
   AppCarousel,
   AppScrollView,
+  AppIconButton,
 } from '../../components';
 import {DefaultTheme} from '../../theme';
-
-import Menu from './components/Menu';
 
 const permissions = [
   PermissionsAndroid.PERMISSIONS.CAMERA,
@@ -24,7 +23,7 @@ const Screen = (props) => {
     menu,
     fetchUserProfile,
     doGetMenu,
-    menuLoading,
+    navigation,
     carouselData,
   } = props;
 
@@ -51,6 +50,12 @@ const Screen = (props) => {
     }
   };
 
+  const _onMenuItemPressed = (item) => {
+    if (item.screen) {
+      navigation.navigate(item.screen);
+    }
+  };
+
   return (
     <Fragment>
       <AppScrollView>
@@ -67,9 +72,23 @@ const Screen = (props) => {
           </View>
         </View>
         <AppContainer containerStyle={styles.containerStyle}>
-          <Menu items={menu} doGetMenu={doGetMenu} loading={menuLoading} />
           <View>
-            <Title>Corousel example</Title>
+            <Subheading style={styles.subheading}>Main Menu</Subheading>
+            <View style={styles.row}>
+              {menu.map((item, index) => {
+                return (
+                  <View key={index.toString()}>
+                    <AppIconButton
+                      onPress={() => _onMenuItemPressed(item)}
+                      containerStyle={styles.menuItemContainer}
+                      icon={item.icon}
+                      label={item.name}
+                    />
+                  </View>
+                );
+              })}
+            </View>
+            <Subheading style={styles.subheading}>Corousel example</Subheading>
             <AppCarousel
               containerStyle={styles.carouselContainer}
               imageStyle={styles.carouselImage}
@@ -92,8 +111,24 @@ const styles = {
     marginTop: 20,
     backgroundColor: DefaultTheme.colors.surface,
   },
+  row: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+  mainMenuWrapper: {
+    marginTop: 10,
+  },
+  subheading: {
+    paddingHorizontal: 10,
+  },
+  menuItemContainer: {
+    width: DefaultTheme.screenWidth / 3 - 20,
+    padding: 5,
+    margin: 5,
+  },
   carouselContainer: {
-    height: 220,
+    height: 200,
   },
   carouselImage: {
     height: 200,

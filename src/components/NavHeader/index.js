@@ -1,4 +1,3 @@
-import {DrawerActions} from '@react-navigation/native';
 import React from 'react';
 import {Appbar, IconButton} from 'react-native-paper';
 import {AppLogo} from '..';
@@ -66,7 +65,7 @@ export default NavHeader;
 
 const styles = {
   appLogo: {
-    width: 150,
+    width: 100,
     height: 25,
     marginBottom: 0,
   },

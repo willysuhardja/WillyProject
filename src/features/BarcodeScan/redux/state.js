@@ -5,8 +5,4 @@ export const initialState = {
   productDetail: {
     sku: null,
   },
-  productIdentificationLoading: false,
-  productIdentificationSuccess: false,
-  productIdentificationError: false,
-  productIdentification: [],
 };

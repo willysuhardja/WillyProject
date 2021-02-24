@@ -37,30 +37,6 @@ export default function identificationReducer(state = initialState, action) {
         productDetailError: true,
         productDetail: initialState.productDetail,
       };
-    case actionTypes.GET_PRODUCT_IDENTIFICATION_PENDING:
-      return {
-        ...state,
-        productIdentificationLoading: true,
-        productIdentificationSuccess: false,
-        productIdentificationError: false,
-        productIdentification: [],
-      };
-    case actionTypes.GET_PRODUCT_IDENTIFICATION_SUCCESS:
-      return {
-        ...state,
-        productIdentificationLoading: false,
-        productIdentificationSuccess: true,
-        productIdentificationError: false,
-        productIdentification: action.payload,
-      };
-    case actionTypes.GET_PRODUCT_IDENTIFICATION_FAILED:
-      return {
-        ...state,
-        productIdentificationLoading: false,
-        productIdentificationSuccess: false,
-        productIdentificationError: true,
-        productIdentification: [],
-      };
     case actionTypes.RESET:
       return initialState;
     default:

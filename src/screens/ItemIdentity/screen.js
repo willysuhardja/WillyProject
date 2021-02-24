@@ -12,6 +12,7 @@ import {AppBasicHeader, AppLoadingBasic} from '../../components';
 import screenNames from '../../features/BarcodeScan/navigation/screenNames';
 import {DefaultTheme} from '../../theme';
 import {refreshControl} from '../../utils/flatlist';
+import CardCoverImage from './components/CardCoverImage';
 
 const Screen = ({
   navigation,
@@ -65,15 +66,10 @@ const Screen = ({
         refreshControl={refreshControl(productLoading, getProductAsync)}
         style={{minHeight: '100%'}}>
         <AppBasicHeader />
-        <Card style={styles.cardCover} onPress={showModal}>
-          <Card.Cover
-            style={{
-              alignSelf: 'center',
-              resizeMode: 'cover',
-              height: 200,
-              aspectRatio: 1,
-            }}
-            source={{uri: productDetail.image}}
+        <Card style={styles.cardCover}>
+          <CardCoverImage
+            image={productDetail.image}
+            onImagePress={showModal}
           />
           <Card.Content>
             <Title style={{textAlign: 'left'}}>{productDetail.skudesc}</Title>
