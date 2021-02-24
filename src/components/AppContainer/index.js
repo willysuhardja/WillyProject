@@ -2,10 +2,32 @@ import React, {memo} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {DefaultTheme} from '../../theme';
 
-const AppContainer = ({children, wrapperStyle, containerStyle, start}) => (
-  <View style={[styles.background, wrapperStyle]}>
+const AppContainer = ({
+  children,
+  wrapperStyle,
+  containerStyle,
+  start,
+  fluid,
+}) => (
+  <View
+    style={[
+      styles.background,
+      wrapperStyle,
+      fluid && {
+        width: DefaultTheme.screenWidth,
+      },
+    ]}>
     <View
-      style={[styles.container, start ? styles.flexStart : {}, containerStyle]}
+      style={[
+        styles.container,
+        start ? styles.flexStart : {},
+        containerStyle,
+        fluid && {
+          padding: 0,
+          width: DefaultTheme.screenWidth,
+          ...styles.flexStart,
+        },
+      ]}
       behavior="padding">
       {children}
     </View>

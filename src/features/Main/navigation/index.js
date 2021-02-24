@@ -10,6 +10,7 @@ import {getBranch} from '../../Auth/redux/getters';
 
 import checkRequests from '../../../hoc/CheckRequest';
 import IdentityStack from '../../BarcodeScan/navigation';
+import BluetoothPrintStack from '../../BluetoothPrinter/navigation';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -46,6 +47,13 @@ const MainStack = () => {
         }}
         name={screenNames.identification}
         component={IdentityStack}
+      />
+      <Screen
+        options={{
+          headerShown: false,
+        }}
+        name={screenNames.bluetoothPrint}
+        component={BluetoothPrintStack}
       />
     </Navigator>
   );

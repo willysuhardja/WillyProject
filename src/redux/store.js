@@ -7,10 +7,7 @@ import {createWhitelistFilter} from 'redux-persist-transform-filter';
 import appReducer from './appReducer';
 import appMiddlewares from './appMiddleware';
 
-const whiteList = [
-  createWhitelistFilter('auth', ['token', 'branch']),
-  createWhitelistFilter('count', ['startTime', 'location']),
-];
+const whiteList = [createWhitelistFilter('auth', ['token', 'branch'])];
 
 const persistConfig = {
   key: 'root',

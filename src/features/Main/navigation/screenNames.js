@@ -4,4 +4,5 @@ export default {
   homeTab: 'main/HomeTab',
   account: 'account',
   identification: 'barcodeScan/index',
+  bluetoothPrint: 'bluetoothPrint/index',
 };

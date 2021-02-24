@@ -18,7 +18,7 @@ export default [
     id: 7,
     name: 'Map',
     screen: 'map/index',
-    icon: 'folder-multiple-image',
+    icon: 'google-maps',
   },
   {
     id: 5,
