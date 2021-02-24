@@ -31,11 +31,7 @@ const NavHeader = ({scene, previous, navigation}) => {
           color={DefaultTheme.colors.white}
         />
       ) : (
-        <Appbar.Action
-          icon="menu"
-          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-          color={DefaultTheme.colors.white}
-        />
+        <></>
       )}
       <Appbar.Content
         title={

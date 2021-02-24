@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
-import {doGetProductIdentity} from '../../features/Identification/redux/actions';
+import {doGetProductIdentity} from '../../features/BarcodeScan/redux/actions';
 import {
   getLoading,
   getProductDetail,
   getProductIdentification,
-} from '../../features/Identification/redux/getters';
+} from '../../features/BarcodeScan/redux/getters';
 import Screen from './screen';
 
 const mapStateToProps = (state) => {

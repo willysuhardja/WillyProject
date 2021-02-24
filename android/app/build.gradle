@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.yostock_yomart"
+        applicationId "com.rn_yogya_base"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -159,7 +159,6 @@ android {
         debug {
             signingConfig signingConfigs.debug
             resValue "string", "CodePushDeploymentKey", '""'
-            applicationIdSuffix ".debug" 
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -167,13 +166,13 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            resValue "string", "CodePushDeploymentKey", '"lbOwoZKhCODI-IL07zXwxKrCaDeBWkJ8crI6TH"'
+            resValue "string", "CodePushDeploymentKey", '"XjIpH4G9iJDm7CfwueqB-obo65p2simGQ2Cfc5"'
         }
         releaseStaging {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            resValue "string", "CodePushDeploymentKey", '"zAfZr-6JL4e9ul6Ou7xnQIiyOKshC47-s7d17"'
+            resValue "string", "CodePushDeploymentKey", '"Ug9EnOcfdW7loPDW7UXGSL-J2fJqOMfTE-ctG"'
             // Note: It is a good idea to provide matchingFallbacks for the new buildType you create to prevent build issues
             // Add the following line if not already there
             applicationIdSuffix ".staging" 

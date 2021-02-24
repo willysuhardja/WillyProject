@@ -3,12 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'yostock_yomart' do
+target 'ReactNativeBaseCodeForYogya' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
 
-  target 'yostock_yomartTests' do
+  target 'ReactNativeBaseCodeForYogyaTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -23,10 +23,10 @@ target 'yostock_yomart' do
   end
 end
 
-target 'yostock_yomart-tvOS' do
-  # Pods for yostock_yomart-tvOS
+target 'ReactNativeBaseCodeForYogya-tvOS' do
+  # Pods for ReactNativeBaseCodeForYogya-tvOS
 
-  target 'yostock_yomart-tvOSTests' do
+  target 'ReactNativeBaseCodeForYogya-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

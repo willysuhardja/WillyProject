@@ -1,4 +1,4 @@
-package com.yostock_yomart;
+package com.rn_yogya_base;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "yostock_yomart";
+    return "ReactNativeBaseCodeForYogya";
   }
 }

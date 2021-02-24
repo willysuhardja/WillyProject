@@ -1,10 +1,7 @@
 export default {
   index: 'main',
   home: 'main/Home',
+  homeTab: 'main/HomeTab',
   account: 'account',
-  count: 'count/index',
-  scan: 'scan/index',
-  upload: 'upload/index',
-  verification: 'verification/index',
-  identification: 'identification/index',
+  identification: 'barcodeScan/index',
 };

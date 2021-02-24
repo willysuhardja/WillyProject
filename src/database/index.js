@@ -5,7 +5,7 @@ import AppModel from './appModel';
 import {mainSchema} from './appSchemas';
 
 const adapter = new SQLiteAdapter({
-  dbName: 'YMStock',
+  dbName: 'BaseCode',
   schema: mainSchema,
 });
 

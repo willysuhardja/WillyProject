@@ -3,9 +3,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import LoginScreen from '../../../screens/Login';
 import screenNames from './screenNames';
-import ChooseEnvironmentScreen from '../../../screens/ChooseEnvironment';
-import EnvironmentApiScreen from '../../../screens/EnvironmentApi';
-import EnvironmentGoldScreen from '../../../screens/EnvironmentGold';
 import {useSelector} from 'react-redux';
 import {getGoldApi, getMainApi} from '../redux/getters';
 
@@ -24,18 +21,6 @@ const AuthStack = () => {
         headerShown: false,
       }}>
       <Screen name={screenNames.login} component={LoginScreen} />
-      <Screen
-        name={screenNames.chooseEnv}
-        component={ChooseEnvironmentScreen}
-      />
-      <Screen
-        name={screenNames.chooseEnvAPI}
-        component={EnvironmentApiScreen}
-      />
-      <Screen
-        name={screenNames.chooseEnvGold}
-        component={EnvironmentGoldScreen}
-      />
     </Navigator>
   );
 };

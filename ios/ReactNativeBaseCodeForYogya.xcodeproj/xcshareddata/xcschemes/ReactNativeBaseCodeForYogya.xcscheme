@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "yostock_yomart.app"
-               BlueprintName = "yostock_yomart"
-               ReferencedContainer = "container:yostock_yomart.xcodeproj">
+               BuildableName = "ReactNativeBaseCodeForYogya.app"
+               BlueprintName = "ReactNativeBaseCodeForYogya"
+               ReferencedContainer = "container:ReactNativeBaseCodeForYogya.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "yostock_yomartTests.xctest"
-               BlueprintName = "yostock_yomartTests"
-               ReferencedContainer = "container:yostock_yomart.xcodeproj">
+               BuildableName = "ReactNativeBaseCodeForYogyaTests.xctest"
+               BlueprintName = "ReactNativeBaseCodeForYogyaTests"
+               ReferencedContainer = "container:ReactNativeBaseCodeForYogya.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "yostock_yomart.app"
-            BlueprintName = "yostock_yomart"
-            ReferencedContainer = "container:yostock_yomart.xcodeproj">
+            BuildableName = "ReactNativeBaseCodeForYogya.app"
+            BlueprintName = "ReactNativeBaseCodeForYogya"
+            ReferencedContainer = "container:ReactNativeBaseCodeForYogya.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "yostock_yomart.app"
-            BlueprintName = "yostock_yomart"
-            ReferencedContainer = "container:yostock_yomart.xcodeproj">
+            BuildableName = "ReactNativeBaseCodeForYogya.app"
+            BlueprintName = "ReactNativeBaseCodeForYogya"
+            ReferencedContainer = "container:ReactNativeBaseCodeForYogya.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -10,7 +10,7 @@ import {
   TouchableRipple,
 } from 'react-native-paper';
 import {AppContainer, AppBasicHeader, AppLoadingBasic} from '../../components';
-import screenNames from '../../features/Identification/navigation/screenNames';
+import screenNames from '../../features/BarcodeScan/navigation/screenNames';
 import {DefaultTheme} from '../../theme';
 import {refreshControl} from '../../utils/flatlist';
 const Screen = ({
