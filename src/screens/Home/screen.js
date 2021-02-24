@@ -1,7 +1,12 @@
 import React, {Fragment, useEffect} from 'react';
 import {View, PermissionsAndroid} from 'react-native';
 import {Text, Title} from 'react-native-paper';
-import {AppContainer, AppBasicHeader} from '../../components';
+import {
+  AppContainer,
+  AppBasicHeader,
+  AppCarousel,
+  AppScrollView,
+} from '../../components';
 import {DefaultTheme} from '../../theme';
 
 import Menu from './components/Menu';
@@ -20,6 +25,7 @@ const Screen = (props) => {
     fetchUserProfile,
     doGetMenu,
     menuLoading,
+    carouselData,
   } = props;
 
   useEffect(() => {
@@ -47,21 +53,33 @@ const Screen = (props) => {
 
   return (
     <Fragment>
-      <View>
-        <AppBasicHeader />
-        <View style={styles.profileContainer}>
-          <Text style={{color: DefaultTheme.colors.secondary}}>Welcome</Text>
-          <Title style={{color: DefaultTheme.colors.surface}}>
-            {profile.full_name}
-          </Title>
-          <Text style={styles.storeText}>
-            {branch.name} ({branch.initial})
-          </Text>
+      <AppScrollView>
+        <View>
+          <AppBasicHeader />
+          <View style={styles.profileContainer}>
+            <Text style={{color: DefaultTheme.colors.secondary}}>Welcome</Text>
+            <Title style={{color: DefaultTheme.colors.surface}}>
+              {profile.full_name}
+            </Title>
+            <Text style={styles.storeText}>
+              {branch.name} ({branch.initial})
+            </Text>
+          </View>
         </View>
-      </View>
-      <AppContainer containerStyle={styles.containerStyle}>
-        <Menu items={menu} doGetMenu={doGetMenu} loading={menuLoading} />
-      </AppContainer>
+        <AppContainer containerStyle={styles.containerStyle}>
+          <Menu items={menu} doGetMenu={doGetMenu} loading={menuLoading} />
+          <View>
+            <Title>Corousel example</Title>
+            <AppCarousel
+              containerStyle={styles.carouselContainer}
+              imageStyle={styles.carouselImage}
+              data={carouselData}
+              autoScrollEnabled={true}
+              autoScrollDuration={5000}
+            />
+          </View>
+        </AppContainer>
+      </AppScrollView>
     </Fragment>
   );
 };
@@ -73,5 +91,11 @@ const styles = {
   containerStyle: {
     marginTop: 20,
     backgroundColor: DefaultTheme.colors.surface,
+  },
+  carouselContainer: {
+    height: 220,
+  },
+  carouselImage: {
+    height: 200,
   },
 };

@@ -7,6 +7,7 @@ import {
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper';
+import {screenSizes} from '../utils/style';
 
 import {customDefaultColor, customDarkColor} from './colors';
 
@@ -15,6 +16,8 @@ export const DefaultTheme = {
   ...PaperDefaultTheme,
   colors: customDefaultColor,
   spacing: 5,
+  screenWidth: screenSizes.width,
+  screenHeight: screenSizes.height,
 };
 
 export const NavigationTheme = {

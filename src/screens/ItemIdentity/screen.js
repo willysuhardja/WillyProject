@@ -1,28 +1,26 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {Alert, Dimensions, View, ScrollView, FlatList} from 'react-native';
+import {Alert, Dimensions, View, ScrollView} from 'react-native';
 import {
   Card,
-  DataTable,
   Modal,
   Portal,
   Text,
   Title,
   TouchableRipple,
 } from 'react-native-paper';
-import {AppContainer, AppBasicHeader, AppLoadingBasic} from '../../components';
+import {AppBasicHeader, AppLoadingBasic} from '../../components';
 import screenNames from '../../features/BarcodeScan/navigation/screenNames';
 import {DefaultTheme} from '../../theme';
 import {refreshControl} from '../../utils/flatlist';
+
 const Screen = ({
   navigation,
   route,
   productLoading,
   productDetail,
-  productIdentification,
   doGetProductIdentity,
 }) => {
   const {barcode} = route.params;
-  console.log(productIdentification);
   const [init, setInit] = useState(true);
   const [visible, setVisible] = React.useState(false);
 
@@ -94,22 +92,6 @@ const Screen = ({
             </View>
           </Card.Content>
         </Card>
-        <AppContainer containerStyle={styles.container}>
-          <DataTable>
-            <DataTable.Header>
-              <DataTable.Title>Location</DataTable.Title>
-              <DataTable.Title numeric>Qty</DataTable.Title>
-            </DataTable.Header>
-            {productIdentification?.map((item) => {
-              return (
-                <DataTable.Row>
-                  <DataTable.Cell>{item.location_name}</DataTable.Cell>
-                  <DataTable.Cell numeric>{item.qty}</DataTable.Cell>
-                </DataTable.Row>
-              );
-            })}
-          </DataTable>
-        </AppContainer>
       </ScrollView>
       <Portal>
         <Modal

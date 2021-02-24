@@ -3,7 +3,6 @@ import {doGetProductIdentity} from '../../features/BarcodeScan/redux/actions';
 import {
   getLoading,
   getProductDetail,
-  getProductIdentification,
 } from '../../features/BarcodeScan/redux/getters';
 import Screen from './screen';
 
@@ -11,7 +10,6 @@ const mapStateToProps = (state) => {
   return {
     productLoading: getLoading(state, 'productDetail'),
     productDetail: getProductDetail(state),
-    productIdentification: getProductIdentification(state),
   };
 };
 
