@@ -11,7 +11,7 @@ export default [
   },
   {
     name: 'Pick Image',
-    screen: '',
+    screen: 'pickImage/index',
     icon: 'folder-multiple-image',
   },
   {

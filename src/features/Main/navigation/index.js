@@ -11,6 +11,7 @@ import {getBranch} from '../../Auth/redux/getters';
 import checkRequests from '../../../hoc/CheckRequest';
 import IdentityStack from '../../BarcodeScan/navigation';
 import BluetoothPrintStack from '../../BluetoothPrinter/navigation';
+import PickImageStack from '../../PickImage/navigation';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -54,6 +55,13 @@ const MainStack = () => {
         }}
         name={screenNames.bluetoothPrint}
         component={BluetoothPrintStack}
+      />
+      <Screen
+        options={{
+          headerShown: false,
+        }}
+        name={screenNames.pickImage}
+        component={PickImageStack}
       />
     </Navigator>
   );

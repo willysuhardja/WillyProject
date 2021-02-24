@@ -10,13 +10,12 @@ const BluetoothDeviceList = ({
   return (
     <>
       <List.Section
-        style={{width: theme.screenWidth}}
         title="Already Paired"
-        titleStyle={{color: theme.colors.primary}}>
+        titleStyle={{color: theme.colors.primary}}
+        style={{width: theme.screenWidth}}>
         {alreadyPairedList.map((item, index) => {
           return (
             <List.Item
-              style={{width: theme.screenWidth}}
               onPress={() => onItemPressed(item)}
               title={item.name}
               key={'alreadyPaired' + index.toString()}
@@ -26,13 +25,12 @@ const BluetoothDeviceList = ({
         })}
       </List.Section>
       <List.Section
-        style={{width: theme.screenWidth}}
         title="Founded Paired"
-        titleStyle={{color: theme.colors.primary}}>
+        titleStyle={{color: theme.colors.primary}}
+        style={{width: theme.screenWidth}}>
         {foundedList.map((item, index) => {
           return (
             <List.Item
-              style={{width: theme.screenWidth}}
               onPress={() => onItemPressed(item)}
               title={item.name}
               key={'founded' + index.toString()}

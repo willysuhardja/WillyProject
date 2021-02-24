@@ -5,4 +5,5 @@ export default {
   account: 'account',
   identification: 'barcodeScan/index',
   bluetoothPrint: 'bluetoothPrint/index',
+  pickImage: 'pickImage/index',
 };
