@@ -91,8 +91,6 @@ export default memo(SearchFrom);
 const styles = {
   container: {
     width: '100%',
-    position: 'absolute',
-    top: 75,
   },
   input: {
     marginHorizontal: 30,

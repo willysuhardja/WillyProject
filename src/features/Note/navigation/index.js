@@ -1,27 +1,48 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import HomeScreen from '../../../screens/Home';
 import screenNames from './screenNames';
-import NavHeader from '../../../components/NavHeader';
+
+import NoteListScreen from './../../../screens/NoteList';
+import NoteFormScreen from './../../../screens/NoteForm';
+import {DefaultTheme} from '../../../theme';
 
 const {Navigator, Screen} = createStackNavigator();
 
-const MainStack = () => {
+const NoteStack = () => {
   return (
     <Navigator
       screenOptions={{
-        header: NavHeader,
+        headerShown: true,
+        headerTintColor: DefaultTheme.colors.white,
+        headerStyle: {
+          backgroundColor: DefaultTheme.colors.primary,
+        },
       }}>
       <Screen
-        options={{
-          title: 'YM Stock',
+        options={() => {
+          return {
+            title: 'Note',
+          };
         }}
-        name={screenNames.index}
-        component={HomeScreen}
+        name={screenNames.list}
+        component={NoteListScreen}
+      />
+      <Screen
+        options={({
+          route: {
+            params: {mode},
+          },
+        }) => {
+          return {
+            title: mode === 'add' ? 'Add Note' : 'Edit Note',
+          };
+        }}
+        name={screenNames.form}
+        component={NoteFormScreen}
       />
     </Navigator>
   );
 };
 
-export default MainStack;
+export default NoteStack;

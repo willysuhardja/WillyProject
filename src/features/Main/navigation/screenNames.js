@@ -7,4 +7,5 @@ export default {
   bluetoothPrint: 'bluetoothPrint/index',
   pickImage: 'pickImage/index',
   webview: 'webview/index',
+  note: 'note/index',
 };

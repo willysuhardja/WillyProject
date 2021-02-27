@@ -13,6 +13,7 @@ import IdentityStack from '../../BarcodeScan/navigation';
 import BluetoothPrintStack from '../../BluetoothPrinter/navigation';
 import PickImageStack from '../../PickImage/navigation';
 import WebViewStack from '../../WebView/navigation';
+import NoteStack from '../../Note/navigation';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -70,6 +71,13 @@ const MainStack = () => {
         }}
         name={screenNames.webview}
         component={WebViewStack}
+      />
+      <Screen
+        options={{
+          headerShown: false,
+        }}
+        name={screenNames.note}
+        component={NoteStack}
       />
     </Navigator>
   );

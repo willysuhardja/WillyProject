@@ -26,7 +26,7 @@ export default [
   },
   {
     name: 'My Notes',
-    screen: '',
+    screen: 'note/index',
     icon: 'note-multiple',
   },
   {
