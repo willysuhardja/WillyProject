@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import {Alert, FlatList, StyleSheet} from 'react-native';
 import {IconButton} from 'react-native-paper';
-import {AppContainer, AppSearchForm} from '../../components';
+import {AppContainer, AppListEmpty, AppSearchForm} from '../../components';
 import screenNames from '../../features/Note/navigation/screenNames';
 import {DefaultTheme} from '../../theme';
 import {keyExtractor, refreshControl} from '../../utils/flatlist';
@@ -15,7 +15,15 @@ import NoteItem from './components/NoteItem';
 import ShimmerNoteList from './components/ShimmerNoteList';
 
 const Screen = (props) => {
-  const {navigation, notes, doGetNotes, loading} = props;
+  const {
+    navigation,
+    notes,
+    doDeleteNote,
+    loading,
+    route: {
+      params: {reset},
+    },
+  } = props;
   const [searchText, setSearchText] = useState('');
   const [searchResult, setSearchResult] = useState([]);
 
@@ -27,6 +35,14 @@ const Screen = (props) => {
     bootstrap();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (reset) {
+      navigation.setParams({
+        reset: false,
+      });
+    }
+  }, [navigation, reset]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -41,7 +57,7 @@ const Screen = (props) => {
   }, [navigation, onAddPressed]);
 
   const getNotesAsync = () => {
-    doGetNotes();
+    console.log(notes);
   };
 
   const renderItem = ({item, index}) => (
@@ -64,11 +80,16 @@ const Screen = (props) => {
     Alert.alert('Delete?', '', [
       {
         text: 'Oke',
+        onPress: () => deleteNodeAction(item),
       },
       {
         text: 'Cancel',
       },
     ]);
+  };
+
+  const deleteNodeAction = (item) => {
+    doDeleteNote(item.id);
   };
 
   const onAddPressed = useCallback(() => {
@@ -82,7 +103,7 @@ const Screen = (props) => {
       <AppSearchForm
         setSearchResult={setSearchResult}
         setSearchText={setSearchText}
-        searchFields={['name', 'initial']}
+        searchFields={['title', 'notes']}
         placeholder="Search Note"
         list={notes}
       />
@@ -93,6 +114,7 @@ const Screen = (props) => {
           keyExtractor={keyExtractor('note')}
           renderItem={renderItem}
           ListHeaderComponent={loading && <ShimmerNoteList />}
+          ListEmptyComponent={<AppListEmpty />}
         />
       </AppContainer>
     </Fragment>

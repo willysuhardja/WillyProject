@@ -5,6 +5,7 @@ import accountReducer from '../features/AccoutManagement/redux/reducer';
 import homeReducer from '../features/Home/redux/reducer';
 import identificationReducer from '../features/BarcodeScan/redux/reducer';
 import bluetoothReducer from '../features/BluetoothPrinter/redux/reducer';
+import noteReducer from '../features/Note/redux/reducer';
 
 const appReducer = combineReducers({
   auth: authReducer,
@@ -12,6 +13,7 @@ const appReducer = combineReducers({
   home: homeReducer,
   identification: identificationReducer,
   bluetooth: bluetoothReducer,
+  note: noteReducer,
 });
 
 export default appReducer;

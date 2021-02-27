@@ -25,6 +25,9 @@ const NoteStack = () => {
             title: 'Note',
           };
         }}
+        initialParams={{
+          reset: false,
+        }}
         name={screenNames.list}
         component={NoteListScreen}
       />

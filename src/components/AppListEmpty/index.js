@@ -1,8 +1,16 @@
 import React from 'react';
-import {Text} from 'react-native-paper';
+import {Image, View} from 'react-native';
 
-const AppListEmpty = ({title = 'No Data Here'}) => {
-  return <Text>{title}</Text>;
+import NoDataImage from './../../assets/nodata.png';
+
+const AppListEmpty = () => {
+  return (
+    <View style={container}>
+      <Image source={NoDataImage} />
+    </View>
+  );
 };
+
+const container = {flex: 1, justifyContent: 'center', alignItems: 'center'};
 
 export default AppListEmpty;

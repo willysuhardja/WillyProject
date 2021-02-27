@@ -1,36 +1,68 @@
-import {store} from '../../../redux/store';
-import {axiosClient} from '../../../utils/axios';
-import {getProfile} from '../../AccoutManagement/redux/getters';
+import {addNote, deleteNote, editNote} from '../database/actions/note';
 import * as actionTypes from './constant';
 
-export const doGetMenu = () => {
+export const doCreateNote = (data) => {
   return async (dispatch) => {
+    dispatch({
+      type: actionTypes.CREATE_NOTE_PENDING,
+    });
+
     try {
-      const user = getProfile(store.getState());
+      const createAction = await addNote(data);
 
       dispatch({
-        type: actionTypes.GET_MENU_PENDING,
+        type: actionTypes.CREATE_NOTE_SUCCESS,
+        createAction,
       });
-
-      const params = {user_id: user.id};
-
-      const menuResponse = await axiosClient.get('/menu', {params});
-
-      const responseData = menuResponse.data.data;
-
-      dispatch({
-        type: actionTypes.GET_MENU_SUCCESS,
-        payload: responseData,
-      });
-
-      return Promise.resolve(true);
     } catch (error) {
       dispatch({
-        type: actionTypes.GET_MENU_FAILED,
+        type: actionTypes.CREATE_NOTE_FAILED,
         error,
       });
+    }
+  };
+};
 
-      return Promise.reject(error.response);
+export const doUpdateNote = (id, data) => {
+  return async (dispatch) => {
+    dispatch({
+      type: actionTypes.UPDATE_NOTE_PENDING,
+    });
+
+    try {
+      const updateAction = await editNote(id, data);
+
+      dispatch({
+        type: actionTypes.UPDATE_NOTE_SUCCESS,
+        updateAction,
+      });
+    } catch (error) {
+      dispatch({
+        type: actionTypes.UPDATE_NOTE_FAILED,
+        error,
+      });
+    }
+  };
+};
+
+export const doDeleteNote = (id, data) => {
+  return async (dispatch) => {
+    dispatch({
+      type: actionTypes.DELETE_NOTE_PENDING,
+    });
+
+    try {
+      const updateAction = await deleteNote(id);
+
+      dispatch({
+        type: actionTypes.DELETE_NOTE_SUCCESS,
+        updateAction,
+      });
+    } catch (error) {
+      dispatch({
+        type: actionTypes.DELETE_NOTE_FAILED,
+        error,
+      });
     }
   };
 };

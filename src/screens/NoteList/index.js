@@ -1,40 +1,32 @@
+import {withDatabase} from '@nozbe/watermelondb/DatabaseProvider';
+import withObservables from '@nozbe/with-observables';
 import {connect} from 'react-redux';
+import {doDeleteNote} from '../../features/Note/redux/actions';
 import Screen from './screen';
 
 const mapStateToProps = (state) => {
   return {
     loading: false,
-    notes: [
-      {
-        id: 369,
-        user_id: 1707,
-        initial_store: 'BGR',
-        notes: '',
-        created_at: '2020-12-18T05:02:42.000Z',
-        updated_at: '2020-12-18T05:02:42.000Z',
-        title: 'Catatan Saran dari Konsumen .....',
-      },
-      {
-        id: 368,
-        user_id: 1707,
-        initial_store: 'BGR',
-        notes: 'Hdjskanz\nMmlll',
-        created_at: '2020-12-18T05:02:07.000Z',
-        updated_at: '2020-12-21T08:35:44.000Z',
-        title: 'Catatan Breafing Pagi ini',
-      },
-    ],
   };
 };
+
+const ScreenWithDatabase = withDatabase(
+  withObservables([], ({database}) => {
+    return {
+      notes: database.collections.get('notes').query().observe(),
+    };
+  })(Screen),
+);
 
 const mapDispatchToProps = (dispatch) => {
   return {
     doGetNotes: () => {},
+    doDeleteNote: (id) => dispatch(doDeleteNote(id)),
   };
 };
 
 const connectRedux = connect(mapStateToProps, mapDispatchToProps);
 
-const NoteListScreen = connectRedux(Screen);
+const NoteListScreen = connectRedux(ScreenWithDatabase);
 
 export default NoteListScreen;

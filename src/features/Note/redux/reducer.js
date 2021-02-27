@@ -3,27 +3,59 @@ import {initialState} from './state';
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
-    case actionTypes.GET_MENU_PENDING:
+    case actionTypes.CREATE_NOTE_PENDING:
       return {
         ...state,
-        menuLoading: true,
-        menuSuccess: false,
-        menuError: false,
+        loading: true,
+        errorMessage: '',
       };
-    case actionTypes.GET_MENU_SUCCESS:
+    case actionTypes.CREATE_NOTE_SUCCESS:
       return {
         ...state,
-        menuLoading: false,
-        menuSuccess: true,
-        menuError: false,
-        menu: action.payload,
+        loading: false,
+        errorMessage: '',
       };
-    case actionTypes.GET_MENU_FAILED:
+    case actionTypes.CREATE_NOTE_FAILED:
       return {
         ...state,
-        menuLoading: false,
-        menuSuccess: false,
-        menuError: true,
+        loading: false,
+        errorMessage: action.payload.message,
+      };
+    case actionTypes.UPDATE_NOTE_PENDING:
+      return {
+        ...state,
+        loading: true,
+        errorMessage: '',
+      };
+    case actionTypes.UPDATE_NOTE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        errorMessage: '',
+      };
+    case actionTypes.UPDATE_NOTE_FAILED:
+      return {
+        ...state,
+        loading: false,
+        errorMessage: action.payload.message,
+      };
+    case actionTypes.DELETE_NOTE_PENDING:
+      return {
+        ...state,
+        loading: true,
+        errorMessage: '',
+      };
+    case actionTypes.DELETE_NOTE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        errorMessage: '',
+      };
+    case actionTypes.DELETE_NOTE_FAILED:
+      return {
+        ...state,
+        loading: false,
+        errorMessage: action.payload.message,
       };
     default:
       return state;
