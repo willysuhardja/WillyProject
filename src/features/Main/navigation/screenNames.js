@@ -8,4 +8,5 @@ export default {
   pickImage: 'pickImage/index',
   webview: 'webview/index',
   note: 'note/index',
+  map: 'map/index',
 };

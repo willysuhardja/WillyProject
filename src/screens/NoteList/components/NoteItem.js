@@ -4,11 +4,12 @@ import {IconButton, List} from 'react-native-paper';
 import {DefaultTheme} from '../../../theme';
 
 export default function NoteItem({
-  slug,
-  name,
+  content,
+  title,
   onPress = () => {},
   onDelete = () => {},
   active,
+  index,
 }) {
   return (
     <List.Item
@@ -16,8 +17,8 @@ export default function NoteItem({
         styles.container,
         active && {backgroundColor: DefaultTheme.colors.accent},
       ]}
-      title={name}
-      description={slug}
+      title={title}
+      description={content}
       onPress={onPress}
       right={({color, style}) => (
         <View>

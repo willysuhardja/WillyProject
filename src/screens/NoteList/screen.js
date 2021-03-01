@@ -62,8 +62,9 @@ const Screen = (props) => {
 
   const renderItem = ({item, index}) => (
     <NoteItem
-      name={item.title}
-      slug={item.notes}
+      index={index}
+      title={item.title}
+      content={item.notes}
       onPress={loading ? null : () => onItemPressed(item)}
       onDelete={loading ? null : () => onItemDelete(item)}
     />

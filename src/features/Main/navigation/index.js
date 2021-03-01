@@ -14,6 +14,7 @@ import BluetoothPrintStack from '../../BluetoothPrinter/navigation';
 import PickImageStack from '../../PickImage/navigation';
 import WebViewStack from '../../WebView/navigation';
 import NoteStack from '../../Note/navigation';
+import MapStack from '../../Map/navigation';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -78,6 +79,13 @@ const MainStack = () => {
         }}
         name={screenNames.note}
         component={NoteStack}
+      />
+      <Screen
+        options={{
+          headerShown: false,
+        }}
+        name={screenNames.map}
+        component={MapStack}
       />
     </Navigator>
   );
