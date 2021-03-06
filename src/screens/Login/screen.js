@@ -45,7 +45,7 @@ const LoginScreen = ({doLogin, loading, navigation}) => {
           <AppHeaderText>Welcome back.</AppHeaderText>
           <LoginForm onSubmit={_onSubmit} loading={loading} />
           <Text style={{textAlign: 'center'}}>
-            Belum punya akun?
+            Belum punya akun?&nbsp;
             <AppTextLink onPress={_onLinkToRegister}>register</AppTextLink>
           </Text>
         </View>

@@ -8,6 +8,9 @@ import {
   AppLogo,
   AppTextLink,
 } from '../../components';
+
+import RegisterForm from './components/RegisterForm';
+
 import screenNames from '../../features/Auth/navigation/screenNames';
 import {DefaultTheme} from '../../theme';
 
@@ -34,8 +37,9 @@ export default function Screen({loading, navigation}) {
         }}>
         <View style={{width: '100%'}}>
           <AppHeaderText>Register Akun Baru.</AppHeaderText>
+          <RegisterForm />
           <Text style={{textAlign: 'center'}}>
-            Sudah punya akun?
+            Sudah punya akun?&nbsp;
             <AppTextLink onPress={_onLinkLogin}>login</AppTextLink>
           </Text>
         </View>
