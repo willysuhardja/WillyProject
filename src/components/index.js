@@ -18,6 +18,7 @@ export {default as AppScrollView} from './AppScrollView';
 export {default as AppParagraph} from './AppParagraph';
 export {default as AppTextInput} from './AppTextInput';
 export {default as AppTextLink} from './AppTextLink';
+export {default as AppRadioButton} from './AppRadioButton';
 export {default as AppSearchForm} from './AppSearchForm';
 export {default as AppSnackbar} from './AppSnackbar';
 export {default as NavDrawerContent} from './NavDrawerContent';

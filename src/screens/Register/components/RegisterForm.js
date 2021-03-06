@@ -1,15 +1,10 @@
 import React from 'react';
-import {Alert} from 'react-native';
 import {Controller, useForm} from 'react-hook-form';
-import {AppButton, AppTextInput} from '../../../components';
+import {AppButton, AppRadioButton, AppTextInput} from '../../../components';
+import {emailRegexValidator} from '../../../utils/regex';
 
-export default function RegisterForm() {
+export default function RegisterForm({onSubmit, loading}) {
   const {errors, handleSubmit, control} = useForm();
-
-  const onSubmit = (data) => {
-    Alert.alert('Berhasil Submit', JSON.stringify(data));
-  };
-
   return (
     <>
       <Controller
@@ -30,6 +25,78 @@ export default function RegisterForm() {
           required: {value: true, message: 'name is required'},
         }}
         defaultValue=""
+      />
+      <Controller
+        control={control}
+        render={({onChange, onBlur, value}) => (
+          <AppTextInput
+            label={'Email'}
+            placeholder={'aden@mail.com'}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            value={value}
+            error={!!errors.email}
+            errorText={errors?.email?.message}
+          />
+        )}
+        name="email"
+        rules={{
+          required: {value: true, message: 'email is required'},
+          pattern: {
+            value: emailRegexValidator,
+            message: 'Email is not valid',
+          },
+        }}
+        defaultValue=""
+      />
+      <Controller
+        control={control}
+        render={({onChange, onBlur, value}) => (
+          <AppTextInput
+            label={'Password'}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            value={value}
+            error={!!errors.password}
+            errorText={errors?.password?.message}
+            secureTextEntry
+          />
+        )}
+        name="password"
+        rules={{
+          required: {value: true, message: 'password is required'},
+        }}
+        defaultValue=""
+      />
+      <Controller
+        control={control}
+        render={({onChange, value}) => (
+          <>
+            <AppRadioButton
+              value="lakilaki"
+              label={'Laki-laki'}
+              onChange={onChange}
+              checked={value === 'lakilaki'}
+            />
+            <AppRadioButton
+              value="perempuan"
+              onChange={onChange}
+              label={'Perempuan'}
+              checked={value === 'perempuan'}
+            />
+            <AppRadioButton
+              value="others"
+              onChange={onChange}
+              label={'Lainnya'}
+              checked={value === 'others'}
+            />
+          </>
+        )}
+        name="gender"
+        rules={{
+          required: {value: true, message: 'gender is required'},
+        }}
+        defaultValue="lakilaki"
       />
       <AppButton mode="contained" onPress={handleSubmit(onSubmit)}>
         Buat Akun
