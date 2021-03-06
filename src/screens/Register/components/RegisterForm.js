@@ -98,7 +98,11 @@ export default function RegisterForm({onSubmit, loading}) {
         }}
         defaultValue="lakilaki"
       />
-      <AppButton mode="contained" onPress={handleSubmit(onSubmit)}>
+      <AppButton
+        loading={loading}
+        disabled={loading}
+        mode="contained"
+        onPress={handleSubmit(onSubmit)}>
         Buat Akun
       </AppButton>
     </>

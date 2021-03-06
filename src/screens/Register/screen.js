@@ -1,5 +1,5 @@
-import React from 'react';
-import {ScrollView, View} from 'react-native';
+import React, {useState} from 'react';
+import {Alert, ScrollView, View} from 'react-native';
 import {Text} from 'react-native-paper';
 
 import {
@@ -14,12 +14,32 @@ import RegisterForm from './components/RegisterForm';
 import screenNames from '../../features/Auth/navigation/screenNames';
 import {DefaultTheme} from '../../theme';
 
-export default function Screen({loading, navigation}) {
-  const _onSubmit = () => {};
+import {axiosIntance} from './../../utils/axios';
+
+export default function Screen({navigation}) {
+  const [loading, setLoading] = useState(false);
+  const _onSubmit = ({name, email, password, gender}) => {
+    setLoading(true);
+    axiosIntance
+      .post('https://reqres.in/api/register', {
+        email,
+        password,
+      })
+      .then(() => {
+        Alert.alert('Login Success');
+      })
+      .catch(() => {
+        Alert.alert('Failed');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   const _onLinkLogin = () => {
     navigation.navigate(screenNames.login);
   };
+
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
@@ -37,7 +57,7 @@ export default function Screen({loading, navigation}) {
         }}>
         <View style={{width: '100%'}}>
           <AppHeaderText>Register Akun Baru.</AppHeaderText>
-          <RegisterForm />
+          <RegisterForm onSubmit={_onSubmit} loading={loading} />
           <Text style={{textAlign: 'center'}}>
             Sudah punya akun?&nbsp;
             <AppTextLink onPress={_onLinkLogin}>login</AppTextLink>
