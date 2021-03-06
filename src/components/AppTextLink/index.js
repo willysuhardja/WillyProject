@@ -1,22 +1,17 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {StyleSheet, TouchableNativeFeedback} from 'react-native';
+import {Text} from 'react-native-paper';
 import {DefaultTheme} from '../../theme';
 
-const AppTextLink = ({onPress, children, style, containerStyle}) => {
+const AppTextLink = ({onPress, children, style}) => {
   return (
-    <TouchableOpacity
-      style={[styles.container, containerStyle]}
-      onPress={onPress}>
+    <TouchableNativeFeedback onPress={onPress}>
       <Text style={[styles.label, style]}>{children}</Text>
-    </TouchableOpacity>
+    </TouchableNativeFeedback>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    margin: DefaultTheme.spacing,
-  },
   label: {
     color: DefaultTheme.colors.primary,
   },

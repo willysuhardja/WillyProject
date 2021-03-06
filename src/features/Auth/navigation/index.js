@@ -1,10 +1,13 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import LoginScreen from '../../../screens/Login';
-import screenNames from './screenNames';
 import {useSelector} from 'react-redux';
 import {getGoldApi, getMainApi} from '../redux/getters';
+
+import LoginScreen from '../../../screens/Login';
+import RegisterScreen from '../../../screens/Register';
+
+import screenNames from './screenNames';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -21,6 +24,7 @@ const AuthStack = () => {
         headerShown: false,
       }}>
       <Screen name={screenNames.login} component={LoginScreen} />
+      <Screen name={screenNames.register} component={RegisterScreen} />
     </Navigator>
   );
 };

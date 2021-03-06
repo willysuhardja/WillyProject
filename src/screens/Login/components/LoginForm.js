@@ -1,13 +1,12 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {AppTextInput, AppButton} from '../../../components';
 import {TextInput} from 'react-native-paper';
-import {emailRegexValidator} from '../../../utils/regex';
 
 const LoginForm = ({onSubmit, loading}) => {
   const {control, handleSubmit, errors} = useForm();
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const _onShowPasswordToggled = () => setShowPassword(!showPassword);
   return (

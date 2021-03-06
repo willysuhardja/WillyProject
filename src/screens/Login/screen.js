@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import {View, ScrollView, Alert} from 'react-native';
+import {Text} from 'react-native-paper';
 import {
   AppContainer,
   AppLogo,
@@ -7,6 +8,7 @@ import {
   AppTextLink,
 } from '../../components';
 import config from '../../config';
+import screenNames from '../../features/Auth/navigation/screenNames';
 import {DefaultTheme} from '../../theme';
 import LoginForm from './components/LoginForm';
 import {styles} from './styles';
@@ -20,13 +22,17 @@ const LoginScreen = ({doLogin, loading, navigation}) => {
       });
   };
 
+  const _onLinkToRegister = () => {
+    navigation.navigate(screenNames.register);
+  };
+
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
       contentContainerStyle={{minHeight: '100%'}}>
       <View>
         <View style={styles.logoWrapper}>
-          <AppLogo type="logo2" imageStyle={styles.logo} size="lg" />
+          <AppLogo type="logo2" imageStyle={styles.logo} />
         </View>
       </View>
       <AppContainer
@@ -38,6 +44,10 @@ const LoginScreen = ({doLogin, loading, navigation}) => {
         <View style={{width: '100%'}}>
           <AppHeaderText>Welcome back.</AppHeaderText>
           <LoginForm onSubmit={_onSubmit} loading={loading} />
+          <Text style={{textAlign: 'center'}}>
+            Belum punya akun?
+            <AppTextLink onPress={_onLinkToRegister}>register</AppTextLink>
+          </Text>
         </View>
         <View style={{alignItems: 'center'}}>
           <AppTextLink>Version {config.appVersion}</AppTextLink>
